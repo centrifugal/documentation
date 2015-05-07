@@ -1,5 +1,5 @@
-Welcome to Centrifugal organization docs.
-=========================================
+Welcome to Centrifugal docs
+===========================
 
 ![Centrifugal intro](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/intro.png)
 
@@ -17,3 +17,5 @@ to change your project architecture and philosophy to get real-time events.
 There are tons of examples in internet about how to add real-time events on your site. But
 very few of them provide complete, scalable, full-featured, ready to deploy solution.
 Centrifugal organization aims to give such a solution with simplicity in mind.
+
+{% include "SUMMARY.md" %}

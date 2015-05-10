@@ -56,7 +56,7 @@ Let's look at configuration file example I personally use while developing Centr
 
 ```javascript
 {
-  "structure": [
+  "projects": [
     {
       "name": "development",
       "secret": "secret",
@@ -78,7 +78,7 @@ Let's look at configuration file example I personally use while developing Centr
 }
 ```
 
-Only **structure** option is required. Structure is an array of projects. One project corresponds to your web application
+Only **projects** option is required. Projects is an array of projects. One project corresponds to your web application
 users of which connect to Centrifugo. For example if you are developing site `bananas.com` then you should have something
 like this in configuration file:
 
@@ -86,7 +86,7 @@ like this in configuration file:
 {
   "password": "password",
   "secret": "secret",
-  "structure": [
+  "projects": [
     {
       "name": "bananas",
       "secret": "very-long-secret-key-for-bananas-project",
@@ -96,12 +96,12 @@ like this in configuration file:
 }
 ```
 
-I.e structure with one project registered. As you can see it's possible to register many projects in Centrifugo but
+I.e project structure with one project registered. As you can see it's possible to register many projects in Centrifugo but
 it's recommended to use one project for Centrifugo installation. Trust me this will make your life easier eventually.
 The only exception is add the second project which is clone of first for development - so you can use production Centrifugo
 instance in `bananas.com` development process.
 
-In next section we will talk about structure (projects and their namespaces) in detail. But before jumping to it
+In next section we will talk about project structure (projects and their namespaces) in detail. But before jumping to it
 let's describe some the most important options you can configure when running Centrifugo:
 
 * `--address` – bind your Centrifugo to specific interface address (by default `localhost`)
@@ -115,4 +115,4 @@ be set via configuration file, but command-line options will be more valuable wh
 See description of [viper](https://github.com/spf13/viper) - brilliant Go library for application configuration – to
 see more details about configuration options priority.
 
-As I promised above it's time to talk about structure - projects and project options, namespaces and namespace options.
+As I promised above it's time to talk about project structure - projects and project options, namespaces and namespace options.

@@ -5,7 +5,7 @@
 * [Server implementation](server/README.md)
     * [How to install Centrifugo](server/install.md)
     * [Configuration overview](server/configuration.md)
-    * [Structure](server/structure.md)
+    * [Project structure](server/projects.md)
     * [Channels](server/channels.md)
     * [Migrating from Centrifuge](server/migrate.md)
 * [Javascript client](client/README.md)

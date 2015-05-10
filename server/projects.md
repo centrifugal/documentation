@@ -1,12 +1,12 @@
-# Structure
+# Projects
 
-Structure contains an array of projects. Project is an object with 2 required fields: `name` and `secret`.
+Project structure contains an array of projects. Project is an object with 2 required fields: `name` and `secret`.
 
-So the simplest structure looks like this:
+So the simplest project structure looks like this:
 
 ```javascript
 {
-    "structure": [
+    "projects": [
         {
             "name": "bananas",
             "secret": "very-long-secret-key-for-bananas-project"

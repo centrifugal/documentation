@@ -1,4 +1,4 @@
-# Configuration
+# Configuration overview
 
 Centrifugo expects JSON file as configuration file.
 
@@ -112,7 +112,7 @@ let's describe some the most important options you can configure when running Ce
 
 There are more command line options - we will talk about some of them later. Note that all command-line options can
 be set via configuration file, but command-line options will be more valuable when set than configuration file's options.
-See description of (viper)[https://github.com/spf13/viper] - brilliant Go library for application configuration – to
+See description of [viper](https://github.com/spf13/viper) - brilliant Go library for application configuration – to
 see more details about configuration options priority.
 
-As I promised it's time to talk about structure - projects and project options, namespaces and namespace options.
+As I promised above it's time to talk about structure - projects and project options, namespaces and namespace options.

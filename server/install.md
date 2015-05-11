@@ -8,7 +8,14 @@ are done!
 To run Centrifugo instance just write:
 
 ```bash
-centrifugo --config=config.json
+./centrifugo --config=config.json
 ```
 
-Configuration file required to launch, so let's talk about it in next section.
+Configuration file required to launch, we will talk about it in next section.
+
+You can also put or symlink `centrifugo` into your `bin` OS directory and run it
+from anywhere:
+
+```bash
+centrifugo --config=config.json
+```

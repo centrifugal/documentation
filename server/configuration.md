@@ -1,6 +1,7 @@
 # Configuration overview
 
 Centrifugo expects JSON, TOML or YAML formats as format of configuration file.
+Thanks to brilliant Go library for application configuration - [viper](https://github.com/spf13/viper).
 
 But first let's inspect all available command-line options:
 
@@ -16,6 +17,7 @@ Centrifuge + GO = Centrifugo – harder, better, faster, stronger
 Usage:
    [flags]
    [command]
+
 Available Commands:
   version     Centrifugo version number
   help        Help about any command
@@ -158,7 +160,6 @@ let's describe some the most important options you can configure when running Ce
 
 There are more command line options - we will talk about some of them later. Note that all command-line options can
 be set via configuration file, but command-line options will be more valuable when set than configuration file's options.
-See description of [viper](https://github.com/spf13/viper) - brilliant Go library for application configuration – to
-see more details about configuration options priority.
+See description of [viper](https://github.com/spf13/viper) – to see more details about configuration options priority.
 
 As I promised above it's time to talk about project structure - projects and project options, namespaces and namespace options.

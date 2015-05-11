@@ -1,8 +1,5 @@
 # Channels
 
-Channel is an entity to which clients can subscribe to receive messages published
-into that channel. Channel is just a string - but several symbols has special meaning.
-
 Channel is a route for messages.
 
 Clients can subscribe on channel to receive events related to this channel - new

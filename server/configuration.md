@@ -80,8 +80,8 @@ Let's look at configuration file example I personally use while developing Centr
 ```
 
 Only **projects** option is required. Projects is an array of projects. One project corresponds to your web application
-users of which connect to Centrifugo. For example if you are developing site `bananas.com` then you should have something
-like this in configuration file:
+that uses Centrifugo for real-time messages. For example if you are developing site `bananas.com` then you should have
+something like this in configuration file:
 
 ```javascript
 {

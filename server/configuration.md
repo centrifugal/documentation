@@ -1,6 +1,6 @@
 # Configuration overview
 
-Centrifugo expects JSON file as configuration file.
+Centrifugo expects JSON, TOML or YAML formats as format of configuration file.
 
 But first let's inspect all available command-line options:
 
@@ -73,8 +73,7 @@ Let's look at configuration file example I personally use while developing Centr
       ]
     }
   ],
-  "password": "password",
-  "secret": "secret"
+  "log_level": "debug"
 }
 ```
 
@@ -84,8 +83,6 @@ like this in configuration file:
 
 ```javascript
 {
-  "password": "password",
-  "secret": "secret",
   "projects": [
     {
       "name": "bananas",
@@ -100,6 +97,55 @@ I.e project structure with one project registered. As you can see it's possible 
 it's recommended to use one project for Centrifugo installation. Trust me this will make your life easier eventually.
 The only exception is add the second project which is clone of first for development - so you can use production Centrifugo
 instance in `bananas.com` development process.
+
+Centrifugo also supports TOML format for configuration file:
+
+```
+centrifugo --config=config.toml
+```
+
+Where `config.toml` contains:
+
+```
+log_level = "debug"
+
+[[projects]]
+
+	name = "development"
+	secret = "secret"
+
+	[[projects.namespaces]]
+		name = "public"
+		publish = true
+		watch = true
+		presence = true
+        join_leave = true
+        history_size = 10
+        history_lifetime = 30
+```
+
+I.e. the same configuration as JSON file above.
+
+And YAML config also supported. `config.yaml`:
+
+```
+log_level: debug
+
+projects:
+  - name: development
+    secret: secret
+    namespaces:
+      - name: public
+        publish: true
+        watch: true
+        presence: true
+        join_leave: true
+        history_size: 10
+        history_lifetime: 30
+
+```
+
+With YAML remember to use spaces, not tabs when writing configuration file
 
 In next section we will talk about project structure (projects and their namespaces) in detail. But before jumping to it
 let's describe some the most important options you can configure when running Centrifugo:

@@ -19,8 +19,9 @@ Usage:
    [command]
 
 Available Commands:
-  version     Centrifugo version number
-  help        Help about any command
+  version                   Centrifugo version number
+  checkconfig               Check configuration file
+  help [command]            Help about any command
 
 Flags:
   -a, --address="localhost": address
@@ -148,6 +149,14 @@ projects:
 ```
 
 With YAML remember to use spaces, not tabs when writing configuration file
+
+Centrifugo has special command to check configuration file - `checkconfig`:
+
+```bash
+centrifugo checkconfig --config=config.json
+```
+
+If any errors found during validation - program will exit with error message and exit status 1.
 
 In next section we will talk about project structure (projects and their namespaces) in detail. But before jumping to it
 let's describe some the most important options you can configure when running Centrifugo:

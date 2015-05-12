@@ -162,13 +162,13 @@ You may be noticed commented `sticky;` directive in nginx upstream configuration
 When using SockJS and client connects to Centrifugo - SockJS session created - and
 to communicate client must send all next requests to the same upstream backend.
 
-In this configuration we use `ip_hash` directive to proxy clients with the same ip
+In this configuration we use `ip_hash;` directive to proxy clients with the same ip
 address to the same upstream backend.
 
-But `ip_hash` is not the best choice in this case, because there could be situations
+But `ip_hash;` is not the best choice in this case, because there could be situations
 where a lot of different browsers are coming with the same IP address (behind proxies)
 and the load balancing system won't be fair. Also fair load balancing does not work
 during development - when all clients connecting from localhost.
 
-So the best solution would be using something like `nginx-sticky-module <http://code.google.com/p/nginx-sticky-module/>`_
+So the best solution would be using something like [nginx-sticky-module](https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/overview)
 which uses setting a special cookie to track the upstream server for client.

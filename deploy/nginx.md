@@ -134,7 +134,7 @@ server {
     }
 
     location /centrifugo/connection {
-       rewrite ^/centrifugo(.*)        $1 break;
+        rewrite ^/centrifugo(.*)        $1 break;
 
         proxy_next_upstream error;
         keepalive_timeout 65;

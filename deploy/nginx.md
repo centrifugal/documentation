@@ -11,7 +11,7 @@ domain or embed it to a location of your web site (for example to `/centrifugo`)
 
 ```
 upstream centrifugo {
-    # Enumerate all the Tornado servers here
+    # Enumerate all upstream servers here
     #sticky;
     ip_hash;
     server 127.0.0.1:8000;

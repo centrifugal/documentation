@@ -18,6 +18,7 @@
 * [Admin web interface](web/README.md)
 * [Mixed topics](mixed/README.md)
     * [Insecure mode](mixed/insecure_mode.md)
+    * [Use SockJS 1.0.0](mixed/sockjs1.md)
 * [Deploy](deploy/README.md)
     * [Nginx configuration](deploy/nginx.md)
     * [RPM](deploy/rpm.md)

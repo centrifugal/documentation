@@ -15,7 +15,7 @@ It can:
 To work with web interface you must serve its `app` folder with Nginx or directly
 by `centrifugo` using `--web` option.
 
-Also you mast additionally set 2 options in config: `password` and `secret`.
+Also you must additionally set 2 options in config: `password` and `secret`.
 
 `config.json`
 

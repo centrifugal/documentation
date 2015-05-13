@@ -3,7 +3,7 @@
 * [Overview](README.md)
 * [Centrifugal projects](projects/README.md)
 * [Server implementation](server/README.md)
-    * [Install Centrifugo and quick start](server/install.md)
+    * [Install Centrifugo and quick start](server/start.md)
     * [Configuration overview](server/configuration.md)
     * [Project structure](server/projects.md)
     * [Channels](server/channels.md)

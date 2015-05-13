@@ -8,7 +8,7 @@
     * [Project structure](server/projects.md)
     * [Channels](server/channels.md)
     * [Engines](server/engines.md)
-    * [Project API](server/api.md)
+    * [Server API](server/api.md)
     * [Connection check](server/connection_check.md)
     * [Private channels](server/private_channels.md)
     * [Tokens and signatures](server/tokens_and_signatures.md)

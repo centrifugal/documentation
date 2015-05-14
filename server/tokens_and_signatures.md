@@ -107,4 +107,3 @@ def generate_api_sign(self, secret_key, project_key, encoded_data):
 
 `encoded_data` is already a JSON string with your API commands. See available commands
 in server API chapter.
-

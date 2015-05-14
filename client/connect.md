@@ -65,7 +65,7 @@ data.
 If you are using Python - then you can use `generate_client_token` function from `Cent` library to
 generate tokens for your users.
 
-# info
+### info
 
 You can optionally provide extra parameter `info` when connecting to Centrifuge:
 
@@ -98,3 +98,7 @@ It defines allowed SockJS transports and by default equals ['websocket', 'xdr-st
 `debug` is a boolean option which is `false` by default. When enabled some debug messages will be
 logged into javascript console.
 
+### insecure
+
+`insecure` is a boolean option which is `false` by default. When enabled client will connect to
+server in insecure mode - read about this mode in special docs chapter.

@@ -80,7 +80,7 @@ sign yourself go to chapter "Tokens and signatures".
 Also note that in this example we send an array of commands. In this way you can send several
 commands to Centrifugo in one request.
 
-There are no so many commands you can call. The main and most useful of them is `publish`.
+There are not so many commands you can call. The main and most useful of them is `publish`.
 Lets take a closer look on other available API command methods.
 
 You have `publish`, `unsubscribe`, `presence`, `history`, `disconnect` in your arsenal.

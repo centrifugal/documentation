@@ -5,3 +5,9 @@
     right: 5px;
     top: 7px;
 }
+.book .book-summary ul.summary li a:first-child {
+    padding: 10px 10px 5px 10px;
+}
+.summary li a.custom-link:last-child {
+    display: none;
+}

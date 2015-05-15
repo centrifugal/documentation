@@ -8,7 +8,18 @@ The simplest way to use javascript client is including it into your web page usi
 
 Javascript client built on top of [Event Emitter](https://github.com/Wolfy87/EventEmitter) by [Oliver Caldwell](https://github.com/Wolfy87).
 
-Centrifuge-js is also available via `npm` and `bower`.
+Centrifuge-js is also available via `npm` and `bower` so you can:
+
+```bash
+npm install centrifuge
+```
+
+Or:
+
+```bash
+bower install centrifuge
+```
+
 
 **Note** that if you want to use SockJS you must import it on your page before Centrifuge javascript client:
 

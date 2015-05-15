@@ -1,6 +1,6 @@
 # Migrating from Centrifuge to Centrifugo
 
-Centrifugo server has several advantages over Centrifuge (origin server in Python):
+Centrifugo server has several advantages over Centrifuge (original server in Python):
 
 * performance - thanks to Go language
 * single binary file as a release - just download and use Centrifugo

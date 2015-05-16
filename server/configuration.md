@@ -19,12 +19,13 @@ Usage:
    [command]
 
 Available Commands:
-  version                   Centrifugo version number
-  checkconfig               Check configuration file
-  help [command]            Help about any command
+  version     Centrifugo version number
+  checkconfig Check configuration file
+  genconfig   Generate simple configuration file to start with
+  help        Help about any command
 
 Flags:
-  -a, --address="localhost": address
+  -a, --address="127.0.0.1": address to listen on
   -c, --config="config.json": path to config file
   -d, --debug=false: debug mode - please, do not use it in production
   -e, --engine="memory": engine to use: memory or redis
@@ -161,7 +162,7 @@ If any errors found during validation - program will exit with error message and
 In next section we will talk about project structure (projects and their namespaces) in detail. But before jumping to it
 let's describe some the most important options you can configure when running Centrifugo:
 
-* `--address` – bind your Centrifugo to specific interface address (by default `localhost`)
+* `--address` – bind your Centrifugo to specific interface address (by default `127.0.0.1`)
 * `--port` – port to bind Centrifugo to (by default `8000`)
 * `--engine` – engine to use - `memory` or `redis` (by default `memory`). Read more about engines later.
 * `--web` – path to directory of admin web interface application to serve

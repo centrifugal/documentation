@@ -85,12 +85,12 @@ client sending wrong `info` this JSON string must be used while generating token
 If you don't want to use `info` - you can omit this parameter while connecting to Centrifugo. But if you
 omit it then make sure that info string have not been used in token generation.
 
-### protocols_whitelist
+### transports
 
-In case of using SockJS additional configuration parameter can be used - `protocols_whitelist`.
+In case of using SockJS additional configuration parameter can be used - `transports`.
 
 It defines allowed SockJS transports and by default equals ['websocket', 'xdr-streaming', 'xhr-streaming',
-'iframe-eventsource', 'iframe-htmlfile', 'xdr-polling', 'xhr-polling', 'iframe-xhr-polling',
+'eventsource', 'iframe-eventsource', 'iframe-htmlfile', 'xdr-polling', 'xhr-polling', 'iframe-xhr-polling',
 'jsonp-polling'] i.e. all possible SockJS transports.
 
 ### debug

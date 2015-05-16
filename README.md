@@ -30,4 +30,9 @@ Let's see which projects Centrifugal has:
 * [adjacent](https://github.com/centrifugal/adjacent) - a small wrapper over Cent to simplify Centrifuge integration with Django framework.
 * [centrifuge-ruby](https://github.com/centrifugal/centrifuge-ruby) - Ruby gem to communicate with Centrifuge/Centrifugo
 
+### Examples
+
+At moment all examples [can be found in Centrifuge server repo](https://github.com/centrifugal/centrifuge/tree/master/examples).
+All examples work well with Centrifugo server.
+
 {% include "SUMMARY.md" %}

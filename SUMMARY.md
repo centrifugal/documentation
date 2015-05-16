@@ -23,7 +23,7 @@
 * [Mixed topics](mixed/README.md)
     * [Private channels](mixed/private_channels.md)
     * [Insecure mode](mixed/insecure_mode.md)
-    * [Use SockJS 1.0.0](mixed/sockjs1.md)
+    * [Use SockJS 0.3.4](mixed/sockjs0.3.4.md)
 * [Deploy](deploy/README.md)
     * [Nginx configuration](deploy/nginx.md)
     * [RPM](deploy/rpm.md)

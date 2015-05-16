@@ -1,15 +1,23 @@
 # Server API
 
+HTTP API is a way to send commands to Centrifugo. There is also another way to send commands –
+using Redis engine but in this chapter we will talk mostly about HTTP API.
+
+Why we need API?
+
 If you look at project and namespace options you see option called `publish`. When turned on
 this option allows browser clients to publish into channels directly. If client publishes a
 message into channel directly - your application will not receive that message (it just goes
 through Centrifugo towards subscribed clients). This pattern can be useful sometimes but in
 most cases you first need to receive new event from client via AJAX, process it - probably
-validate, save into database and then publish into Centrifugo using HTTP API to broadcast it
-to all subscribed clients.
+validate, save into database and then `publish` into Centrifugo using HTTP API and Centrifugo
+will then broadcast message to all subscribed clients.
 
-If your backend written on Python you can use Cent API client. If you use other language don't
-worry - I will describe how to communicate with Centrifugo API endpoint right now.
+Also HTTP API can be used to send other types of commands - see all available commands below.
+
+If your backend written in Python you can use [Cent](../libraries/python.md) API client. Also we have
+client [for Ruby](../libraries/ruby.md). If you use other language don't worry - I will describe
+how to communicate with Centrifugo HTTP API endpoint in this chapter.
 
 Note also that there are 2 API endpoints in Centrifugo - first of them is HTTP API endpoint and
 second – Redis Engine API. In this section we will talk about HTTP API mostly. You can find

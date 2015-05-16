@@ -1,7 +1,7 @@
 # Libraries to communicate with server API
 
-As you could see in chapter about Centrifugal projects there are
-two officially supported libraries for communicating with Centrifugo
+As you could see in Centrifugal overview there are
+two officially supported libraries for communicating with server
 API at moment - [for Python](https://github.com/centrifugal/cent) and [for Ruby](https://github.com/centrifugal/centrifuge-ruby).
 
 If you don't find a library for your favorite language – you can go completely

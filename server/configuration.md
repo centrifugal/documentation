@@ -11,7 +11,7 @@ centrifugo -h
 
 You should see something like this as output:
 
-```bash
+```
 Centrifuge + GO = Centrifugo – harder, better, faster, stronger
 
 Usage:
@@ -162,7 +162,7 @@ If any errors found during validation - program will exit with error message and
 In next section we will talk about project structure (projects and their namespaces) in detail. But before jumping to it
 let's describe some the most important options you can configure when running Centrifugo:
 
-* `--address` – bind your Centrifugo to specific interface address (by default `127.0.0.1`)
+* `--address` – bind your Centrifugo to specific interface address (by default `""`)
 * `--port` – port to bind Centrifugo to (by default `8000`)
 * `--engine` – engine to use - `memory` or `redis` (by default `memory`). Read more about engines later.
 * `--web` – path to directory of admin web interface application to serve

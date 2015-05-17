@@ -5,7 +5,7 @@ web application users to the server from web browser.
 
 For this purpose Centrifugal offers javascript client with simple API.
 
-The source code of javascript client located in its own [repo on Gihub](https://github.com/centrifugal/centrifuge-js).
+The source code of javascript client located in its own [repo on Github](https://github.com/centrifugal/centrifuge-js).
 
 Javascript client can connect to the server in two ways: using pure Websockets or using
 SockJS library to be able to use various available fallback transports if client browser

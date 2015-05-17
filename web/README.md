@@ -1,6 +1,6 @@
 # Admin web interface
 
-Admin web interface located in its [own repo](https://github.com/centrifugal/centrifuge-web). This
+Admin web interface located in its [own repo](https://github.com/centrifugal/web). This
 is ReactJS based single-page application.
 
 ![Admin web interface](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/web.gif)

@@ -54,36 +54,88 @@ To show version and exit run:
 centrifugo version
 ```
 
+### configuration JSON file example
+
 But the subject of this section - configuration file. As was mentioned earlier it must be a file with valid JSON.
 
 Let's look at configuration file example I personally use while developing Centrifugo:
 
 ```javascript
 {
-  "projects": [
+  "project_name": "development",
+  "project_secret": "secret",
+  "project_namespaces": [
     {
-      "name": "development",
-      "secret": "secret",
-      "namespaces": [
-        {
-          "name": "public",
-          "publish": true,
-          "watch": true,
-          "presence": true,
-          "join_leave": true,
-          "history_size": 10,
-          "history_lifetime": 30
-        }
-      ]
+      "name": "public",
+      "publish": true,
+      "watch": true,
+      "presence": true,
+      "join_leave": true,
+      "history_size": 10,
+      "history_lifetime": 30
     }
-  ],
+  ]
   "log_level": "debug"
 }
 ```
 
-Only **projects** option is required. Projects is an array of projects. One project corresponds to your web application
-that uses Centrifugo for real-time messages. For example if you are developing site `bananas.com` then you should have
-something like this in configuration file:
+Only **project_name** and **project_secret** options are required.
+
+Project corresponds to your web application that uses Centrifugo for real-time messages. You must give it a name
+and set secret key.
+
+### TOML
+
+Centrifugo also supports TOML format for configuration file:
+
+```
+centrifugo --config=config.toml
+```
+
+Where `config.toml` contains:
+
+```
+log_level = "debug"
+
+project_name = "development"
+project_secret = "secret"
+
+[[project_namespaces]]
+    name = "public"
+    publish = true
+    watch = true
+    presence = true
+    join_leave = true
+    history_size = 10
+    history_lifetime = 30
+```
+
+I.e. the same configuration as JSON file above.
+
+### YAML
+
+And YAML config also supported. `config.yaml`:
+
+```
+log_level: debug
+
+project_name: development
+project_secret: secret
+project_namespaces:
+  - name: public
+    publish: true
+    watch: true
+    presence: true
+    join_leave: true
+    history_size: 10
+    history_lifetime: 30
+```
+
+With YAML remember to use spaces, not tabs when writing configuration file
+
+### multiple projects
+
+There is also a way to register multiple projects in Centrifugo.
 
 ```javascript
 {
@@ -97,59 +149,13 @@ something like this in configuration file:
 }
 ```
 
-I.e project structure with one project registered. As you can see it's possible to register many projects in Centrifugo but
-it's recommended to use one project for Centrifugo installation. Trust me this will make your life easier eventually.
-The only exception is add the second project which is clone of first for development - so you can use production Centrifugo
-instance in `bananas.com` development process.
+**projects** is an array of projects. One project corresponds to your web application that uses Centrifugo
+for real-time messages. Although it's possible to register many projects in Centrifugo but it's recommended
+to use one project for Centrifugo installation. Trust me this will make your life easier eventually.
+The only exception is add the second project which is clone of first for development - so you can use
+production Centrifugo instance in development process.
 
-Centrifugo also supports TOML format for configuration file:
-
-```
-centrifugo --config=config.toml
-```
-
-Where `config.toml` contains:
-
-```
-log_level = "debug"
-
-[[projects]]
-
-	name = "development"
-	secret = "secret"
-
-	[[projects.namespaces]]
-		name = "public"
-		publish = true
-		watch = true
-		presence = true
-        join_leave = true
-        history_size = 10
-        history_lifetime = 30
-```
-
-I.e. the same configuration as JSON file above.
-
-And YAML config also supported. `config.yaml`:
-
-```
-log_level: debug
-
-projects:
-  - name: development
-    secret: secret
-    namespaces:
-      - name: public
-        publish: true
-        watch: true
-        presence: true
-        join_leave: true
-        history_size: 10
-        history_lifetime: 30
-
-```
-
-With YAML remember to use spaces, not tabs when writing configuration file
+### checkconfig
 
 Centrifugo has special command to check configuration file - `checkconfig`:
 
@@ -158,6 +164,18 @@ centrifugo checkconfig --config=config.json
 ```
 
 If any errors found during validation - program will exit with error message and exit status 1.
+
+### genconfig
+
+Another command is `genconfig`:
+
+```
+centrifugo checkconfig -c config.json
+```
+
+It will generate the simplest configuration file for you – will ask you to enter your web project name and
+generate secret key for it automatically.
+
 
 In next section we will talk about project structure (projects and their namespaces) in detail. But before jumping to it
 let's describe some the most important options you can configure when running Centrifugo:

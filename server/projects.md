@@ -6,6 +6,15 @@ So the simplest project structure looks like this:
 
 ```javascript
 {
+    "project_name": "bananas",
+    "project_secret": "very-long-secret-key-for-bananas-project"
+}
+```
+
+Or the same using multiple projects
+
+```javascript
+{
     "projects": [
         {
             "name": "bananas",
@@ -29,6 +38,28 @@ The next option is `connection_lifetime`:
 * `connection_lifetime` – time in seconds for client connection to expire. By default it
     equals `0` - this means that connection can live forever and will not expire.
     See more about connection expiration mechanism in special chapter.
+
+```javascript
+{
+    "project_name": "bananas",
+    "project_secret": "very-long-secret-key-for-bananas-project",
+    "project_connection_lifetime": 0
+}
+```
+
+Or the same using multiple projects:
+
+```javascript
+{
+    "projects": [
+        {
+            "name": "bananas",
+            "secret": "very-long-secret-key-for-bananas-project",
+            "connection_lifetime": 0
+        }
+    ]
+}
+```
 
 All other project options related to channels. Channel is an entity to which clients can subscribe to receive messages
 published into that channel. Channel is just a string - but several symbols has special meaning - see next section to get
@@ -61,6 +92,44 @@ settings for this project:
     for unused (inactive for a long time) channels. By default history lifetime is `0` – this
     means that channels will have no history messages at all. So to get history messages you
     should wisely configure both `history_size` and `history_lifetime` options.
+
+Let's look how to set all of these options in config:
+
+```javascript
+{
+    "project_name": "bananas",
+    "project_secret": "very-long-secret-key-for-bananas-project",
+    "project_connection_lifetime": 0,
+    "project_anonymous": true,
+    "project_publish": true,
+    "project_watch": true,
+    "project_presence": true,
+    "project_join_leave": true,
+    "project_history_size": 10,
+    "project_history_lifetime": 30
+}
+```
+
+Or the same using multiple projects syntax:
+
+```javascript
+{
+    "projects": [
+        {
+            "name": "bananas",
+            "secret": "very-long-secret-key-for-bananas-project",
+            "connection_lifetime": 0,
+            "anonymous": true,
+            "publish": true,
+            "watch": true,
+            "presence": true,
+            "join_leave": true,
+            "history_size": 10,
+            "history_lifetime": 30
+        }
+    ]
+}
+```
 
 And the last project option is `namespaces`. `namespaces` are optional and if set must be an array
 of namespace objects. Namespace allows to configure custom options for channels starting with

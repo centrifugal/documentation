@@ -151,11 +151,11 @@ There is also a way to register multiple projects in Centrifugo.
 }
 ```
 
-**projects** is an array of projects. One project corresponds to your web application that uses Centrifugo
-for real-time messages. Although it's possible to register many projects in Centrifugo but it's recommended
-to use one project for Centrifugo installation. Trust me this will make your life easier eventually.
-The only exception is add the second project which is clone of first for development - so you can use
-production Centrifugo instance in development process.
+**projects** in this case is an array of projects. One project corresponds to your web application that
+uses Centrifugo for real-time messages. Although it's possible to register many projects in Centrifugo
+it's recommended to use only one project for Centrifugo installation. Trust me this will make your life
+easier eventually. The only exception is add the second project which is clone of first for development
+- so you can use production Centrifugo instance in development process.
 
 ### checkconfig
 
@@ -179,7 +179,8 @@ It will generate the simplest configuration file for you – will ask you to ent
 generate secret key for it automatically.
 
 
-In next section we will talk about project structure (projects and their namespaces) in detail. But before jumping to it
+
+In next section we will talk about project settings in detail. But before jumping to it
 let's describe some the most important options you can configure when running Centrifugo:
 
 * `--address` – bind your Centrifugo to specific interface address (by default `""`)
@@ -192,4 +193,4 @@ There are more command line options - we will talk about some of them later. Not
 be set via configuration file, but command-line options will be more valuable when set than configuration file's options.
 See description of [viper](https://github.com/spf13/viper) – to see more details about configuration options priority.
 
-As I promised above it's time to talk about project structure - projects and project options, namespaces and namespace options.
+As I promised above it's time to talk about project settings.

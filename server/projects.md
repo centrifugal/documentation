@@ -1,8 +1,8 @@
-# Projects
+# Project settings
 
-Project structure contains an array of projects. Project is an object with 2 required fields: `name` and `secret`.
+For setting a project there are 2 required fields: `name` and `secret`.
 
-So the simplest project structure looks like this:
+The simplest project settings looks like this:
 
 ```javascript
 {
@@ -47,7 +47,7 @@ The next option is `connection_lifetime`:
 }
 ```
 
-Or the same using multiple projects:
+Or the same using multiple projects syntax:
 
 ```javascript
 {
@@ -152,6 +152,38 @@ Where `public` and `gossips` are namespace names from project `namespaces`.
 All things together here is an example of `config.json` which includes registered
 project with all options set and 2 additional namespaces in it:
 
+```javascript
+{
+    "project_name": "bananas",
+    "project_secret": "very-long-secret-key-for-bananas-project",
+    "project_connection_lifetime": 0,
+    "project_anonymous": true,
+    "project_publish": true,
+    "project_watch": true,
+    "project_presence": true,
+    "project_join_leave": true,
+    "project_history_size": 10,
+    "project_history_lifetime": 30,
+    "project_namespaces": [
+        {
+          "name": "public",
+          "publish": true,
+          "presence": true,
+          "join_leave": true,
+          "anonymous": true,
+          "history_size": 10,
+          "history_lifetime": 30
+        },
+        {
+          "name": "gossips",
+          "watch": true
+        }
+    ]
+}
+```
+
+Or the same using multiple projects syntax:
+
 ```
 {
   "projects": [
@@ -179,7 +211,7 @@ project with all options set and 2 additional namespaces in it:
         {
           "name": "gossips",
           "watch": true
-        },
+        }
       ]
     }
   ]

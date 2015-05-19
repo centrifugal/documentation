@@ -4,7 +4,7 @@
 * [Server implementation](server/README.md)
     * [Install Centrifugo and quick start](server/start.md)
     * [Configuration overview](server/configuration.md)
-    * [Project structure](server/projects.md)
+    * [Project settings](server/projects.md)
     * [Channels](server/channels.md)
     * [Engines](server/engines.md)
     * [Server API](server/api.md)

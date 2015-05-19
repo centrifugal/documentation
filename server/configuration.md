@@ -172,7 +172,7 @@ If any errors found during validation - program will exit with error message and
 Another command is `genconfig`:
 
 ```
-centrifugo checkconfig -c config.json
+centrifugo genconfig -c config.json
 ```
 
 It will generate the simplest configuration file for you – will ask you to enter your web project name and

@@ -48,6 +48,8 @@ Global Flags:
 Use " help [command]" for more information about a command.
 ```
 
+### version
+
 To show version and exit run:
 
 ```

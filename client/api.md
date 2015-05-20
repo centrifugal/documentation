@@ -16,7 +16,7 @@ var centrifuge = new Centrifuge({
 centrifuge.connect();
 ```
 
-This line calls actual connection request to server with connection parameters you provided
+`connect()` calls actual connection request to server with connection parameters you provided
 during initialization.
 
 After successful connect you can subscribe on channels. But you can only start subscribing when

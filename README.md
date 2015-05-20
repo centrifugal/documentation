@@ -6,7 +6,7 @@ Welcome to Centrifugal docs
 **Note that some things do not work yet properly because have not been released yet. For example
 javascript client compatible with Centrifugo located in 0.8.0 branch, the same for Cent library**
 
-**Everything will be released at 21 May 2015**
+**Everything will be released at 24 May 2015**
 
 Centrifugal organization is a set of tools to add real-time features on your web site.
 

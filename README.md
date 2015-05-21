@@ -44,7 +44,15 @@ Let's see which projects Centrifugal has:
 
 ### Examples
 
-At moment all examples [can be found in Centrifuge server repo](https://github.com/centrifugal/centrifuge/tree/master/examples).
-All examples work well with Centrifugo server.
+All examples can be found [in repo on Github](https://github.com/centrifugal/examples).
+
+At moment we have the following examples:
+
+* django – example shows how to integrate Django application with Centrifugal stack
+* tornado application – shows some general aspects of Centrifugal stack - token generation, private channel signing.
+* insecure - example shows how to use Centrifugo running in insecure mode without any web application backend.
+* jsfiddle - [simplified chat example on jsfiddle](http://jsfiddle.net/FZambia/yG7Uw/) with predefined user ID, timestamp
+    and token which uses [Centrifugo demo instance on Heroku](https://centrifugo.herokuapp.com)
+
 
 {% include "SUMMARY.md" %}

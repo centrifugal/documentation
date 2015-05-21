@@ -25,9 +25,7 @@ import six
 import hmac
 from hashlib import sha256
 
-def generate_token(secret_key, project_key, user, timestamp, info=None):
-    if info is None:
-        info = json.dumps({})
+def generate_token(secret_key, project_key, user, timestamp, info=""):
     sign = hmac.new(six.b(secret_key), digestmod=sha256)
     sign.update(six.b(project_key))
     sign.update(six.b(user))
@@ -39,7 +37,8 @@ def generate_token(secret_key, project_key, user, timestamp, info=None):
 
 We initialize HMAC with project secret key and ``sha256`` digest mode and then update
 it with project_key, user ID, timestamp and info. Info is an optional arguments and if
-no info provided empty object is used by default.
+no info provided empty string is used by default - so it does not affect resulting token
+value.
 
 
 ### Private channel subscription sign
@@ -73,9 +72,7 @@ import six
 import hmac
 from hashlib import sha256
 
-def generate_channel_sign(secret_key, client, channel, info=None):
-    if info is None:
-        info = json.dumps({})
+def generate_channel_sign(secret_key, client, channel, info=""):
     auth = hmac.new(six.b(secret_key), digestmod=sha256)
     auth.update(six.b(str(client)))
     auth.update(six.b(str(channel)))

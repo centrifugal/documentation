@@ -60,5 +60,8 @@ At moment we have the following examples:
 * jsfiddle – [simplified chat example on jsfiddle](http://jsfiddle.net/FZambia/yG7Uw/) with predefined user ID, timestamp
     and token which uses [Centrifugo demo instance on Heroku](https://centrifugo.herokuapp.com)
 
+### Simplified scheme
+
+![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme.png)
 
 {% include "SUMMARY.md" %}

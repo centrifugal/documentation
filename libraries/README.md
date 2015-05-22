@@ -1,5 +1,7 @@
 # Libraries to communicate with server API
 
+![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme_api.png)
+
 As you could see in Centrifugal overview there are
 two officially supported libraries for communicating with server
 API at moment - [for Python](https://github.com/centrifugal/cent) and [for Ruby](https://github.com/centrifugal/centrifuge-ruby).

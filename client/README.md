@@ -1,5 +1,7 @@
 # Javascript client
 
+![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme_client.png)
+
 Now you know how Centrifugo server implemented and how it works. It's time to connect your
 web application users to the server from web browser.
 

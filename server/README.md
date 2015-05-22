@@ -1,5 +1,7 @@
 # Server implementation description
 
+![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme_server.png)
+
 Originally Centrifugal organization started from [Centrifuge](https://github.com/centrifugal/centrifuge)
 real-time messaging server written in Python. But recently the entire Centrifuge codebase was rewritten
 into Go language. So from this moment when we will talk about server we mean [Centrifugo](https://github.com/centrifugal/centrifugo).

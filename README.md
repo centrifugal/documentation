@@ -48,9 +48,12 @@ Let's see which projects Centrifugal has:
 * [centrifuge-ruby](https://github.com/centrifugal/centrifuge-ruby) - Ruby gem to communicate
     with Centrifugo server API.
 
-### Examples
+### Demo and examples
 
-All examples can be found [in repo on Github](https://github.com/centrifugal/examples).
+See [demo of Centrifugo server instance with web interface](https://centrifugo.herokuapp.com) on
+Heroku (password `demo`).
+
+Examples can be found [in repo on Github](https://github.com/centrifugal/examples).
 
 At moment we have the following examples:
 
@@ -58,7 +61,7 @@ At moment we have the following examples:
 * tornado application – shows some general aspects of Centrifugal stack - token generation, private channel signing.
 * insecure – example shows how to use Centrifugo running in insecure mode without any web application backend.
 * jsfiddle – [simplified chat example on jsfiddle](http://jsfiddle.net/FZambia/yG7Uw/) with predefined user ID, timestamp
-    and token which uses [Centrifugo demo instance on Heroku](https://centrifugo.herokuapp.com)
+    and token which uses Centrifugo [demo](https://centrifugo.herokuapp.com) instance on Heroku
 
 ### Simplified scheme
 

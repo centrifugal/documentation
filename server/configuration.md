@@ -204,3 +204,13 @@ let's describe some of the most important options you can configure when running
 There are more command line options – we will talk about some of them later. Note that all command-line options can
 be set via configuration file, but command-line options will be more valuable when set than configuration file's options.
 See description of [viper](https://github.com/spf13/viper) – to see more details about configuration options priority.
+
+### project settings reload
+
+Centrifugo can reload project settings and some other configuration options on the fly.
+
+To reload you must send `HUP` signal to centrifugo process pid:
+
+```bash
+kill -HUP <CENTRIFUGO_PID>
+```

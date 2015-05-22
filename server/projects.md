@@ -1,6 +1,10 @@
 # Project settings
 
-For setting a project there are 2 required fields: `name` and `secret`.
+Centrifugo server must know the name of your web application project. Also this project must
+have a secret key in Centrifugo configuration – this secret key will be used for various
+operations (see below).
+
+So project has 2 required fields: `name` and `secret`.
 
 The simplest project settings looks like this:
 
@@ -11,7 +15,7 @@ The simplest project settings looks like this:
 }
 ```
 
-Or the same using multiple projects
+Or the same using multiple projects syntax:
 
 ```javascript
 {
@@ -37,7 +41,9 @@ The next option is `connection_lifetime`:
 
 * `connection_lifetime` – time in seconds for client connection to expire. By default it
     equals `0` - this means that connection can live forever and will not expire.
-    See more about connection expiration mechanism in special chapter.
+    See more about connection expiration mechanism in special chapter. In most situations
+    you don't have to explicitly set it as no connection expiration is ok for most of
+    web applications.
 
 ```javascript
 {
@@ -62,9 +68,9 @@ Or the same using multiple projects syntax:
 ```
 
 All other project options related to channels. Channel is an entity to which clients can subscribe to receive messages
-published into that channel. Channel is just a string - but several symbols has special meaning - see next section to get
-more information about channels. But now you should only understand that th following project options will affect channel
-settings for this project:
+published into that channel. Channel is just a string - but several symbols has special meaning - see section about
+channels to get more information about channels. But now you should only understand that the following project options
+will affect channel behaviour for this project:
 
 * `watch` – Centrifugo will additionally publish messages into admin channel (these
     messages can be visible in web interface). Turn it off if you are expecting high

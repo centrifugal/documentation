@@ -3,6 +3,8 @@
 Admin web interface located in its [own repo](https://github.com/centrifugal/web). This
 is ReactJS based single-page application.
 
+[See demo on Heroku](https://centrifugo.herokuapp.com) to see it in action.
+
 ![Admin web interface](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/web.gif)
 
 It can:
@@ -14,6 +16,10 @@ It can:
 
 To work with web interface you must serve its `app` folder with Nginx or directly
 by `centrifugo` using `--web` option.
+
+```
+centrifugo --config=config.json --web=/path/to/web/app
+```
 
 Also you must additionally set 2 options in config: `web_password` and `web_secret`.
 

@@ -13,12 +13,13 @@ Centrifugal organization is a set of tools to add real-time features on your web
 It brings together several repositories linked by a common purpose – give you a complete
 and ready to use solution when you want to add real-time events into your web application.
 
-Chats, real-time graphs and notifications, various counters and even games can be built
-using our instruments – real-time messaging server, javascript browser client and client
-libraries for your favorite language.
+Chats, real-time charts, notifications, various counters and even games can be built
+using our instruments – [real-time messaging server](server/README.md), [javascript browser client](client/README.md) and [client
+API libraries](libraries/README.md) for your favorite language.
 
 Our real-time server easily integrates with your existing web site – you don't need
-to change your project architecture and philosophy to get real-time events.
+to change your project architecture and philosophy to get real-time events. Real-time server
+is language agnostic – its API can be used from any programming language.
 
 On client side users of your web application communicate with real-time server using our
 javascript client over Websockets or [SockJS](https://github.com/sockjs/sockjs-client)
@@ -45,7 +46,7 @@ Let's see which projects Centrifugal has:
 * [adjacent](https://github.com/centrifugal/adjacent) - a small wrapper over Cent to
     simplify real-time server integration with Django framework.
 * [centrifuge-ruby](https://github.com/centrifugal/centrifuge-ruby) - Ruby gem to communicate
-    with Centrifugo API.
+    with Centrifugo server API.
 
 ### Examples
 
@@ -55,8 +56,8 @@ At moment we have the following examples:
 
 * django – example shows how to integrate Django application with Centrifugal stack
 * tornado application – shows some general aspects of Centrifugal stack - token generation, private channel signing.
-* insecure - example shows how to use Centrifugo running in insecure mode without any web application backend.
-* jsfiddle - [simplified chat example on jsfiddle](http://jsfiddle.net/FZambia/yG7Uw/) with predefined user ID, timestamp
+* insecure – example shows how to use Centrifugo running in insecure mode without any web application backend.
+* jsfiddle – [simplified chat example on jsfiddle](http://jsfiddle.net/FZambia/yG7Uw/) with predefined user ID, timestamp
     and token which uses [Centrifugo demo instance on Heroku](https://centrifugo.herokuapp.com)
 
 

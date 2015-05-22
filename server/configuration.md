@@ -86,6 +86,17 @@ Only **project_name** and **project_secret** options are required.
 Project corresponds to your web application that uses Centrifugo for real-time messages. You must give it a name
 and set secret key.
 
+You will know about other project options such as `namespaces` in next sections.
+
+So the **minimal configuration file required** is:
+
+```javascript
+{
+  "project_name": "development",
+  "project_secret": "secret"
+}
+```
+
 ### TOML
 
 Centrifugo also supports TOML format for configuration file:
@@ -152,20 +163,20 @@ There is also a way to register multiple projects in Centrifugo.
 ```
 
 **projects** in this case is an array of projects. One project corresponds to your web application that
-uses Centrifugo for real-time messages. Although it's possible to register many projects in Centrifugo
-it's recommended to use only one project for Centrifugo installation. Trust me this will make your life
-easier eventually. The only exception is add the second project which is clone of first for development
-- so you can use production Centrifugo instance in development process.
+uses Centrifugo for real-time messages. **Although it's possible to register many projects in Centrifugo
+it's recommended to use only one project for Centrifugo installation.** Trust me this will make your life
+easier eventually. **The only exception** is add the second project which is clone of first for development –
+so you can use production Centrifugo instance in development process.
 
 ### checkconfig
 
-Centrifugo has special command to check configuration file - `checkconfig`:
+Centrifugo has special command to check configuration file `checkconfig`:
 
 ```bash
 centrifugo checkconfig --config=config.json
 ```
 
-If any errors found during validation - program will exit with error message and exit status 1.
+If any errors found during validation – program will exit with error message and exit status 1.
 
 ### genconfig
 
@@ -178,19 +189,18 @@ centrifugo genconfig -c config.json
 It will generate the simplest configuration file for you – will ask you to enter your web project name and
 generate secret key for it automatically.
 
-
+### important command-line options
 
 In next section we will talk about project settings in detail. But before jumping to it
-let's describe some the most important options you can configure when running Centrifugo:
+let's describe some of the most important options you can configure when running Centrifugo:
 
 * `--address` – bind your Centrifugo to specific interface address (by default `""`)
 * `--port` – port to bind Centrifugo to (by default `8000`)
-* `--engine` – engine to use - `memory` or `redis` (by default `memory`). Read more about engines later.
+* `--engine` – engine to use - `memory` or `redis` (by default `memory`). Read more about engines in next sections.
 * `--web` – path to directory of admin web interface application to serve
-* `--name` – give Centrifugo node a name - this os optional as by default Centrifugo will use hostname and port number to construct node name.
+* `--name` – give Centrifugo server node a name – this os optional as by default Centrifugo will use hostname
+    and port number to construct node name.
 
-There are more command line options - we will talk about some of them later. Note that all command-line options can
+There are more command line options – we will talk about some of them later. Note that all command-line options can
 be set via configuration file, but command-line options will be more valuable when set than configuration file's options.
 See description of [viper](https://github.com/spf13/viper) – to see more details about configuration options priority.
-
-As I promised above it's time to talk about project settings.

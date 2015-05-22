@@ -18,4 +18,9 @@ All differences in two command-line option names that changed:
 * `log_file` instead of `log_file_prefix`
 * `log_level` instead of `logging`
 
+And two configuration file specific options:
+
+* `web_password` instead of `password`
+* `web_secret` instead of `cookie_secret`
+
 And that's all.

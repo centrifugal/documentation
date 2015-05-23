@@ -209,8 +209,8 @@ See description of [viper](https://github.com/spf13/viper) – to see more detai
 
 Centrifugo can reload project settings and some other configuration options on the fly.
 
-To reload you must send `HUP` signal to centrifugo process pid:
+To reload you must send `HUP` signal to centrifugo process:
 
 ```bash
-kill -HUP <CENTRIFUGO_PID>
+kill -HUP <CENTRIFUGO_PROCESS_PID>
 ```

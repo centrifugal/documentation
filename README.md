@@ -30,6 +30,7 @@ There are tons of examples in internet about how to add real-time events on your
 But very few of them provide complete, full-featured and ready to deploy solution.
 Centrifugal organization aims to give such a solution with simplicity in mind.
 
+
 ### Centrifugal projects
 
 Let's see which projects Centrifugal has:

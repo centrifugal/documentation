@@ -15,3 +15,15 @@ does not support Websockets.
 
 If you've never heard about SockJS - [follow this link](https://github.com/sockjs/sockjs-client) to
 get more information about this beautiful library.
+
+With javascript client you can:
+
+* connect your user to real-time server
+* subscribe on channel and listen for all new messages published into this channel
+* get presence information for channel (all clients currently subscribed on channel)
+* get history messages for channel
+* receive join/leave events for channels (when someone subscribes on channel or unsubscribes from it)
+* publish new messages into channels
+
+*Note, that in order to use presence, history, join/leave and publish – corresponding options
+must be enabled in Centrifugo channel configuration (for project in general or for namespace).*

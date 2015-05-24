@@ -3,7 +3,7 @@
 Admin web interface located in its [own repo](https://github.com/centrifugal/web). This
 is ReactJS based single-page application.
 
-[See demo on Heroku](https://centrifugo.herokuapp.com) to see it in action.
+[See demo on Heroku](https://centrifugo.herokuapp.com) (password `demo`) to see it in action.
 
 ![Admin web interface](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/web.gif)
 

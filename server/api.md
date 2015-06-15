@@ -111,7 +111,7 @@ send into channel.
 }
 ```
 
-Starting with *version 0.2.0* there is an option to include `client` ID into publish API command:
+Starting with **version 0.2.0** there is an option to include `client` ID into publish API command:
 
 ```javascript
 {

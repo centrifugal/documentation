@@ -15,14 +15,14 @@ be changed via configuration file option `max_channel_length`)
 
 Second, `:`, `#`, `&` and `$` symbols have a special role in channel name.
 
-### namespace channel boundary :
+### namespace channel boundary
 
 ``:`` - is a namespace boundary.
 
 If channel is `public:chat` - then Centrifuge will apply options to this channel
 from namespace with name `public`.
 
-### user channel boundary #
+### user channel boundary
 
 `#` is a user boundary - separator to create private channels for users (user limited
 channels)without sending POST request to your web application. For example if channel
@@ -32,7 +32,7 @@ knows user ID as clients provide it when connecting).
 Moreover you can provide several user IDs in channel name separated by comma: `dialog#user42,user43` –
 in this case only `user42` and `user43` will be able to subscribe on this channel.
 
-### client channel boundary & (new in 0.2.0)
+### client channel boundary (new in 0.2.0)
 
 `&` is a client channel boundary. This is similar to user channel boundary but limits
 access to channel only for one client with ID set after `&`. For example if channel is
@@ -40,7 +40,7 @@ access to channel only for one client with ID set after `&`. For example if chan
 (call `centrifuge.getClientId()` in javascript to get client's ID) will be able to subscribe
 on this channel.
 
-### private channel prefix $
+### private channel prefix
 
 If channel starts with `$` then it considered private. Subscription on private channel
 must be properly signed by your web application. Read special chapter in docs about

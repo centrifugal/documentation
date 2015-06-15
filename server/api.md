@@ -111,6 +111,25 @@ send into channel.
 }
 ```
 
+Starting with *version 0.2.0* there is an option to include `client` ID into publish API command:
+
+```javascript
+{
+    "method": "publish",
+    "params": {
+        "channel": "CHANNEL NAME",
+        "data": {
+            "input": "hello"
+        },
+        "client": "long-unique-client-id"
+    }
+}
+```
+
+In most cases this is a `client` ID that initiated this message. This `client` will
+be then added on top level of published message.
+
+
 ### unsubscribe
 
 `unsubscribe` allows to unsubscribe user from channel. `params` is an objects with two

@@ -13,26 +13,34 @@ Channel is just a string - ``news``, ``comments`` are valid channel names.
 First, channel name length is limited by `255` characters by default (can
 be changed via configuration file option `max_channel_length`)
 
-Second, `:`, `#` and `$` symbols have a special role in channel name.
+Second, `:`, `#`, `&` and `$` symbols have a special role in channel name.
 
-### namespace channel boundary
+### namespace channel boundary :
 
 ``:`` - is a namespace boundary.
 
 If channel is `public:chat` - then Centrifuge will apply options to this channel
 from namespace with name `public`.
 
-### user channel boundary
+### user channel boundary #
 
-`#` is a user boundary - separator to create private channels for users without sending
-POST request to your web application. For example if channel is `news#user42` then only
-user `user42` can subscribe on this channel (Centrifugo knows user ID as clients provide
-it when connecting)
+`#` is a user boundary - separator to create private channels for users (user limited
+channels)without sending POST request to your web application. For example if channel
+is `news#user42` then only user `user42` can subscribe on this channel (Centrifugo
+knows user ID as clients provide it when connecting).
 
 Moreover you can provide several user IDs in channel name separated by comma: `dialog#user42,user43` –
 in this case only `user42` and `user43` will be able to subscribe on this channel.
 
-### private channel prefix
+### client channel boundary & (new in 0.2.0)
+
+`&` is a client channel boundary. This is similar to user channel boundary but limits
+access to channel only for one client with ID set after `&`. For example if channel is
+`client&7a37e561-c720-4608-52a8-a964a9db7a8a` then only client with client ID
+(call `centrifuge.getClientId()` in javascript to get client's ID) will be able to subscribe
+on this channel.
+
+### private channel prefix $
 
 If channel starts with `$` then it considered private. Subscription on private channel
 must be properly signed by your web application. Read special chapter in docs about

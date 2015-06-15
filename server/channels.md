@@ -37,8 +37,8 @@ in this case only `user42` and `user43` will be able to subscribe on this channe
 `&` is a client channel boundary. This is similar to user channel boundary but limits
 access to channel only for one client with ID set after `&`. For example if channel is
 `client&7a37e561-c720-4608-52a8-a964a9db7a8a` then only client with client ID
-(call `centrifuge.getClientId()` in javascript to get client's ID) will be able to subscribe
-on this channel.
+`7a37e561-c720-4608-52a8-a964a9db7a8a` (call `centrifuge.getClientId()` in javascript to
+get client's ID) will be able to subscribe on this channel.
 
 ### private channel prefix
 

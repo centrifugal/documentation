@@ -63,12 +63,34 @@ which we don't have API client yet.
 Let's imagine that you have a project with name `development` and secret key `secret`. HTTP
 API url then will be like `https://centrifuge.example.com/api/development`
 
+First, let's see how to send API command using Python library `requests`:
+
+```python
+from cent.core import generate_api_sign
+import requests
+import json
+
+commands = [
+    {
+        "method": "publish",
+        "params": {"channel": "docs", "data": {"json": True}}
+    }
+]
+
+encoded_data = json.dumps(commands)
+sign = generate_api_sign("secret", "development", encoded_data)
+r = requests.post("https://centrifuge.example.com/api/development", data={"sign": sign, "data": encoded_data})
+print r.text
+```
+
+Or the same in pure Python:
+
 ```python
 from urllib2 import urlopen, Request
 from cent.core import generate_api_sign
 import json
 
-req = Request("http://localhost:8000/api/development")
+req = Request("https://centrifuge.example.com/api/development")
 
 commands = [
     {
@@ -82,7 +104,29 @@ data = urlencode({'sign': sign, 'data': encoded_data})
 response = urlopen(req, data, timeout=5)
 ```
 
-Here to generate `sign` I used function from `Cent` module. To see how you can generate API
+Request headers:
+```
+{
+    'Content-Length': '211',
+    'Accept-Encoding': 'gzip, deflate',
+    'Accept': '*/*',
+    'User-Agent': 'python-requests/2.7.0 CPython/2.7.6 Darwin/14.1.0',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/x-www-form-urlencoded'
+}
+```
+
+Response headers:
+```
+{
+    'content-length': '47',
+    'connection': 'keep-alive',
+    'date': 'Mon, 15 Jun 2015 06:24:26 GMT',
+    'content-type': 'application/json'
+}
+```
+
+In code above to generate `sign` we used function from `Cent` module. To see how you can generate API
 sign yourself go to chapter "Tokens and signatures".
 
 Also note that in this example we send an array of commands. In this way you can send several

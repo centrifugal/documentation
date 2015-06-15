@@ -18,6 +18,7 @@
 * [Server API libraries](libraries/README.md)
     * [Python](libraries/python.md)
     * [Ruby](libraries/ruby.md)
+    * [PHP](libraries/php.md)
     * [Other](libraries/other.md)
 * [Admin web interface](web/README.md)
 * [Mixed topics](mixed/README.md)

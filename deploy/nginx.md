@@ -60,23 +60,20 @@ server {
     # to all frontends)
     proxy_next_upstream error;
 
-    location / {
-        proxy_pass_header Server;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Scheme $scheme;
-        proxy_pass http://centrifugo;
-    }
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Scheme $scheme;
+    proxy_buffering off;
+    proxy_http_version 1.1;
+    proxy_set_header Host $http_host;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
 
-    location /connection {
-        proxy_buffering off;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Scheme $scheme;
+    location / {
         proxy_pass http://centrifugo;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection $connection_upgrade;
+        proxy_buffering on;
+    }
+    location /connection {
+        proxy_pass http://centrifugo;
     }
 
     error_page   500 502 503 504  /50x.html;
@@ -93,13 +90,7 @@ to handle admin websocket connections:
 
 ```
     location /socket {
-        proxy_buffering off;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Scheme $scheme;
         proxy_pass http://centrifugo;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection $connection_upgrade;
     }
 ```
 
@@ -146,6 +137,7 @@ server {
         proxy_buffering off;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
+        proxy_set_header Host $http_host;
         proxy_pass http://centrifugo;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;

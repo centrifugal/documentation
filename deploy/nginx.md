@@ -37,7 +37,7 @@ server {
 
     #listen 443;
     #ssl on;
-    #ssl_protocols SSLv3 TLSv1;
+    #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     #ssl_ciphers AES128-SHA:AES256-SHA:RC4-SHA:DES-CBC3-SHA:RC4-MD5;
     #ssl_certificate /etc/nginx/ssl/wildcard.example.com.crt;
     #ssl_certificate_key /etc/nginx/ssl/wildcard.example.com.key;

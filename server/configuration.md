@@ -25,7 +25,7 @@ Available Commands:
   help        Help about any command
 
 Flags:
-  -a, --address="127.0.0.1": address to listen on
+  -a, --address="": address to listen on
   -c, --config="config.json": path to config file
   -d, --debug=false: debug mode - please, do not use it in production
   -e, --engine="memory": engine to use: memory or redis
@@ -33,13 +33,17 @@ Flags:
       --log_file="": optional log file - if not specified all logs go to STDOUT
       --log_level="info": set the log level: debug, info, error, critical, fatal or none
   -n, --name="": unique node name
-  -p, --port="8000": port
+  -p, --port="8000": port to bind to
       --redis_api=false: enable Redis API listener (Redis engine)
       --redis_db="0": redis database (Redis engine)
       --redis_host="127.0.0.1": redis host (Redis engine)
       --redis_password="": redis auth password (Redis engine)
+      --redis_pool=256: Redis pool size (Redis engine)
       --redis_port="6379": redis port (Redis engine)
       --redis_url="": redis connection URL (Redis engine)
+      --ssl=false: accept SSL connections. This requires an X509 certificate and a key file
+      --ssl_cert="": path to an X509 certificate file
+      --ssl_key="": path to an X509 certificate key
   -w, --web="": optional path to web interface application
 
 Global Flags:

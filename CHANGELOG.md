@@ -1,5 +1,19 @@
 # Changelog
 
+v0.2.2
+======
+
+* Add TLS support. New flags are:
+  * `--ssl`                   - accept SSL connections. This requires an X509 certificate and a key file.
+  * `--ssl_cert="file.cert"`  - path to X509 certificate file.
+  * `--ssl_key="file.key"`    - path to X509 certificate key.
+* Updated Dockerfile
+
+v0.2.1
+======
+
+* set expire on presence hash and set keys in Redis Engine. This prevents staling presence keys in Redis.
+
 v0.2.0
 ======
 

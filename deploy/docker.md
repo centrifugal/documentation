@@ -9,11 +9,11 @@ docker pull fzambia/centrifugo
 Run:
 
 ```bash
-docker run -v /your/host/dir/containing/config/file:/centrifugo -p 8000:8000 fzambia/centrifugo -c config.json
+docker run -v /your/host/dir/containing/config/file:/centrifugo -p 8000:8000 fzambia/centrifugo centrifugo -c config.json
 ```
 
 To run with admin web interface:
 
 ```bash
-docker run -v /your/host/dir/containing/config/file:/centrifugo -p 8000:8000 fzambia/centrifugo -c config.json -w /opt/centrifugo/web
+docker run -v /your/host/dir/containing/config/file:/centrifugo -p 8000:8000 fzambia/centrifugo centrifugo -c config.json -w /opt/centrifugo/web
 ```

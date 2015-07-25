@@ -80,7 +80,7 @@ Let's look at configuration file example I personally use while developing Centr
       "history_size": 10,
       "history_lifetime": 30
     }
-  ]
+  ],
   "log_level": "debug"
 }
 ```

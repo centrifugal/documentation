@@ -36,10 +36,9 @@ Also it allows to call API commands.
 How to publish via Redis engine API listener? Start Centrifuge with Redis
 engine and ``--redis_api`` option:
 
-.. code-block:: bash
-
-    centrifuge --logging=debug --config=config.json --engine=redis --redis_api
-
+```bash
+centrifuge --logging=debug --config=config.json --engine=redis --redis_api
+```
 
 Then use Redis client for your favorite language, ex. for Python:
 
@@ -95,3 +94,5 @@ And you will see the following options among the others:
     --redis_port="6379": redis port (Redis engine)
     --redis_url="": redis connection URL (Redis engine)
 ```
+
+In next chapter we will see how to start several Centrifugo nodes using Redis engine.

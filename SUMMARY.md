@@ -7,6 +7,7 @@
     * [Project settings](server/projects.md)
     * [Channels](server/channels.md)
     * [Engines](server/engines.md)
+    * [Scaling nodes](server/scaling.md)
     * [Server API](server/api.md)
     * [Connection check](server/connection_check.md)
     * [Tokens and signatures](server/tokens_and_signatures.md)

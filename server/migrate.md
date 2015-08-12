@@ -23,4 +23,6 @@ And two configuration file specific options:
 * `web_password` instead of `password`
 * `web_secret` instead of `cookie_secret`
 
+Redis list key for redis api also was changed: `centrifugo.api` instead `centrifuge.api`
+
 And that's all.

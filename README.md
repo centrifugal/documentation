@@ -32,7 +32,7 @@ Let's see which projects Centrifugal has:
 
 * [centrifugo](https://github.com/centrifugal/centrifugo) - real-time messaging server
     written in Go language. This is a successor of
-    [Centrifuge](https://github.com/centrifugal/centrifugo) – original server implementation
+    [Centrifuge](https://github.com/centrifugal/centrifuge) – original server implementation
     written in Python.
 * [centrifuge-js](https://github.com/centrifugal/centrifuge-js) - Javascript client to
     connect to messaging server from web browser.

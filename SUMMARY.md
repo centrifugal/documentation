@@ -11,6 +11,7 @@
     * [Server API](server/api.md)
     * [Connection check](server/connection_check.md)
     * [Tokens and signatures](server/tokens_and_signatures.md)
+    * [Client Protocol](server/client_protocol.md)
     * [Migrating from Centrifuge](server/migrate.md)
 * [Javascript client](client/README.md)
     * [Install and quick start](client/start.md)

@@ -26,11 +26,11 @@ from namespace with name `public`.
 
 `#` is a user boundary - separator to create private channels for users (user limited
 channels)without sending POST request to your web application. For example if channel
-is `news#user42` then only user `user42` can subscribe on this channel (Centrifugo
+is `news#42` then only user with ID `42` can subscribe on this channel (Centrifugo
 knows user ID as clients provide it when connecting).
 
-Moreover you can provide several user IDs in channel name separated by comma: `dialog#user42,user43` –
-in this case only `user42` and `user43` will be able to subscribe on this channel.
+Moreover you can provide several user IDs in channel name separated by comma: `dialog#42,43` –
+in this case only user with ID `42` and user with ID `43` will be able to subscribe on this channel.
 
 ### client channel boundary (new in 0.2.0)
 

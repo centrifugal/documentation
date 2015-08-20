@@ -150,3 +150,120 @@ Centrifugo functionality. There are lots of other things to cover - channel pres
 channel history information, connection expiration, private channel subscriptions and more but in
 most cases all you need from Centrifugo - subscribe on channels and receive new messages from those
 channels.
+
+Available methods
+-----------------
+
+Lets now look at all available methods your client can send or receive:
+
+```
+connect
+disconnect
+subscribe
+unsubscribe
+publish
+presence
+history
+join
+leave
+message
+refresh
+ping
+```
+
+Some of this methods used for client to server commands (`publish`, `presense`, `history` etc which then get a response from server with the same `method` and unique `uid` in it), some for server to clients (for example `join`, `leave`, `message` – which just come from server in any time when corresponding event occurred).
+
+We have already seen `connect`, `subscribe` and `publish` above. Let's describe remaining.
+
+Client to server commands
+-------------------------
+
+`connect` - described above
+
+```javascript
+var message = {
+    'uid': 'UNIQUE COMMAND ID',
+    'method': 'connect',
+    'params': {
+        'user': "USER ID STRING",
+        'project': "PROJECT KEY STRING",
+        'timestamp': "STRING WITH CURRENT TIMESTAMP SECONDS"
+        'info': "OPTIONAL JSON ENCODED STRING",
+        'token': "SHA-256 HMAC TOKEN GENERATED FROM PARAMETERS ABOVE"
+    }
+}
+```
+
+`subscribe` - described above
+
+```javascript
+var message = {
+    'uid': 'UNIQUE COMMAND ID',
+    'method': 'subscribe',
+    'params': {
+        'channel': "CHANNEL TO SUBSCRIBE"
+    }
+}
+```
+
+`unsubscribe` - allows to unsubscribe from channel
+
+```javascript
+message = {
+    'uid': 'UNIQUE COMMAND ID',
+    "method": "unsubscribe",
+    "params": {
+        "channel": this.channel
+    }
+}
+```
+
+`publish` - allows clients directly publish messages into channel (application backend code will never know about this message). `publish` must be enabled for channel in sever configuration so this command can work.
+
+```javascript
+message = {
+    'uid': 'UNIQUE COMMAND ID',
+    "method": "publish",
+    "params": {
+        "channel": "CHANNEL",
+        "data": {}  // JSON DATA TO PUBLISH
+    }
+}
+```
+
+`presence` – allows to ask server for channel presence information (`presence` must be enabled for channel in server configuration)
+
+```javascript
+message = {
+    'uid': 'UNIQUE COMMAND ID',
+    "method": "presence",
+    "params": {
+        "channel": "CHANNEL"
+    }
+}
+```
+
+`history` – allows to ask server for channel history information (history must be enabled for channel in server configuration using `history_lifetime` and `history_size` options)
+
+```javascript
+message = {
+    'uid': 'UNIQUE COMMAND ID',
+    "method": "history",
+    "params": {
+        "channel": "CHANNEL"
+    }
+}
+```
+
+`ping` - allows to send ping command to server, server should answer this command.
+
+```javascript
+message = {
+    'uid': 'UNIQUE COMMAND ID',
+    "method": "ping",
+    "params": {}
+}
+```
+
+To be continued...
+

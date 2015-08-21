@@ -178,7 +178,8 @@ We have already seen `connect`, `subscribe` and `publish` above. Let's describe 
 Client to server commands
 -------------------------
 
-`connect` - described above
+`connect` - send authorization parameters to Centrifugo so your connection could start
+subscribing on channels.
 
 ```javascript
 var message = {
@@ -194,7 +195,7 @@ var message = {
 }
 ```
 
-`subscribe` - described above
+`subscribe` - allows to subscribe on channel
 
 ```javascript
 var message = {
@@ -262,6 +263,92 @@ message = {
     'uid': 'UNIQUE COMMAND ID',
     "method": "ping",
     "params": {}
+}
+```
+
+Responses to client to server commands
+======================================
+
+As soon as your client sent command to server it should then receive a corresponding response. Let's
+look at those response messages in detail.
+
+TODO: write about those responses
+
+Server to client commands
+=========================
+
+`message` - new message published into channel current client subscribed to. Response
+for message coming over connection looks like this:
+
+```javascript
+{
+    "method":"message",
+    "error":null,
+    "body": {
+        "uid": "8d1f6279-2d13-45e2-542d-fac0e0f1f6e0",
+        "timestamp":"1439715024",
+        "info":{
+            "user":"42",
+            "client":"73cd5abb-03ed-40bc-5c87-ed35df732682",
+            "default_info":null,
+            "channel_info":null
+        },
+        "channel":"jsfiddle-chat",
+        "data": {
+            "input":"hello world"
+        },
+        "client":"73cd5abb-03ed-40bc-5c87-ed35df732682"
+    }
+}
+```
+
+`join` - someone joined a channel current client subscribed to. Note that `join_leave` option must
+be enabled for channel in server configuration to receive this type of messages. `body` of this message
+contains information about new subscribed client.
+
+```javascript
+{
+    "method":"join",
+    "error":null,
+    "body": {
+        "channel":"$public:chat",
+        "data": {
+            "user":"2694",
+            "client":"3702659c-f28a-4166-5b44-115d9b544b29",
+            "default_info": {
+                "first_name":"Alexandr",
+                "last_name":"Emelin"
+            },
+            "channel_info": {
+                "channel_extra_info_example":"you can add additional JSON data when authorizing"
+            }
+        }
+    }
+}
+```
+
+`leave` - someone left channel current client subscribed to. Note that `join_leave` option must
+be enabled for channel in server configuration to receive this type of messages. `body` of this message
+contains information about unsubscribed client.
+
+```javascript
+{
+    "method":"leave",
+    "error":null,
+    "body": {
+        "channel":"$public:chat",
+        "data": {
+            "user":"2694",
+            "client":"3702659c-f28a-4166-5b44-115d9b544b29",
+            "default_info": {
+                "first_name":"Alexandr",
+                "last_name":"Emelin"
+            },
+            "channel_info": {
+                "channel_extra_info_example":"you can add additional JSON data when authorizing"
+            }
+        }
+    }
 }
 ```
 

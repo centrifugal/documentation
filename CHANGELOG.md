@@ -1,7 +1,51 @@
-# Changelog
+# Full changelog of Centrifugal
 
-v0.2.2
-======
+This is an aggregated Centrifugal changelog from all important repositories to help with updating.
+
+Centrifuge-js v0.9.0
+====================
+
+The only change in `0.9.0` is changing private channel request POST parameter name
+`channels` to `channels[]`. If you are using private channels then you should update
+your backend code to fit new parameter name. This change was required because of how
+PHP and Ruby on Rails handle POST parameter names when POST request contains multiple
+values for the same parameter name.
+
+* `channels` parameter renamed to `channels[]` in private subscription POST request to application.
+
+Cent v0.5.0
+==========
+
+Added several API methods for client to simplify sending single commands to API.
+
+* `client.publish(channel, data, client=None)`
+* `client.presence(channel)`
+* `client.history(channel)`
+* `client.unsubscribe(user_id, channel=None)`
+* `client.disconnect(user_id)`
+
+For example:
+
+```python
+from cent.core import Client
+
+client = Client("http://localhost:8000", "development", "secret")
+
+for i in range(1000):
+    res, err = client.publish("$public:docs", {"json": True})
+    print res
+```
+
+Centrifugo v0.2.3
+=================
+
+Critical bug fix for Redis Engine!
+
+* fixed bug when entire server could unsubscribe from Redis channel when client closed its connection.
+
+
+Centrifugo v0.2.2
+=================
 
 * Add TLS support. New flags are:
   * `--ssl`                   - accept SSL connections. This requires an X509 certificate and a key file.
@@ -9,13 +53,13 @@ v0.2.2
   * `--ssl_key="file.key"`    - path to X509 certificate key.
 * Updated Dockerfile
 
-v0.2.1
-======
+Centrifugo v0.2.1
+=================
 
 * set expire on presence hash and set keys in Redis Engine. This prevents staling presence keys in Redis.
 
-v0.2.0
-======
+Centrifugo v0.2.0
+=================
 
 * add optional `client` field to publish API requests. `client` will be added on top level of
 	published message. This means that there is now a way to include `client` connection ID to
@@ -34,12 +78,12 @@ v0.2.0
 * handle interrupts - unsubscribe clients from all channels. Many thanks again to Mr Klaus Post.
 * code refactoring, detach libcentrifugo real-time core from Centrifugo service.
 
-v0.1.1
-======
+Centrifugo v0.1.1
+=================
 
 Lots of internal refactoring, no API changes. Thanks to Mr Klaus Post (@klauspost) and Mr Dmitry Chestnykh (@dchest)
 
-v0.1.0
-======
+Centrifugo v0.1.0
+=================
 
 First release. New [documentation](http://fzambia.gitbooks.io/centrifugal/content/).

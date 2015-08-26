@@ -61,7 +61,7 @@ class CentrifugeAuthHandler(tornado.web.RequestHandler):
     def post(self):
 
         client = self.get_argument("client")
-        channels = self.get_arguments("channels")
+        channels = self.get_arguments("channels[]")
 
         to_return = {}
 
@@ -96,7 +96,7 @@ class CentrifugeAuthHandler(tornado.web.RequestHandler):
     def post(self):
 
         client = self.get_argument("client")
-        channels = self.get_arguments("channels")
+        channels = self.get_arguments("channels[]")
 
         to_return = {}
 

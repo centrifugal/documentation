@@ -32,4 +32,4 @@
     * [Nginx configuration](deploy/nginx.md)
     * [RPM](deploy/rpm.md)
     * [Docker](deploy/docker.md)
-* [Changelog](CHANGELOG.md)
+* [Aggregated changelog](CHANGELOG.md)

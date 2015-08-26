@@ -98,6 +98,7 @@ centrifuge.on('connect', function() {
     });
 
 }
+```
 
 You can `unsubscribe()` from subscription:
 

@@ -127,3 +127,7 @@ class CentrifugeAuthHandler(tornado.web.RequestHandler):
 ```
 
 This will prevent client from subscribing to any private channel.
+
+If you are developing in PHP (and especially if you use Laravel framework) then
+[this gist](https://gist.github.com/Malezha/a9bdfbddee15bfd624d4) can help you working
+with private channel subscriptions.

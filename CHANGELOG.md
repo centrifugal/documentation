@@ -2,6 +2,12 @@
 
 This is an aggregated Centrifugal changelog from all important repositories to help with updating.
 
+Centrifugo v0.2.4
+=================
+
+* HTTP API endpoint now can handle json requests. Used in client written in Go at moment. Old behaviour have not changed, so this is absolutely optional.
+* dependency packages updated to latest versions - websocket, securecookie, sockjs-go.
+
 Centrifuge-js v0.9.0
 ====================
 

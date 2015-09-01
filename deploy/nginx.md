@@ -172,3 +172,13 @@ during development - when all clients connecting from localhost.
 
 So the best solution would be using something like [nginx-sticky-module](https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/overview)
 which uses setting a special cookie to track the upstream server for client.
+
+### worker_connections
+
+You may also need to update `worker_connections` option of Nginx:
+
+```
+events {
+    worker_connections  40000;
+}
+```

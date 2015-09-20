@@ -78,6 +78,7 @@ var centrifuge = new Centrifuge({
     info: '{"first_name": "Alexandr", "last_name": "Emelin"}',
     token: 'TOKEN'
 });
+```
 
 `info` is an additional information about connection. It must be encoded JSON string. But to prevent
 client sending wrong `info` this JSON string must be used while generating token.

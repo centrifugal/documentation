@@ -32,4 +32,5 @@
     * [Nginx configuration](deploy/nginx.md)
     * [RPM](deploy/rpm.md)
     * [Docker](deploy/docker.md)
+    * [Tuning operating system](deploy/tuning.md)
 * [Aggregated changelog](CHANGELOG.md)

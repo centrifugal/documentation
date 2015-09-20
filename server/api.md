@@ -135,7 +135,7 @@ commands to Centrifugo in one request.
 There are not so many commands you can call. The main and most useful of them is `publish`.
 Lets take a closer look on other available API command methods.
 
-You have `publish`, `unsubscribe`, `presence`, `history`, `disconnect` in your arsenal.
+You have `publish`, `unsubscribe`, `presence`, `history`, `disconnect`, `channels` in your arsenal.
 
 ### publish
 
@@ -227,5 +227,16 @@ this channel). `params` is an object with `channel` key.
     "params": {
         "channel": "CHANNEL NAME"
     }
+}
+```
+
+### channels (Centrifugo >= 0.3.0)
+
+`channels` method allows to get list of active (with one or more subscribers) channels in project.
+
+```javascript
+{
+    "method": "channels",
+    "params": {}
 }
 ```

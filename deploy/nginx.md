@@ -46,8 +46,6 @@ server {
     include /etc/nginx/mime.types;
     default_type application/octet-stream;
 
-    keepalive_timeout 65;
-    proxy_read_timeout 200;
     sendfile on;
     tcp_nopush on;
     tcp_nodelay on;
@@ -71,6 +69,7 @@ server {
     location /connection {
         proxy_pass http://centrifugo;
         proxy_buffering off;
+        proxy_read_timeout 60s;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
         proxy_set_header Host $http_host;

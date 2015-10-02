@@ -1,4 +1,4 @@
-# Project settings
+# Important configuration settings
 
 Centrifugo server must know the name of your web application project. Also this project must
 have a secret key in Centrifugo configuration – this secret key will be used for various

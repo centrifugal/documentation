@@ -16,7 +16,7 @@ will then broadcast message to all subscribed clients.
 Also HTTP API can be used to send other types of commands - see all available commands below.
 
 If your backend written in Python you can use [Cent](../libraries/python.md) API client. Also we have
-client [for Ruby](../libraries/ruby.md). If you use other language don't worry - I will describe
+client [for Ruby](../libraries/ruby.md) and [PHP](../libraries/php.md). If you use other language don't worry - I will describe
 how to communicate with Centrifugo HTTP API endpoint in this chapter.
 
 Note also that there are 2 API endpoints in Centrifugo - first of them is HTTP API endpoint and
@@ -27,18 +27,17 @@ to publish new messages into channels.
 
 Let's start!
 
-Centrifugo API url is `/api/<PROJECT_ID>`, where <PROJECT_ID> must be replaced with your project key
-(=project name).
+Centrifugo API url is `/api/`.
 
-So if your Centrifugo sits on domain `https://centrifuge.example.com` and project key is `bananas`
-then an API address will be `https://centrifuge.example.com/api/bananas`.
+So if your Centrifugo sits on domain `https://centrifuge.example.com` then an API address
+will be `https://centrifuge.example.com/api/`.
 
 All you need to do to use HTTP API is to send correctly constructed POST request to this endpoint.
 
 API request must have two POST parameters: `data` and `sign`.
 
 `data` is a JSON string representing command (or commands) you want to send to Centrifugo
-(see below) and `sign` is an HMAC based on project secret key, project key and JSON string
+(see below) and `sign` is an HMAC based on secret key and JSON string
 from `data`. This `sign` is used later by Centrifugo to validate API request.
 
 `data` is a JSON string created from object with two properties: `method` and `params`.
@@ -60,8 +59,7 @@ don't have to implement this yourself as `Cent` python module exists. But this e
 be useful for someone who want to implement interaction with Centrifugo API in language for
 which we don't have API client yet.
 
-Let's imagine that you have a project with name `development` and secret key `secret`. HTTP
-API url then will be like `https://centrifuge.example.com/api/development`
+Let's imagine that your Centrifugo has secret key `secret`.
 
 First, let's see how to send API command using Python library `requests`:
 
@@ -78,8 +76,8 @@ commands = [
 ]
 
 encoded_data = json.dumps(commands)
-sign = generate_api_sign("secret", "development", encoded_data)
-r = requests.post("https://centrifuge.example.com/api/development", data={"sign": sign, "data": encoded_data})
+sign = generate_api_sign("secret", encoded_data)
+r = requests.post("https://centrifuge.example.com/api/", data={"sign": sign, "data": encoded_data})
 print r.text
 ```
 
@@ -90,7 +88,7 @@ from urllib2 import urlopen, Request
 from cent.core import generate_api_sign
 import json
 
-req = Request("https://centrifuge.example.com/api/development")
+req = Request("https://centrifuge.example.com/api/")
 
 commands = [
     {
@@ -99,7 +97,7 @@ commands = [
     }
 ]
 encoded_data = json.dumps(commands)
-sign = generate_api_sign("secret", "development", encoded_data)
+sign = generate_api_sign("secret", encoded_data)
 data = urlencode({'sign': sign, 'data': encoded_data})
 response = urlopen(req, data, timeout=5)
 ```
@@ -135,7 +133,7 @@ commands to Centrifugo in one request.
 There are not so many commands you can call. The main and most useful of them is `publish`.
 Lets take a closer look on other available API command methods.
 
-You have `publish`, `unsubscribe`, `presence`, `history`, `disconnect`, `channels` in your arsenal.
+You have `publish`, `unsubscribe`, `presence`, `history`, `disconnect`, `channels`, `stats` in your arsenal.
 
 ### publish
 
@@ -232,7 +230,7 @@ this channel). `params` is an object with `channel` key.
 
 ### channels (Centrifugo >= 0.3.0)
 
-`channels` method allows to get list of active (with one or more subscribers) channels in project.
+`channels` method allows to get list of active (with one or more subscribers) channels.
 
 ```javascript
 {
@@ -240,3 +238,19 @@ this channel). `params` is an object with `channel` key.
     "params": {}
 }
 ```
+
+### stats (Centrifugo >= 1.0.0)
+
+`stats` method allows to get statistics about running Centrifugo nodes.
+
+```javascript
+{
+    "method": "stats",
+    "params": {}
+}
+```
+
+
+Note again that there is existing API clients for Python, Ruby, PHP - so you don't
+have to construct these commands manually. If you use another programming languages
+look at existing clients to get more help implementing call to HTTP API.

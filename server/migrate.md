@@ -1,4 +1,4 @@
-# Migrating from Centrifuge to Centrifugo
+# Migrating from Centrifuge to Centrifugo 0.3.0
 
 Centrifugo server has several advantages over Centrifuge (original server in Python):
 
@@ -26,3 +26,5 @@ And two configuration file specific options:
 Redis list key for redis api also was changed: `centrifugo.api` instead `centrifuge.api`
 
 And that's all.
+
+Centrifugo 1.0.0 differs from Centrifuge so you should follow changelog to migrate from Centrifugo 0.3.0 to 1.0.0

@@ -68,9 +68,8 @@ Let's look at configuration file example I personally use while developing Centr
 
 ```javascript
 {
-  "project_name": "development",
-  "project_secret": "secret",
-  "project_namespaces": [
+  "secret": "secret",
+  "namespaces": [
     {
       "name": "public",
       "publish": true,
@@ -85,21 +84,19 @@ Let's look at configuration file example I personally use while developing Centr
 }
 ```
 
-Only **project_name** and **project_secret** options are required.
+Only **secret** options is required.
 
-Project corresponds to your web application that uses Centrifugo for real-time messages. You must give it a name
-and set secret key.
-
-You will know about other project options such as `namespaces` in next sections.
+You will know about other options such as `namespaces` in next sections.
 
 So the **minimal configuration file required** is:
 
 ```javascript
 {
-  "project_name": "development",
-  "project_secret": "secret"
+  "secret": "secret"
 }
 ```
+
+But use strong secret in production!
 
 ### TOML
 
@@ -114,10 +111,9 @@ Where `config.toml` contains:
 ```
 log_level = "debug"
 
-project_name = "development"
-project_secret = "secret"
+secret = "secret"
 
-[[project_namespaces]]
+[[namespaces]]
     name = "public"
     publish = true
     watch = true
@@ -136,9 +132,8 @@ And YAML config also supported. `config.yaml`:
 ```
 log_level: debug
 
-project_name: development
-project_secret: secret
-project_namespaces:
+secret: secret
+namespaces:
   - name: public
     publish: true
     watch: true
@@ -152,25 +147,7 @@ With YAML remember to use spaces, not tabs when writing configuration file
 
 ### multiple projects
 
-There is also a way to register multiple projects in Centrifugo.
-
-```javascript
-{
-  "projects": [
-    {
-      "name": "bananas",
-      "secret": "very-long-secret-key-for-bananas-project",
-      "namespaces": []
-    }
-  ]
-}
-```
-
-**projects** in this case is an array of projects. One project corresponds to your web application that
-uses Centrifugo for real-time messages. **Although it's possible to register many projects in Centrifugo
-it's recommended to use only one project for Centrifugo installation.** Trust me this will make your life
-easier eventually. **The only exception** is add the second project which is clone of first for development –
-so you can use production Centrifugo instance in development process.
+Since Centrifugo 1.0.0 multiple projects not supported.
 
 ### checkconfig
 
@@ -190,8 +167,7 @@ Another command is `genconfig`:
 centrifugo genconfig -c config.json
 ```
 
-It will generate the simplest configuration file for you – will ask you to enter your web project name and
-generate secret key for it automatically.
+It will generate the simplest configuration file for you automatically.
 
 ### important command-line options
 
@@ -209,9 +185,9 @@ There are more command line options – we will talk about some of them later. N
 be set via configuration file, but command-line options will be more valuable when set than configuration file's options.
 See description of [viper](https://github.com/spf13/viper) – to see more details about configuration options priority.
 
-### project settings reload
+### channel settings reload
 
-Centrifugo can reload project settings and some other configuration options on the fly.
+Centrifugo can reload channel settings and some other configuration options on the fly.
 
 To reload you must send `HUP` signal to centrifugo process:
 

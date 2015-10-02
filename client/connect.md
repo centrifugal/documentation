@@ -7,7 +7,6 @@ As we showed earlier to initialize centrifuge object you must write the followin
 
     var centrifuge = new Centrifuge({
         url: 'http://centrifugo.example.com/connection',
-        project: 'PROJECT KEY',
         user: 'USER ID',
         timestamp: 'UNIX TIMESTAMP',
         token: 'TOKEN'
@@ -35,10 +34,6 @@ If your Centrifugo works through SSL then endpoint addresses must start with
 You can also set `url` to just `http://centrifugo.example.com` and javascript client will
 detect which endpoint to use (SockJS or Websocket) automatically based on SockJS library availability.
 
-### project
-
-`project` string is your project key from Centrifugo configuration.
-
 ### user
 
 `user` string is your web application's current user ID. It can be empty if you don't have logged in user
@@ -58,7 +53,7 @@ To create token HMAC sha256 algorithm is used. To understand how to generate cli
 special chapter "Tokens and signatures".
 
 Correct token guarantees that connection request to Centrifugo contains valid
-information about project key, user ID and timestamp. Token is similar to HTTP cookie, client must never
+information about user ID and timestamp. Token is similar to HTTP cookie, client must never
 show it to anyone else. Also remember that you must always use private channels when working with confidential
 data.
 
@@ -72,7 +67,6 @@ You can optionally provide extra parameter `info` when connecting to Centrifuge:
 ```javascript
 var centrifuge = new Centrifuge({
     url: 'http://centrifuge.example.com/connection',
-    project: 'PROJECT KEY',
     user: 'USER ID',
     timestamp: 'UNIX TIMESTAMP',
     info: '{"first_name": "Alexandr", "last_name": "Emelin"}',

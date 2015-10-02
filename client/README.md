@@ -26,4 +26,4 @@ With javascript client you can:
 * publish new messages into channels
 
 *Note, that in order to use presence, history, join/leave and publish – corresponding options
-must be enabled in Centrifugo channel configuration (for project in general or for namespace).*
+must be enabled in Centrifugo channel configuration (on top level or for namespace).*

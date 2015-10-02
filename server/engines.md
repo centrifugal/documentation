@@ -49,7 +49,6 @@ import json
 client = redis.Redis()
 
 to_send = {
-    "project": "development",
     "data": [
         {
             "method": "publish",
@@ -65,7 +64,7 @@ to_send = {
 client.rpush("centrifugo.api", json.dumps(to_send))
 ```
 
-You send JSON object with `project` name (key) and list of commands in `data`.
+You send JSON object wth list of commands in `data`.
 
 Note again - you don't have response here as you are adding commands into Redis queue
 and they will be processed as soon as Centrifugo can. If you need to get response - you

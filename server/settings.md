@@ -1,76 +1,38 @@
 # Important configuration settings
 
-Centrifugo server must know the name of your web application project. Also this project must
-have a secret key in Centrifugo configuration – this secret key will be used for various
-operations (see below).
+As I wrote in previous chapter configuration file must have one required option: `secret`.
 
-So project has 2 required fields: `name` and `secret`.
-
-The simplest project settings looks like this:
+The configuration file looks like this:
 
 ```javascript
 {
-    "project_name": "bananas",
-    "project_secret": "very-long-secret-key-for-bananas-project"
+    "secret": "very-long-secret-key"
 }
 ```
 
-Or the same using multiple projects syntax:
+The only two who should know this secret key is Centrifugo itself and your web application
+backend. It used to generate client connection tokens (more about them later), sign API
+requests and sign private channel subscription requests.
+
+The next available option is `connection_lifetime`:
+
+`connection_lifetime` – time in seconds for client connection to expire. By default it
+equals `0` - this means that connection can live forever and will not expire.
+See more about connection expiration mechanism in special chapter. In most situations
+you don't have to explicitly set it as no connection expiration is ok for most of
+web applications.
 
 ```javascript
 {
-    "projects": [
-        {
-            "name": "bananas",
-            "secret": "very-long-secret-key-for-bananas-project"
-        }
-    ]
+    "secret": "very-long-secret-key",
+    "connection_lifetime": 0
 }
 ```
 
-* `name` – unique name of project (name must must consist of letters, numbers, underscores
-    or hyphens and be more than 2 symbols length i.e. satisfy regexp `^[-a-zA-Z0-9_]{2,}$`).
-    It is used as project key when sending API requests and must be provided by clients when
-    they want to connect to Centrifugo from browser.
-* `secret` – secret key for project. The only two who should know this secret key is
-    Centrifugo itself and your web application backend. It used to generate client
-    connection tokens (more about them later), sign API requests and sign private
-    channel subscription requests.
-
-The next option is `connection_lifetime`:
-
-* `connection_lifetime` – time in seconds for client connection to expire. By default it
-    equals `0` - this means that connection can live forever and will not expire.
-    See more about connection expiration mechanism in special chapter. In most situations
-    you don't have to explicitly set it as no connection expiration is ok for most of
-    web applications.
-
-```javascript
-{
-    "project_name": "bananas",
-    "project_secret": "very-long-secret-key-for-bananas-project",
-    "project_connection_lifetime": 0
-}
-```
-
-Or the same using multiple projects syntax:
-
-```javascript
-{
-    "projects": [
-        {
-            "name": "bananas",
-            "secret": "very-long-secret-key-for-bananas-project",
-            "connection_lifetime": 0
-        }
-    ]
-}
-```
-
-All other project options related to channels. Channel is an entity to which clients can subscribe to receive messages
-published into that channel. Channel is just a string - but several symbols has special meaning - see section about
-channels to get more information about channels. But now you should only understand that the following project options
-will affect channel behaviour for this project:
+Let's look on other options related to channels. Channel is an entity to which clients can subscribe
+to receive messages published into that channel. Channel is just a string - but several symbols has
+special meaning - see section about channels to get more information about channels. But now you should
+only understand that the following options will affect channel behaviour:
 
 * `watch` – Centrifugo will additionally publish messages into admin channel (these
     messages can be visible in web interface). Turn it off if you are expecting high
@@ -103,45 +65,23 @@ Let's look how to set all of these options in config:
 
 ```javascript
 {
-    "project_name": "bananas",
-    "project_secret": "very-long-secret-key-for-bananas-project",
-    "project_connection_lifetime": 0,
-    "project_anonymous": true,
-    "project_publish": true,
-    "project_watch": true,
-    "project_presence": true,
-    "project_join_leave": true,
-    "project_history_size": 10,
-    "project_history_lifetime": 30
+    "secret": "very-long-secret-key",
+    "connection_lifetime": 0,
+    "anonymous": true,
+    "publish": true,
+    "watch": true,
+    "presence": true,
+    "join_leave": true,
+    "history_size": 10,
+    "history_lifetime": 30
 }
 ```
 
-Or the same using multiple projects syntax:
-
-```javascript
-{
-    "projects": [
-        {
-            "name": "bananas",
-            "secret": "very-long-secret-key-for-bananas-project",
-            "connection_lifetime": 0,
-            "anonymous": true,
-            "publish": true,
-            "watch": true,
-            "presence": true,
-            "join_leave": true,
-            "history_size": 10,
-            "history_lifetime": 30
-        }
-    ]
-}
-```
-
-And the last project option is `namespaces`. `namespaces` are optional and if set must be an array
-of namespace objects. Namespace allows to configure custom options for channels starting with
+And the last channel specific option is `namespaces`. `namespaces` are optional and if set must
+be an array of namespace objects. Namespace allows to configure custom options for channels starting with
 namespace name. This provides a great control over channel behaviour.
 
-Namespace has a name and the same channel options (with same defaults) as project.
+Namespace has a name and the same channel options (with same defaults) as described above.
 
 * `name` - unique namespace name (name must must consist of letters, numbers, underscores
     or hyphens and be more than 2 symbols length i.e. satisfy regexp `^[-a-zA-Z0-9_]{2,}$`).
@@ -160,17 +100,16 @@ project with all options set and 2 additional namespaces in it:
 
 ```javascript
 {
-    "project_name": "bananas",
-    "project_secret": "very-long-secret-key-for-bananas-project",
-    "project_connection_lifetime": 0,
-    "project_anonymous": true,
-    "project_publish": true,
-    "project_watch": true,
-    "project_presence": true,
-    "project_join_leave": true,
-    "project_history_size": 10,
-    "project_history_lifetime": 30,
-    "project_namespaces": [
+    "secret": "very-long-secret-key",
+    "connection_lifetime": 0,
+    "anonymous": true,
+    "publish": true,
+    "watch": true,
+    "presence": true,
+    "join_leave": true,
+    "history_size": 10,
+    "history_lifetime": 30,
+    "namespaces": [
         {
           "name": "public",
           "publish": true,
@@ -185,42 +124,6 @@ project with all options set and 2 additional namespaces in it:
           "watch": true
         }
     ]
-}
-```
-
-Or the same using multiple projects syntax:
-
-```
-{
-  "projects": [
-    {
-      "name": "development",
-      "secret": "secret",
-      "connection_lifetime": 0,
-      "publish": false,
-      "watch": false,
-      "presence": false,
-      "join_leave": false,
-      "anonymous": false,
-      "history_size": 0,
-      "history_lifetime": 0,
-      "namespaces": [
-        {
-          "name": "public",
-          "publish": true,
-          "presence": true,
-          "join_leave": true,
-          "anonymous": true,
-          "history_size": 10,
-          "history_lifetime": 30
-        },
-        {
-          "name": "gossips",
-          "watch": true
-        }
-      ]
-    }
-  ]
 }
 ```
 

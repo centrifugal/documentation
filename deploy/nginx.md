@@ -69,6 +69,7 @@ server {
     location /connection {
         proxy_pass http://centrifugo;
         proxy_buffering off;
+        keepalive_timeout 65;
         proxy_read_timeout 60s;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
@@ -136,7 +137,7 @@ server {
 
         proxy_next_upstream error;
         keepalive_timeout 65;
-        proxy_read_timeout 200;
+        proxy_read_timeout 60s;
         gzip on;
         gzip_min_length 1000;
         gzip_proxied any;

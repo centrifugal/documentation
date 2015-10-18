@@ -29,7 +29,7 @@
 * [Admin web interface](web/README.md)
 * [Mixed topics](mixed/README.md)
     * [Private channels](mixed/private_channels.md)
-    * [Insecure mode](mixed/insecure_mode.md)
+    * [Insecure modes](mixed/insecure_mode.md)
     * [Exclude processing by sender](mixed/exclude_sender.md)
     * [Use SockJS 0.3.4](mixed/sockjs0.3.4.md)
 * [Deploy](deploy/README.md)

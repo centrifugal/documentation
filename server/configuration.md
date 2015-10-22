@@ -12,7 +12,7 @@ centrifugo -h
 You should see something like this as output:
 
 ```
-Centrifuge + GO = Centrifugo – harder, better, faster, stronger
+Centrifugo. Real-time messaging (Websockets or SockJS) server in Go.
 
 Usage:
    [flags]
@@ -29,7 +29,8 @@ Flags:
   -c, --config="config.json": path to config file
   -d, --debug=false: debug mode - please, do not use it in production
   -e, --engine="memory": engine to use: memory or redis
-      --insecure=false: start in insecure mode
+      --insecure=false: start in insecure client mode
+      --insecure_api=false: use insecure API mode
       --log_file="": optional log file - if not specified all logs go to STDOUT
       --log_level="info": set the log level: debug, info, error, critical, fatal or none
   -n, --name="": unique node name
@@ -44,7 +45,8 @@ Flags:
       --ssl=false: accept SSL connections. This requires an X509 certificate and a key file
       --ssl_cert="": path to an X509 certificate file
       --ssl_key="": path to an X509 certificate key
-  -w, --web="": optional path to web interface application
+  -w, --web=false: serve admin web interface application
+      --web_path="": optional path to web interface application
 
 Global Flags:
   -h, --help=false: help for

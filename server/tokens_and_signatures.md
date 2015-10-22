@@ -30,8 +30,7 @@ def generate_token(secret, user, timestamp, info=""):
     sign.update(six.b(user))
     sign.update(six.b(timestamp))
     sign.update(six.b(info))
-    token = sign.hexdigest()
-    return token
+    return sign.hexdigest()
 ```
 
 We initialize HMAC with secret key and ``sha256`` digest mode and then update

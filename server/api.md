@@ -171,6 +171,15 @@ Starting with **version 0.2.0** there is an option to include `client` ID into p
 In most cases this is a `client` ID that initiated this message. This `client` will
 be then added on top level of published message.
 
+Response example:
+
+```javascript
+{
+    "body": null,
+    "error": null,
+    "method": "publish"
+}
+```
 
 ### unsubscribe
 
@@ -187,6 +196,17 @@ keys: `channel` and `user` (user ID you want to unsubscribe)
 }
 ```
 
+Response example:
+
+```javascript
+{
+    "body": null,
+    "error": null,
+    "method": "unsubscribe"
+}
+```
+
+
 ### disconnect
 
 `disconnect` allows to disconnect user by its ID. `params` in an object with `user` key.
@@ -199,6 +219,17 @@ keys: `channel` and `user` (user ID you want to unsubscribe)
     }
 }
 ```
+
+Response example:
+
+```javascript
+{
+    "body": null,
+    "error": null,
+    "method": "disconnect"
+}
+```
+
 
 ### presence
 
@@ -214,6 +245,43 @@ this channel). `params` is an object with `channel` key.
 }
 ```
 
+Response example:
+
+```javascript
+{
+    "body": {
+        "channel": "$public:chat",
+        "data": {
+            "a1c2f99d-fdaf-4e00-5f73-fc8a6bb7d239": {
+                "user": "2694",
+                "client": "a1c2f99d-fdaf-4e00-5f73-fc8a6bb7d239",
+                "default_info": {
+                    "first_name": "Alexandr",
+                    "last_name": "Emelin"
+                },
+                "channel_info": {
+                    "channel_extra_info_example": "you can add additional JSON data when authorizing"
+                }
+            },
+            "e5ee0ab0-fde1-4543-6f36-13f2201adeac": {
+                "user": "2694",
+                "client": "e5ee0ab0-fde1-4543-6f36-13f2201adeac",
+                "default_info": {
+                    "first_name": "Alexandr",
+                    "last_name": "Emelin"
+                },
+                "channel_info": {
+                    "channel_extra_info_example": "you can add additional JSON data when authorizing"
+                }
+            }
+        }
+    },
+    "error": null,
+    "method": "presence"
+}
+```
+
+
 ### history
 
 `history` allows to get channel history information (list of last messages sent into channel).
@@ -228,6 +296,61 @@ this channel). `params` is an object with `channel` key.
 }
 ```
 
+Response example:
+
+```javascript
+{
+    "body": {
+        "channel": "$public:chat",
+        "data": [
+            {
+                "uid": "8c5dca2e-1846-42e4-449e-682f615c4977",
+                "timestamp": "1445536974",
+                "info": {
+                    "user": "2694",
+                    "client": "a1c2f99d-fdaf-4e00-5f73-fc8a6bb7d239",
+                    "default_info": {
+                        "first_name": "Alexandr",
+                        "last_name": "Emelin"
+                    },
+                    "channel_info": {
+                        "channel_extra_info_example": "you can add additional JSON data when authorizing"
+                    }
+                },
+                "channel": "$public:chat",
+                "data": {
+                    "input": "world"
+                },
+                "client": "a1c2f99d-fdaf-4e00-5f73-fc8a6bb7d239"
+            },
+            {
+                "uid": "63ecba35-e9df-4dc6-4b72-a22f9c9f486f",
+                "timestamp": "1445536969",
+                "info": {
+                    "user": "2694",
+                    "client": "a1c2f99d-fdaf-4e00-5f73-fc8a6bb7d239",
+                    "default_info": {
+                        "first_name": "Alexandr",
+                        "last_name": "Emelin"
+                    },
+                    "channel_info": {
+                        "channel_extra_info_example": "you can add additional JSON data when authorizing"
+                    }
+                },
+                "channel": "$public:chat",
+                "data": {
+                    "input": "hello"
+                },
+                "client": "a1c2f99d-fdaf-4e00-5f73-fc8a6bb7d239"
+            }
+        ]
+    },
+    "error": null,
+    "method": "history"
+}
+```
+
+
 ### channels (Centrifugo >= 0.3.0)
 
 `channels` method allows to get list of active (with one or more subscribers) channels.
@@ -239,6 +362,22 @@ this channel). `params` is an object with `channel` key.
 }
 ```
 
+Response example:
+
+```javascript
+{
+    "body": {
+        "data": [
+            "$public:chat",
+            "news",
+            "notifications"
+        ]
+    },
+    "error": null,
+    "method": "channels"
+}
+```
+
 ### stats (Centrifugo >= 1.0.0)
 
 `stats` method allows to get statistics about running Centrifugo nodes.
@@ -247,6 +386,46 @@ this channel). `params` is an object with `channel` key.
 {
     "method": "stats",
     "params": {}
+}
+```
+
+Response example:
+
+```javascript
+{
+    "body": {
+        "data": {
+            "nodes": [
+                {
+                    "uid": "6045438c-1b65-4b86-79ee-0c35367f29a9",
+                    "name": "MacAir.local_8000",
+                    "num_goroutine": 21,
+                    "num_clients": 0,
+                    "num_unique_clients": 0,
+                    "num_channels": 0,
+                    "started_at": 1445536564,
+                    "gomaxprocs": 1,
+                    "num_cpu": 4,
+                    "num_msg_published": 0,
+                    "num_msg_queued": 0,
+                    "num_msg_sent": 0,
+                    "num_api_requests": 0,
+                    "num_client_requests": 0,
+                    "bytes_client_in": 0,
+                    "bytes_client_out": 0,
+                    "time_api_mean": 0,
+                    "time_client_mean": 0,
+                    "time_api_max": 0,
+                    "time_client_max": 0,
+                    "memory_sys": 7444728,
+                    "cpu_usage": 0
+                }
+            ],
+            "metrics_interval": 60
+        }
+    },
+    "error": null,
+    "method": "stats"
 }
 ```
 

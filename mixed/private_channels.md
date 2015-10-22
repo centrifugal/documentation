@@ -9,7 +9,7 @@ By default javascript client will send AJAX POST request to `/centrifuge/auth` u
 can change this address and add additional request headers via js client initialization
 options (`authEndpoint` and `authHeaders`).
 
-POST request includes two parameters: `client` and `channels`. Client is a string with
+POST request is JSON object including two keys: `client` and `channels`. Client is a string with
 current client ID and channels is one or more channels current user wants to subscribe to.
 
 I think it's simplier to explain on example.
@@ -46,7 +46,7 @@ centrifuge.subscribe('$two', function(message) {
 centrifuge.stopAuthBatching();
 ```
 
-In this case one POST request with 2 channels in `channels` parameter will be send.
+In this case one POST request with 2 channels in `channels` parameter will be sent.
 
 Let's look at simplified example for Tornado how to implement auth endpoint:
 
@@ -60,8 +60,13 @@ class CentrifugeAuthHandler(tornado.web.RequestHandler):
 
     def post(self):
 
-        client = self.get_argument("client")
-        channels = self.get_arguments("channels[]")
+        try:
+            data = json.loads(self.request.body)
+        except ValueError:
+            raise tornado.web.HTTPError(403)
+
+        client_id = data.get("client", "")
+        channels = data.get("channels", [])
 
         to_return = {}
 
@@ -95,8 +100,13 @@ class CentrifugeAuthHandler(tornado.web.RequestHandler):
 
     def post(self):
 
-        client = self.get_argument("client")
-        channels = self.get_arguments("channels[]")
+        try:
+            data = json.loads(self.request.body)
+        except ValueError:
+            raise tornado.web.HTTPError(403)
+
+        client_id = data.get("client", "")
+        channels = data.get("channels", [])
 
         to_return = {}
 

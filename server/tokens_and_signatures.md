@@ -13,7 +13,7 @@ Lets start with connection token.
 ### Connection token
 
 When client connects to Centrifuge from browser it should provide several connection
-parameters: "project", "user", "timestamp", "info" and "token".
+parameters: "user", "timestamp", "info" and "token".
 
 We discussed the meaning of parameters in other chapters - here we will see
 how to generate a proper token for them.
@@ -25,18 +25,16 @@ import six
 import hmac
 from hashlib import sha256
 
-def generate_token(secret_key, project_key, user, timestamp, info=""):
-    sign = hmac.new(six.b(secret_key), digestmod=sha256)
-    sign.update(six.b(project_key))
+def generate_token(secret, user, timestamp, info=""):
+    sign = hmac.new(six.b(secret), digestmod=sha256)
     sign.update(six.b(user))
     sign.update(six.b(timestamp))
     sign.update(six.b(info))
-    token = sign.hexdigest()
-    return token
+    return sign.hexdigest()
 ```
 
-We initialize HMAC with project secret key and ``sha256`` digest mode and then update
-it with project_key, user ID, timestamp and info. Info is an optional arguments and if
+We initialize HMAC with secret key and ``sha256`` digest mode and then update
+it with user ID, timestamp and info (order is important). Info is an optional arguments and if
 no info provided empty string is used by default - so it does not affect resulting token
 value.
 
@@ -72,8 +70,8 @@ import six
 import hmac
 from hashlib import sha256
 
-def generate_channel_sign(secret_key, client, channel, info=""):
-    auth = hmac.new(six.b(secret_key), digestmod=sha256)
+def generate_channel_sign(secret, client, channel, info=""):
+    auth = hmac.new(six.b(secret), digestmod=sha256)
     auth.update(six.b(str(client)))
     auth.update(six.b(str(channel)))
     auth.update(six.b(info))
@@ -95,9 +93,8 @@ import six
 import hmac
 from hashlib import sha256
 
-def generate_api_sign(self, secret_key, project_key, encoded_data):
-    sign = hmac.new(six.b(secret_key), digestmod=sha256)
-    sign.update(six.b(project_key))
+def generate_api_sign(self, secret, encoded_data):
+    sign = hmac.new(six.b(secret), digestmod=sha256)
     sign.update(six.b(encoded_data))
     return sign.hexdigest()
 ```

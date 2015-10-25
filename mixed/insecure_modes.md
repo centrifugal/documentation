@@ -1,8 +1,8 @@
-# Insecure mode
+# Insecure modes
 
-You can run Centrifugo in insecure mode.
+You can run Centrifugo in insecure client mode.
 
-Insecure mode:
+Insecure client mode:
 
 * disables client timestamp and token check
 * allows anonymous access for all channels
@@ -31,7 +31,6 @@ When using insecure mode you can create client connection in this way:
 ```javascript
 var centrifuge = new Centrifuge({
     "url": url,
-    "project": project,
     "insecure": true
 });
 ```
@@ -41,3 +40,15 @@ Centrifugo without any backend code.
 
 Look at [demo](https://github.com/centrifugal/centrifuge/tree/master/examples/insecure_mode) to
 see insecure mode in action.
+
+# Insecure HTTP API mode
+
+Allows to turn of checking HTTP API request API sign. This can be useful if you don't want
+to sign every API request - for example if you closed API endpoint with firewall or you want 
+to play with API commands from command line using CURL.
+
+To start Centrifugo in this mode use `--insecure_api` flag:
+
+```bash
+centrifuge --config=config.json --insecure_api
+```

@@ -11,7 +11,7 @@ is to help implement new client library, for example in Java for Android or in
 Objective-C/Swift for iOS applications.
 
 One of the ways to understand how to implement new client is looking at source code
-of centrifuge-js - javascript client.
+of centrifuge-js or centrifuge-go.
 
 But let's look at protocol step-by-step.
 
@@ -35,7 +35,6 @@ var message = {
     'method': 'connect',
     'params': {
         'user': "USER ID STRING",
-        'project': "PROJECT KEY STRING",
         'timestamp': "STRING WITH CURRENT TIMESTAMP SECONDS"
         'info': "OPTIONAL JSON ENCODED STRING",
         'token': "SHA-256 HMAC TOKEN GENERATED FROM PARAMETERS ABOVE"
@@ -94,8 +93,9 @@ In case of successful `connect` response body is:
 ```javascript
 {
     "client": "UNIQUE CLIENT ID SERVER GAVE TO THIS CONNECTION",
+    "expires": "false",
     "expired": false,
-    "ttl": null
+    "ttl": 0
 }
 ```
 
@@ -173,7 +173,7 @@ refresh
 ping
 ```
 
-Some of this methods used for client to server commands (`publish`, `presense`, `history` etc which then get a response from server with the same `method` and unique `uid` in it), some for server to clients (for example `join`, `leave`, `message` – which just come from server in any time when corresponding event occurred).
+Some of this methods used for client to server commands (`publish`, `presence`, `history` etc which then get a response from server with the same `method` and unique `uid` in it), some for server to clients (for example `join`, `leave`, `message` – which just come from server in any time when corresponding event occurred).
 
 We have already seen `connect`, `subscribe` and `publish` above. Let's describe remaining.
 
@@ -189,7 +189,6 @@ var message = {
     'method': 'connect',
     'params': {
         'user': "USER ID STRING",
-        'project': "PROJECT KEY STRING",
         'timestamp': "STRING WITH CURRENT TIMESTAMP SECONDS"
         'info': "OPTIONAL JSON ENCODED STRING",
         'token': "SHA-256 HMAC TOKEN GENERATED FROM PARAMETERS ABOVE"

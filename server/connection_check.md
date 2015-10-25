@@ -17,7 +17,6 @@ credentials. For example in python:
 
 ```python
     to_return = {
-        'project': "PROJECT ID",
         'user': "USER ID,
         'timestamp': "CURRENT TIMESTAMP AS INTEGER",
         'info': "ADDITIONAL CONNECTION INFO",

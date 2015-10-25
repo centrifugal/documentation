@@ -13,7 +13,7 @@ Cent contains Client class to send messages to Centrifuge from your python-power
 ```python
 from cent.core import Client
 
-client = Client("http://localhost:8000", "project_key", "project_secret")
+client = Client("http://localhost:8000", "project_secret")
 
 params = {
     "channel": "python",
@@ -44,14 +44,13 @@ Cent can also be used as console client to communicate with server API.
 
 By default Cent uses `.centrc` configuration file from your home directory (``~/.centrc``).
 
-In this file you must write several settings - server address, project key and project secret.
+In this file you must write several settings - server address and project secret. And optionally timeout.
 
 Here is an example of Cent config file content:
 
 ```bash
 [bananas]
 address = http://localhost:8000
-key = bananas
 secret = long-secret-key-for-bananas-project
 timeout = 5
 ```

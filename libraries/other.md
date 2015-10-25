@@ -7,4 +7,4 @@ your communication code.
 * [client for Java](https://github.com/mcoetzee/centrifuge-publisher) by Markus Coetzee
 
 To work with Centrifugo client above must use `sha256` HMAC algorithm instead of `md5` and
-use project key instead of project ID (project ID does not exist anymore).
+do not use project ID (project ID does not exist anymore).

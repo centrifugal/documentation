@@ -7,7 +7,6 @@ First, we should actually `connect` to server endpoint:
 ```javascript
 var centrifuge = new Centrifuge({
     url: 'CONNECTION ENDPOINT',
-    project: 'PROJECT KEY',
     user: 'USER ID',
     timestamp: 'UNIX TIMESTAMP',
     token: 'TOKEN'

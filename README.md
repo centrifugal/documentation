@@ -43,6 +43,14 @@ Let's see which projects Centrifugal has:
     simplify real-time server integration with Django framework.
 * [centrifuge-ruby](https://github.com/centrifugal/centrifuge-ruby) - Ruby gem to communicate
     with Centrifugo server API.
+* [phpcent](https://github.com/centrifugal/phpcent) - PHP client to communicate
+    with Centrifugo server API.
+* [gocent](https://github.com/centrifugal/gocent) - Go client to communicate
+    with Centrifugo server API.
+* [jscent](https://github.com/centrifugal/jscent) - NodeJS client to communicate
+    with Centrifugo server API.
+* [centrifuge-go](https://github.com/centrifugal/jscent) - Go library to communicate
+    with Centrifugo client API over Websockets.
 
 ### Demo and examples
 

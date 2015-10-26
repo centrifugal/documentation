@@ -1,7 +1,7 @@
 # Summary
 
 * [Overview](README.md)
-* [Server implementation](server/README.md)
+* [Real-time server](server/README.md)
     * [Install Centrifugo and quick start](server/start.md)
     * [Configuration overview](server/configuration.md)
     * [Configuration settings](server/settings.md)
@@ -24,7 +24,7 @@
     * [Go](libraries/go.md)
     * [NodeJS](libraries/nodejs.md)
     * [Other](libraries/other.md)
-* [Server client libraries](clients/README.md)
+* [Other client libraries](clients/README.md)
     * [Go](clients/go.md)    
 * [Admin web interface](web/README.md)
 * [Mixed topics](mixed/README.md)

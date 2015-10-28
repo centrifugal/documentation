@@ -62,20 +62,21 @@ server {
     proxy_set_header X-Scheme $scheme;
     proxy_set_header Host $http_host;
 
-    location / {
-        proxy_pass http://centrifugo;
-    }
-
     location /connection {
         proxy_pass http://centrifugo;
         proxy_buffering off;
         keepalive_timeout 65;
         proxy_read_timeout 60s;
+        proxy_http_version 1.1;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
         proxy_set_header Host $http_host;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
+    }
+    
+    location / {
+        proxy_pass http://centrifugo;
     }
 
     error_page   500 502 503 504  /50x.html;
@@ -94,6 +95,7 @@ to handle admin websocket connections:
     location /socket {
         proxy_pass http://centrifugo;
         proxy_buffering off;
+        proxy_http_version 1.1;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
         proxy_set_header Host $http_host;

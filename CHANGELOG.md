@@ -1,3 +1,7 @@
+# Full changelog of Centrifugal
+
+This is an aggregated Centrifugal changelog from all important repositories to help with updating.
+
 Adjacent v1.0.0
 ===============
 
@@ -88,11 +92,6 @@ Here is a list of libraries versions compatible with Centrifugo with multiple pr
 * examples [v0.1.0](https://github.com/centrifugal/examples/tree/v0.1.0)
 * phpcent [0.6.1](https://github.com/centrifugal/phpcent/tree/0.6.1)
 * centrifuge-ruby [v0.1.0](https://github.com/centrifugal/centrifuge-ruby/tree/v0.1.0)
-
-
-# Full changelog of Centrifugal
-
-This is an aggregated Centrifugal changelog from all important repositories to help with updating.
 
 Adjacent v0.3.0
 ===============

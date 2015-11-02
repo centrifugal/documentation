@@ -38,4 +38,5 @@ any of them. You can also send API request to any of those nodes - as all nodes 
 PUB/SUB message will be delivered to all of them.
 
 To load balance clients between nodes we use Nginx - you can find its configuration here in
-documentation.
+documentation. Note that it's important to route clients that use polling SockJS transports
+(XHR-polling) to the same node as that node keeps client's session information.

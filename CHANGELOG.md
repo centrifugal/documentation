@@ -2,6 +2,71 @@
 
 This is an aggregated Centrifugal changelog from all important repositories to help with updating.
 
+Cent v1.1.0
+===========
+
+Some improvements in `cent` public API here.
+
+`publish`, `unsubscribe`, `disconnect` helper methods now return just an error if any error occurred.
+
+`presence`, `history`, `stats`, `channels` helper methods now return data requested and error
+(instead of full response and error). `error` field of response now wrapped in `ResponseError`
+exception. This means that now you don't need to extract response body and then data from it and
+check response error manually in your code every time you use methods above.
+
+For example see calling `stats` method:
+
+```python
+from cent.core import Client
+
+client = Client("http://localhost:8000", "secret")
+
+stats, error = client.stats()
+if error:
+    # error occurred, handle it in a way you prefer.
+    raise error
+
+print stats
+```
+
+Compare with code required before to do the same:
+
+```python
+from cent.core import Client
+
+client = Client("http://localhost:8000", "secret")
+
+resp, error = client.stats()
+if error:
+    # error occurred, handle it
+    raise error
+if resp["error"]:
+    # handle response error
+    raise Exception(resp["error"])
+
+stats = resp["body"]["data"]
+print stats
+```
+
+I.e. here is how to use helper methods:
+
+```python
+from cent.core import Client
+
+client = Client("http://localhost:8000", "secret")
+
+error = client.publish("public:chat", {"input": "test"})
+error = client.unsubscribe("user_id_here")
+error = client.disconnect("user_id_here")
+messages, error = client.history("public:chat")
+clients, error = client.presence("public:chat")
+channels, error = client.channels()
+stats, error = client.stats()
+```
+
+Low level sending over calling `add` method not affected in this release.
+
+
 Adjacent v1.0.0
 ===============
 

@@ -31,12 +31,42 @@ configuration)
 In response you'll get something like this in response:
 
 ```bash
-{'error': None, 'body': True, 'method': 'publish'}
+[{'error': None, 'body': None, 'method': 'publish'}]
 ```
 
 In case of any error you will get its description.
 
 See section about server API to see all available methods and params for them.
+
+### helper methods for available commands
+
+In example above you saw low-level usage of Cent client. There is a more simple usage.
+
+```python
+from cent.core import Client
+
+client = Client("http://localhost:8000", "secret")
+
+error = client.publish("public:chat", {"input": "test"})
+
+error = client.unsubscribe("user_id_here")
+
+error = client.disconnect("user_id_here")
+
+messages, error = client.history("public:chat")
+
+clients, error = client.presence("public:chat")
+
+channels, error = client.channels()
+
+stats, error = client.stats()
+```
+
+For `publish`, `disconnect`, `unsubscribe` methods only one parameter returns - an error. If no
+error occurred the it will be `None`. Otherwise it will be Exception instance.
+
+For other commands that return data calls to helper methods return 2 values - requested data itself
+and error (if command was successful `error` will be `None`).
 
 ### cent as console client
 

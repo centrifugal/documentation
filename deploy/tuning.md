@@ -23,7 +23,7 @@ You may also need to increase max open files for Nginx.
 
 ### lots of sockets in TIME_WAIT state.
 
-Look how many descriptors in TIME_WAIT state.
+Look how many socket descriptors in TIME_WAIT state.
 
 ```
 netstat -an |grep TIME_WAIT | grep CENTRIFUGO_PID | wc -l
@@ -35,13 +35,14 @@ errors when using Centrifugo. For example something like `(99: Cannot assign req
 while connecting to upstream` in Nginx error log and 502 on client side. In this case there are
 several advices that can help.
 
+Nice article about TIME_WAIT sockets: http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html
+
 There is a perfect article about operating system tuning for lots of connections: https://engineering.gosquared.com/optimising-nginx-node-js-and-networking-for-heavy-workloads.
 
 To summarize:
 
-1. Increase local port range
-2. Enable tcp_tw_reuse
-3. If you are using Nginx set `keepalive` directive in upstream.
+1. Increase ip_local_port_range
+2. If you are using Nginx set `keepalive` directive in upstream.
 
 ```
 upstream centrifugo {
@@ -51,3 +52,5 @@ upstream centrifugo {
     keepalive 512;
 }
 ```
+
+3. And finally if the problem is not gone away consider trying to enable `net.ipv4.tcp_tw_reuse`

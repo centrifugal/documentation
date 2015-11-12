@@ -13,6 +13,7 @@
     * [Tokens and signatures](server/tokens_and_signatures.md)
     * [Client Protocol](server/client_protocol.md)
     * [Signal handling](server/signals.md)
+    * [Stats and metrics](server/stats.md)
     * [Migrating from Centrifuge](server/migrate.md)
 * [Browser javascript client](client/README.md)
     * [Install and quick start](client/start.md)
@@ -38,4 +39,5 @@
     * [RPM](deploy/rpm.md)
     * [Docker](deploy/docker.md)
     * [Tuning operating system](deploy/tuning.md)
+* [FAQ](FAQ.md)
 * [Aggregated changelog](CHANGELOG.md)

@@ -95,6 +95,8 @@ to handle admin websocket connections:
     location /socket {
         proxy_pass http://centrifugo;
         proxy_buffering off;
+        keepalive_timeout 65;
+        proxy_read_timeout 60s;
         proxy_http_version 1.1;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
@@ -145,10 +147,12 @@ server {
         gzip_proxied any;
 
         proxy_buffering off;
+        keepalive_timeout 65;
+        proxy_pass http://centrifugo;
+        proxy_read_timeout 60s;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
         proxy_set_header Host $http_host;
-        proxy_pass http://centrifugo;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
@@ -184,3 +188,7 @@ events {
     worker_connections  40000;
 }
 ```
+
+### upstream keepalive
+
+See chapter about operating system tuning for more details.

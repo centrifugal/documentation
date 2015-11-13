@@ -3,15 +3,16 @@
 This chapter aims to help developers to implement new client library. This chapter is a
 work in progress. I will update it from time to time with additional information.
 
-Centrifugo already has Javascript client to connect your application users from
-web browser. But Centrifugo Websocket client connection endpoint can be used to
-connect clients from other environments. For example from mobile applications.
-There are no other client libraries available at moment but the goal of this document
-is to help implement new client library, for example in Java for Android or in
-Objective-C/Swift for iOS applications.
+Centrifugo already has Javascript client and Go client to connect your application users
+from web browser or via Go application code.
+
+Centrifugo Websocket client connection endpoint can be used to connect clients from various
+environments. For example from mobile applications. There are no client libraries for mobiles
+available at moment but the goal of this document is to help implementing new client library,
+for example in Java for Android or in Objective-C/Swift for iOS applications.
 
 One of the ways to understand how to implement new client is looking at source code
-of centrifuge-js or centrifuge-go.
+of [centrifuge-js](https://github.com/centrifugal/centrifuge-js/blob/master/src/centrifuge.js) or [centrifuge-go](https://github.com/centrifugal/centrifuge-go/blob/master/centrifuge.go).
 
 But let's look at protocol step-by-step.
 
@@ -42,7 +43,7 @@ var message = {
 }
 ```
 
-Look at `method` key with a name of our command - `connect`.
+Look at `method` key with a name of our command – `connect`.
 
 Centrifugo allows to send an array of messages in one request, so you can add command above
 into array and send result to Centrifugo server over Websocket connection established before:
@@ -52,41 +53,60 @@ var messages = [message]
 connection.send(JSON.stringify(messages))
 ```
 
-Description of `connect` command parameters described in chapter about javascript client. In case of web application after a user is successfully logged in (authenticated on a web server), the application backend server generates all these connection parameters (together with generated HMAC SHA-256 token) to client. Centrifugo server uses the same algorithm (HMAC SHA-256) to generate the token so that it is able to validate it. Correct token proves that client provided valid user ID in its `connect` message. *Note* that Centrifugo can also allow non-authenticated users to connect to it as not all applications has login mechanism - for example sites with public stream with notifications where all visitors can see new events in real-time without actually logging in. For this case server generates token using empty string as user ID and gives it to client. But in this scenario `anonymous` access must be enabled for channels explicitly in configuration of Centrifugo.
+Description of `connect` command parameters described in chapter about javascript client. For web application
+after a user is successfully logged in (authenticated on a web server), the application backend server generates
+all these connection parameters (together with generated HMAC SHA-256 token) to client. Centrifugo server uses
+the same algorithm (HMAC SHA-256) to generate the token so that it is able to validate it. Correct token proves
+that client provided valid user ID in its `connect` message. *Note* that Centrifugo can also allow non-authenticated
+users to connect to it as not all applications has login mechanism - for example sites with public stream with
+notifications where all visitors can see new events in real-time without actually logging in. For this case server
+generates token using empty string as user ID and gives it to client. But in this scenario `anonymous` access must
+be enabled for channels explicitly in configuration of Centrifugo.
 
 What you should do next is wait for response from server to `connect` command you just sent.
 
 In general structure that will come from Centrifugo server to your client looks like this:
 
 ```javascript
-[response, response, response]
+[{response...}, {response...}, {response...}]
 ```
 
-I.e. array of responses to commands you sent before. I.e. in our case Centrifugo will send to our client:
+Or just single response
+
+```
+{response...}
+```
+
+I.e. array of responses or one response to commands you sent before. I.e. in our case Centrifugo will
+send to our client:
 
 ```javascript
-[connect_command_response,]
+[{connect_command_response}]
 ```
 
 I.e. an array with single response to `connect` command we sent.
 
-In general single response structure looks like this:
+Every response is a structure like this:
 
 ```javascript
 {
-    "uid": "THE SAME UNIQUE COMMAND ID SENT IN REQUEST COMMAND",
+    "uid": "ECHO BACK THE SAME UNIQUE COMMAND ID SENT IN REQUEST COMMAND",
     "method": "COMMAND NAME TO WHICH THIS RESPONSE REFERS TO",
-    "error": "ERROR - IF NOT EMPTY THEN SOMETHING WENT WRONG AND BODY SHOULD NOT BE PROCESSED",
-    "body": "RESPONSE BODY - IF NO ERROR CONTAINS USEFUL RESPONSE DATA"
+    "error": "ERROR STRING, IF NOT EMPTY THEN SOMETHING WENT WRONG AND BODY SHOULD NOT BE PROCESSED",
+    "body": "RESPONSE BODY, CONTAINS USEFUL RESPONSE DATA"
 }
 ```
 
 Javascript client uses `method` key to understand what to do with response. As Javascript is
 evented IO language it just calls corresponding function to react on response. Unique `uid` also
-can be used to implement proper responses handling.
+can be used to implement proper responses handling in other languages. For example Go client remember
+command `uid` to call some callback when it receives response from Centrifugo.
 
 General rule - if response contains a non-empty `error` then server returned an error and client
-should not process response `body` data.
+should not process response `body` data. Also you should not get errors in normal workflow. If you
+get an error then most probably you are doing something wrong and this must be fixed on development
+stages. It can also be `internal server error` from Centrifugo. Only developers should see text of
+protocol errors – they are not supposed to be shown to your application clients.
 
 In case of successful `connect` response body is:
 
@@ -101,7 +121,7 @@ In case of successful `connect` response body is:
 
 At moment let's just speak about `client` key. This is unique client connection ID.
 
-As soon your client successfully connected and got its connection ID it is ready to
+As soon your client successfully connected and got its unique connection ID it is ready to
 subscribe on channels.
 
 ```javascript
@@ -118,13 +138,12 @@ Send it in a same way as `connect` command before.
 
 After you received successful response on this `subscribe` command your client will receive
 messages published to this channel. Those messages will be delivered through Websocket connection
-as general response and response method will be `message` in this case. I.e. response will look
-like this:
+as response with method `message`. I.e. response will look like this:
 
 ```
 {
-    "method":"message",
-    "error":null,
+    "method": "message",
+    "error": null,
     "body": {
         "uid": "8d1f6279-2d13-45e2-542d-fac0e0f1f6e0",
         "timestamp":"1439715024",
@@ -148,10 +167,10 @@ is an actual JSON that was published into that channel.
 
 This is enough to start with - client established connection, authorized itself sending `connect`
 command, subscribed on channel to receive new messages published into that channel. This is a core
-Centrifugo functionality. There are lots of other things to cover - channel presence information,
-channel history information, connection expiration, private channel subscriptions and more but in
-most cases all you need from Centrifugo - subscribe on channels and receive new messages from those
-channels.
+Centrifugo functionality. There are lots of other things to cover – channel presence information,
+channel history information, connection expiration, private channel subscriptions, join/leave events
+and more but in most cases all you need from Centrifugo - subscribe on channels and receive new messages
+from those channels as soon as your backend publishes them into Centrifugo server API.
 
 Available methods
 -----------------
@@ -173,15 +192,18 @@ refresh
 ping
 ```
 
-Some of this methods used for client to server commands (`publish`, `presence`, `history` etc which then get a response from server with the same `method` and unique `uid` in it), some for server to clients (for example `join`, `leave`, `message` – which just come from server in any time when corresponding event occurred).
+Some of this methods used for client to server commands (`publish`, `presence`, `history` etc which
+then get a response from server with the same `method` and unique `uid` in it), some for server to
+clients (for example `join`, `leave`, `message` – which just come from server in any time when
+corresponding event occurred).
 
 We have already seen `connect`, `subscribe` and `publish` above. Let's describe remaining.
 
 Client to server commands
 -------------------------
 
-`connect` - send authorization parameters to Centrifugo so your connection could start
-subscribing on channels.
+`connect` - send authorization parameters to Centrifugo so your connection could start subscribing
+on channels.
 
 ```javascript
 var message = {
@@ -196,7 +218,7 @@ var message = {
 }
 ```
 
-`subscribe` - allows to subscribe on channel
+`subscribe` - allows to subscribe on channel after client successfully connected
 
 ```javascript
 var message = {
@@ -215,12 +237,14 @@ message = {
     'uid': 'UNIQUE COMMAND ID',
     "method": "unsubscribe",
     "params": {
-        "channel": this.channel
+        "channel": "CHANNEL TO UNSUBSCRIBE"
     }
 }
 ```
 
-`publish` - allows clients directly publish messages into channel (application backend code will never know about this message). `publish` must be enabled for channel in sever configuration so this command can work.
+`publish` - allows clients directly publish messages into channel (application backend code will never
+know about this message). `publish` must be enabled for channel in sever configuration so this command
+can work (otherwise Centrifugo will return `permission denied` error in response).
 
 ```javascript
 message = {
@@ -233,7 +257,8 @@ message = {
 }
 ```
 
-`presence` – allows to ask server for channel presence information (`presence` must be enabled for channel in server configuration)
+`presence` – allows to ask server for channel presence information (`presence` must be enabled for
+channel in server configuration or Centrifugo will return `not available` error in response)
 
 ```javascript
 message = {
@@ -245,7 +270,9 @@ message = {
 }
 ```
 
-`history` – allows to ask server for channel history information (history must be enabled for channel in server configuration using `history_lifetime` and `history_size` options)
+`history` – allows to ask server for channel history information (history must be enabled for
+channel in server configuration using `history_lifetime` and `history_size` options or Centrifugo
+will return `not available` error in response)
 
 ```javascript
 message = {
@@ -257,7 +284,8 @@ message = {
 }
 ```
 
-`ping` - allows to send ping command to server, server should answer this command.
+`ping` - allows to send ping command to server, server will answer this command with `ping`
+response.
 
 ```javascript
 message = {
@@ -267,11 +295,11 @@ message = {
 }
 ```
 
-Responses to client to server commands
+Responses of client to server commands
 ======================================
 
-As soon as your client sent command to server it should then receive a corresponding response. Let's
-look at those response messages in detail.
+As soon as your client sent command to server it should then receive a corresponding response.
+Let's look at those response messages in detail.
 
 TODO: write about those responses
 

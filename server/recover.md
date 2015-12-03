@@ -64,11 +64,13 @@ When new message arrives client saves message `uid` value and that value conside
 ID for channel `news`. So when client lost network connection and the resubscribes on channel `news`
 he can provide last message ID in subscription request.
 
+```
 {
     "channel": "news",
     "recover": true,
     "last": "last-message-id-for-channel"
 }
+```
 
 Centrifugo receives this subscription requests and tries to find all missed messages looking
 into message history. And then returns all missed messages to client in subscription response body:

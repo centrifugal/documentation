@@ -35,17 +35,26 @@ special meaning - see section about channels to get more information about chann
 only understand that the following options will affect channel behaviour:
 
 * `watch` – Centrifugo will additionally publish messages into admin channel (these
-    messages can be visible in web interface). Turn it off if you are expecting high
-    message rate in channels. By default `false`.
+    messages can be visible in web interface). By default `false`. Note that this option
+    must be used carefully in channels with high rate of new messages as admin client
+    can not process all of those messages. Use this option for testing or for channels
+    with reasonable message rate.
 
 * `publish` – allow clients to publish messages into channels directly. Your web application never
     receive those messages. In general all messages must be published by your web application backend.
     But this option can be useful when you want something without backend-side validation and saving
-    into your database. By default `false`.
+    into your database. By default `false`. All messages go through Centrifugo and delivered to clients.
+    But in this case you lose everything your backend code could give - validation, persistence etc.
+    This option most useful for demos and testing real-time ideas.
 
-* `anonymous` – allow anonymous (with empty USER) clients to subscribe on channels. By default `false`.
+* `anonymous` – this option determines is anonymous access (with empty user ID in connection parameters)
+    allowed or not. In most situations your application works with authorized users so every user
+    has its own unique id. But if you provide real-time features for public access you may need
+    unauthorized access to real-time channels. Turn on this option and use empty string as user ID.
+    By default `false`.
 
-* `presence` – enable/disable presence information. By default `false`.
+* `presence` – enable/disable presence information. Presence is a structure with clients
+    currently subscribed on channel. By default `false` – i.e. no presence information available.
 
 * `join_leave` – enable/disable sending join(leave) messages when client subscribes on
     channel (unsubscribes from channel). By default `false`.

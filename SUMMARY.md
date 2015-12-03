@@ -14,6 +14,7 @@
     * [Client Protocol](server/client_protocol.md)
     * [Signal handling](server/signals.md)
     * [Stats and metrics](server/stats.md)
+    * [How recover mechanism works](server/recover.md)
     * [Migrating from Centrifuge](server/migrate.md)
 * [Browser javascript client](client/README.md)
     * [Install and quick start](client/start.md)

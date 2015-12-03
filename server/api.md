@@ -133,7 +133,7 @@ commands to Centrifugo in one request.
 There are not so many commands you can call. The main and most useful of them is `publish`.
 Lets take a closer look on other available API command methods.
 
-You have `publish`, `unsubscribe`, `presence`, `history`, `disconnect`, `channels`, `stats` in your arsenal.
+You have `publish`, `broadcast`, `unsubscribe`, `presence`, `history`, `disconnect`, `channels`, `stats` in your arsenal.
 
 ### publish
 
@@ -180,6 +180,29 @@ Response example:
     "method": "publish"
 }
 ```
+
+### broadcast (new in v1.2.0)
+
+Very similar to `publish` but allows to send the same data into many channels.
+
+```javascript
+{
+    "method": "broadcast",
+    "params": {
+        "channels": ["CHANNEL_1", "CHANNEL_2"],
+        "data": {
+            "input": "hello"
+        }
+    }
+}
+```
+
+`client` field to set client ID also supported.
+
+This command will publish data into channels until first error happens. This error then set
+as response error and publishing stops. In case of using Redis API queue first error will
+be logged.
+
 
 ### unsubscribe
 

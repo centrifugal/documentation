@@ -51,7 +51,7 @@ missed messages in message history.
 
 Centrifugo subscribes client on channel `news` and answers back to client with subscribe response.
 That response includes field `last` in response body containing last message ID for channel `news`
-that Centrifugo has.
+that Centrifugo has in message history for channel.
 
 ```
 {
@@ -59,10 +59,10 @@ that Centrifugo has.
 }
 ```
 
-Client saves that last message ID for channel and start listening for messages in channel `news`.
-When new message arrives client saves message `uid` value and that value considered as last message
-ID for channel `news`. So when client lost network connection and the resubscribes on channel `news`
-he can provide last message ID in subscription request.
+Client saves that last message ID for channel and start listening for new messages in channel `news`.
+When new message arrives client get message `uid` value and that value considered as last message
+ID for channel `news`. So when client loses network connection and then resubscribes on channel `news`
+he provides last seen message ID in subscription request.
 
 ```
 {
@@ -72,8 +72,9 @@ he can provide last message ID in subscription request.
 }
 ```
 
-Centrifugo receives this subscription requests and tries to find all missed messages looking
-into message history. And then returns all missed messages to client in subscription response body:
+Centrifugo receives this subscription request and tries to find all missed messages looking
+into message history. And then returns all missed messages found to client in subscription
+response body:
 
 ```
 {
@@ -81,5 +82,5 @@ into message history. And then returns all missed messages to client in subscrip
 }
 ```
 
-So client can process those missed messages and continue to listen channel `news` for new
+So client processes those missed messages and continues to listen channel `news` for new
 published messages.

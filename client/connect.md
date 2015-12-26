@@ -82,7 +82,7 @@ var centrifuge = new Centrifuge({
 client sending wrong `info` this JSON string must be used while generating token.
 
 If you don't want to use `info` - you can omit this parameter while connecting to Centrifugo. But if you
-omit it then make sure that info string have not been used in token generation.
+omit it then make sure that info string have not been used in token generation (i.e. info must be empty string).
 
 ### transports
 
@@ -101,3 +101,8 @@ logged into javascript console.
 
 `insecure` is a boolean option which is `false` by default. When enabled client will connect to
 server in insecure mode - read about this mode in special docs chapter.
+
+### reconnect
+
+When client disconnected from server it will automatically try to reconnect using exponential
+backoff algorithm to get interval between reconnect attempts.

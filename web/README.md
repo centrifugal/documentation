@@ -44,3 +44,12 @@ centrifugo --config=config.json --web --web_path=/path/to/web/app
 ```
 
 This can be useful if you want to modify official web interface in some way.
+
+There is also an option to run Centrifugo in insecure web mode (new in v1.3.0) - in this case you
+don't need to set `web_password` and `web_secret` in config - you will be logged in automatically
+without any password. Note that this is only for development or if you protected web interface
+with firewall rules in production. To start Centrifugo with web interface in insecure mode run:
+
+```
+centrifugo --config=config.json --web --insecure_web
+```

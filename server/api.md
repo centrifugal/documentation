@@ -125,7 +125,7 @@ Response headers:
 ```
 
 In code above to generate `sign` we used function from `Cent` module. To see how you can generate API
-sign yourself go to chapter "Tokens and signatures".
+sign yourself go to chapter [Tokens and signatures](./tokens_and_signatures.md).
 
 Also note that in this example we send an array of commands. In this way you can send several
 commands to Centrifugo in one request.

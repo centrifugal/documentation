@@ -2,6 +2,25 @@
 
 This is an aggregated Centrifugal changelog from all important repositories to help with updating.
 
+Centrifugo v1.2.0
+=================
+
+No backwards incompatible changes here.
+
+* New `recover` option to automatically recover missed messages based on last message ID. See [pull request](https://github.com/centrifugal/centrifugo/pull/42) and [chapter in docs](https://fzambia.gitbooks.io/centrifugal/content/server/recover.html) for more information. Note that you need centrifuge-js >= v1.1.0 to use new `recover` option
+* New `broadcast` API method to send the same data into many channels. See [issue](https://github.com/centrifugal/centrifugo/issues/41) and updated [API description in docs](https://fzambia.gitbooks.io/centrifugal/content/server/api.html)
+* Dockerfile now checks SHA256 sum when downloading release zip archive.
+* release built using Go 1.5.2
+
+Centrifugo v1.1.0
+=================
+
+No backwards incompatible changes here.
+
+* support enabling web interface over environment variable CENTRIFUGO_WEB
+* close client's connection after its message queue exceeds 10MB (default, can be modified using `max_client_queue_size` configuration file option)
+* fix theoretical server crash on start when reading from redis API queue
+
 Cent v1.1.0
 ===========
 

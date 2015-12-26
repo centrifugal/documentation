@@ -90,7 +90,8 @@ Let's look how to set all of these options in config:
     "presence": true,
     "join_leave": true,
     "history_size": 10,
-    "history_lifetime": 30
+    "history_lifetime": 30,
+    "recover": true
 }
 ```
 
@@ -134,7 +135,8 @@ project with all options set and 2 additional namespaces in it:
           "join_leave": true,
           "anonymous": true,
           "history_size": 10,
-          "history_lifetime": 30
+          "history_lifetime": 30,
+          "recover": true
         },
         {
           "name": "gossips",

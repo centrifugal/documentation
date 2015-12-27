@@ -78,6 +78,13 @@ only understand that the following options will affect channel behaviour:
     note that note all real-time events require this feature turned on so think wisely when
     you need this. See more details about how this option works in [special chapter](recover.md).
 
+* `history_drop_inactive` (**new in v1.3.0**) – boolean option, allows to drastically reduce
+    resource usage (engine memory usage, messages travelling around) when you use message history
+    for channels. In couple of words when enabled Centrifugo will drop history messages that no one
+    needs. Please, see [issue on Github](https://github.com/centrifugal/centrifugo/issues/50) to
+    get more information about option use case scenario and edge cases it involves.
+
+
 Let's look how to set all of these options in config:
 
 ```javascript

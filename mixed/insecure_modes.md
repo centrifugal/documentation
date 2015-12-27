@@ -50,5 +50,16 @@ to play with API commands from command line using CURL.
 To start Centrifugo in this mode use `--insecure_api` flag:
 
 ```bash
-centrifuge --config=config.json --insecure_api
+centrifugo --config=config.json --insecure_api
+```
+
+# Insecure web mode (new in v1.3.0)
+
+Allows run Centrifugo in insecure web mode - in this case you don't need to set `web_password`
+and `web_secret` for admin web interface in config - you will be logged in automatically
+without any password. Note that this is only for development or if you protected web interface
+with firewall rules in production. To start Centrifugo with web interface in insecure mode run:
+
+```bash
+centrifugo --config=config.json --web --insecure_web
 ```

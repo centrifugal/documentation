@@ -29,15 +29,15 @@ using this engine.
 
 ### Redis engine
 
-Allows scaling Centrifuge running multiple nodes on different machines.
-Keeps presence and history data in Redis, uses redis PUB/SUB for internal nodes communication.
-Also it allows to call API commands.
+Allows scaling Centrifugo nodes on to different machines. These nodes will use Redis
+as message broker. Redis engine keeps presence and history data in Redis, uses redis
+PUB/SUB for internal nodes communication. Also it allows to call API commands.
 
-How to publish via Redis engine API listener? Start Centrifuge with Redis
-engine and ``--redis_api`` option:
+How to publish via Redis engine API listener? Start Centrifugo with Redis engine and
+``--redis_api`` option:
 
 ```bash
-centrifuge --logging=debug --config=config.json --engine=redis --redis_api
+centrifugo --logging=debug --config=config.json --engine=redis --redis_api
 ```
 
 Then use Redis client for your favorite language, ex. for Python:
@@ -87,11 +87,46 @@ And you will see the following options among the others:
 
 ```bash
     --redis_api=false: enable Redis API listener (Redis engine)
+    --redis_api_num_shards=0: Number of shards for redis API queue (Redis engine)
     --redis_db="0": redis database (Redis engine)
     --redis_host="127.0.0.1": redis host (Redis engine)
     --redis_password="": redis auth password (Redis engine)
+    --redis_pool=256: Redis pool size (Redis engine)
     --redis_port="6379": redis port (Redis engine)
     --redis_url="": redis connection URL (Redis engine)
 ```
+
+Most of these options are clear – `--redis_host`, `--redis_port`, `--redis_password`, `--redis_db`, `--redis_pool`
+
+`--redis_url` allows to set Redis connection parameters in a form of URL in format `redis://:password@hostname:port/db_number`.
+When set Centrifugo will use URL instead of values provided in `--redis_host`, `--redis_port`,
+`--redis_password`, `--redis_db` options.
+
+The most advanced option here is `--redis_api_num_shards`. It's new in v1.3.0. This option must be
+used in conjunction with `--redis_api`, i.e. it makes sense only when Redis API enabled. It creates
+up to N additional shard queues that Centrifugo instance will listen to new API commands.
+
+For example if you set `--redis_api_num_shards` to five then Centrifugo will listen to following
+queues in Redis:
+
+```
+centrifugo.api.0
+centrifugo.api.1
+centrifugo.api.2
+centrifugo.api.3
+centrifugo.api.4
+```
+
+You can push new commands to any of these queues and commands will be received by Centrifugo instance
+and processed. Why do we need this?
+
+As we described above when using `--redis_api` you can publish new messages using RPUSH command
+into `centrifugo.api` queue in Redis. This is OK until you have small amount of new messages that
+must be published. But what if you have thousands of new messages per second? The solution is to
+use these shard queues. You distribute messages over those queues and this allows to increase
+throughput of Centrifugo. Note that you must decide on your client side to which queue you are going
+to push message. To keep message order in channels it's important to push messages belonging to the
+same channel into the same queue. This can be achieved using something like `crc16(CHANNEL_NAME) mod N`
+function where N is number of shard queues (i.e. ``--redis_api_num_shards`` option).
 
 In next chapter we will see how to start several Centrifugo nodes using Redis engine.

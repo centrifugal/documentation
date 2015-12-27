@@ -115,7 +115,7 @@ After calling this client will not try to reestablish connection periodically. Y
 `connect` method manually.
 
 There is also message batching support. It allows to send several messages to server in one request - this
-can be especially useful when connection established via one of SockJS non-streaming transports.
+can be especially useful when connection established via one of SockJS polling transports.
 
 You can start collecting messages to send calling `startBatching()` method:
 

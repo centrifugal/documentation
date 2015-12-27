@@ -26,16 +26,20 @@ Available Commands:
 
 Flags:
   -a, --address="": address to listen on
+      --admin_port="8000": port to bind admin endpoints to (optional until this is required by your deploy setup)
+      --api_port="8000": port to bind api endpoints to (optional until this is required by your deploy setup)
   -c, --config="config.json": path to config file
   -d, --debug=false: debug mode - please, do not use it in production
   -e, --engine="memory": engine to use: memory or redis
       --insecure=false: start in insecure client mode
       --insecure_api=false: use insecure API mode
+      --insecure_web=false: use insecure web mode – no web password and web secret required for web interface
       --log_file="": optional log file - if not specified all logs go to STDOUT
       --log_level="info": set the log level: debug, info, error, critical, fatal or none
   -n, --name="": unique node name
   -p, --port="8000": port to bind to
       --redis_api=false: enable Redis API listener (Redis engine)
+      --redis_api_num_shards=0: Number of shards for redis API queue (Redis engine)
       --redis_db="0": redis database (Redis engine)
       --redis_host="127.0.0.1": redis host (Redis engine)
       --redis_password="": redis auth password (Redis engine)

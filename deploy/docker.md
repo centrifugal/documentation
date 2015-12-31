@@ -1,64 +1,29 @@
 # Docker image
 
-Centrifugo server has docker image [available on Docker Hub](https://registry.hub.docker.com/u/fzambia/centrifugo/).
+Centrifugo server has docker image [available on Docker Hub](https://hub.docker.com/r/centrifugo/centrifugo/).
 
 ```
-docker pull fzambia/centrifugo
+docker pull centrifugo/centrifugo
 ```
 
 Run:
 
 ```bash
-docker run -v /your/host/dir/containing/config/file:/centrifugo -p 8000:8000 fzambia/centrifugo centrifugo -c config.json
+docker run --ulimit nofile=65536:65536 -v /host/dir/with/config/file:/centrifugo -p 8000:8000 centrifugo/centrifugo centrifugo -c config.json
 ```
+
+Note that docker allows to set nofile limits in command-line arguments.
 
 To run with admin web interface:
 
 ```bash
-docker run -v /your/host/dir/containing/config/file:/centrifugo -p 8000:8000 fzambia/centrifugo centrifugo -c config.json -w
+docker run --ulimit nofile=65536:65536 -v /host/dir/with/config/file:/centrifugo -p 8000:8000 centrifugo/centrifugo centrifugo -c config.json --web
 ```
 
-### Alternative alpine-based Dockerfile
+### Alternative Dockerfile
 
-Centrifugo docker image based on centos 7 image and it's rather big in size (about 250mb).
+There is also docker image in Centrifugo repository.
 
-[Egor Yurtaev](https://github.com/yurtaev) contributed Dockerfile based on alpine base image which results in much smaller Centrifugo image (about 25mb):
+See https://hub.docker.com/r/fzambia/centrifugo/
 
-```
-FROM gliderlabs/alpine:3.2
-
-ENV VERSION 1.1.0
-
-ENV DOWNLOAD https://github.com/centrifugal/centrifugo/releases/download/v$VERSION/centrifugo-$VERSION-linux-amd64.zip
-
-RUN apk --update add unzip \
-    && addgroup -S centrifugo && adduser -S -G centrifugo centrifugo \
-    && mkdir /centrifugo && chown centrifugo:centrifugo /centrifugo \
-    && mkdir /var/log/centrifugo && chown centrifugo:centrifugo /var/log/centrifugo
-
-ADD ${DOWNLOAD} /tmp/centrifugo.zip
-
-RUN unzip -jo /tmp/centrifugo.zip -d /tmp/ \
-    && mv /tmp/centrifugo /usr/bin/centrifugo \
-    && rm -f /tmp/centrifugo.zip \
-    && apk del unzip \
-    && rm -rf /var/cache/apk/*
-
-VOLUME ["/centrifugo", "/var/log/centrifugo"]
-
-WORKDIR /centrifugo
-
-USER centrifugo
-
-CMD ["centrifugo"]
-
-EXPOSE 8000
-```
-
-You can run container in the same way:
-
-```
-docker run --ulimit nofile=65536:65536 -v /your/host/dir/containing/config/file:/centrifugo -p 8000:8000 CONTAINER_NAME centrifugo -c config.json
-```
-
-Note that docker allows to set nofile limits in command-line arguments.
+This docker image based on centos 7 and rather big in size (~250MB)

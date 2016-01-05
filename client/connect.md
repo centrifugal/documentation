@@ -7,9 +7,9 @@ As we showed earlier to initialize centrifuge object you must write the followin
 
     var centrifuge = new Centrifuge({
         url: 'http://centrifugo.example.com/connection',
-        user: 'USER ID',
-        timestamp: 'UNIX TIMESTAMP',
-        token: 'TOKEN'
+        user: "USER ID",
+        timestamp: "UNIX TIMESTAMP SECONDS",
+        token: "SHA256 HMAC TOKEN"
     });
 
 </script>
@@ -132,6 +132,13 @@ interval value
 ### maxRetry
 
 `maxRetry` sets upper interval value limit when reconnecting.
+
+### resubscribe
+
+`resubscribe` is boolean option that allows to disable resubscribing on subscriptions made.
+By default it's `true` - i.e. you don't need to manually handle subscriptions and subscribe
+after `connect` event triggered (first time or when reconnecting). Centrifuge-js will by
+default resubscribe automatically when connection established.
 
 ### server
 

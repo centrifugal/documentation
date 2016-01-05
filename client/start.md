@@ -35,9 +35,9 @@ First you need to create new centrifuge object instance:
 
     var centrifuge = new Centrifuge({
         url: 'http://centrifuge.example.com/connection',
-        user: 'USER ID',
-        timestamp: 'TIMESTAMP',
-        token: 'TOKEN'
+        user: "USER ID",
+        timestamp: "UNIX TIMESTAMP SECONDS",
+        token: "SHA256 HMAC TOKEN"
     });
 
 </script>

@@ -43,4 +43,14 @@ First you need to create new centrifuge object instance:
 </script>
 ```
 
-In next section we will talk about all these connection options in detail.
+And you are ready to connect to Centrifugo server calling `connect()` method:
+
+```
+<script type="text/javascript">
+    // ... create centrifuge object as shown above
+
+    centrifuge.connect();
+</script>
+```
+
+In next section we will talk about all these configuration options in detail.

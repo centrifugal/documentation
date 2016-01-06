@@ -14,7 +14,7 @@ to use on client side:
 ```
 {
     ...,
-    "sockjs_url": "https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"
+    "sockjs_url": "//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"
 }
 ```
 

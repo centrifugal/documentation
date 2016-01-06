@@ -1,12 +1,13 @@
 # Client libraries to communicate using server side language
 
 This chapter is about client libraries. Centrifugo originally created to work
-with browser clients. This is why there is separate chapter dedicated to browser
-Javascript client. I think you have already read it.
+with browser clients. But Websocket protocol built on top of convenient TCP and very
+popular so it's very easy to find Websocket client for almost every existing language
+and write client for Centrifugo on top of it.
 
-As Websocket protocol built on top of TCP and is very popular it's very easy to 
-find Websocket client for almost every existing language.
+The central part of this section is javascript browser client - `centrifuge-js``.
 
-Using this websocket library it's possible to build client library for Centrifugo.
-Similar to `centrifuge-js` but to work from non-browser environment.
- 
+![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme_client.png)
+
+Go client is in many aspects similar to `centrifuge-js` but allows to work with Centrifugo
+from non-browser environment.

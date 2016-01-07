@@ -362,10 +362,10 @@ var callbacks = {
     "leave": function(message) {
         console.log(info);
     },
-    "subscribe": function(subscription) {
+    "subscribe": function(context) {
         console.log(subscription);
     },
-    "error": function(err) {
+    "error": function(errContext) {
         console.log(err);
     }
 }
@@ -410,7 +410,6 @@ setTimeout(function() {
 }, 5000);
 ```
 
-
 ### presence method of subscription
 
 `presence` allows to get information about clients which are subscribed on channel at
@@ -422,7 +421,7 @@ var subscription = centrifuge.subscribe("news", function(message) {
     // handle message
 });
 
-subscription.presence().then(function(data) {
+subscription.presence().then(function(message) {
     // presence data received
 }, function(err) {
     // presence call failed with error
@@ -444,7 +443,7 @@ var subscription = centrifuge.subscribe("news", function(message) {
     // handle message
 });
 
-subscription.history().then(function(data) {
+subscription.history().then(function(message) {
         // history messages received
     }, function(err) {
         // history call failed with error
@@ -566,3 +565,123 @@ private subscriptions until `stopAuthBatching()` called – and then send them a
 once.
 
 Read more about private channels in [special documentation chapter](../mixed/private_channels.md).
+
+
+## Message formats
+
+### format of new message in channel
+
+Let's look at message format of new message received from channel:
+
+```javascript
+{
+    "uid":"6778c79f-ccb2-4a1b-5768-2e7381bc5410",
+    "timestamp":"1452156172",
+    "channel":"$public:chat",
+    "data":{"input":"hello"},
+}
+```
+
+I.e. `data` field contains actual data that was published.
+
+Message can also contain `client` field (client ID that published message) - if it was
+provided when publishing new message:
+
+```javascript
+{
+    "uid":"6778c79f-ccb2-4a1b-5768-2e7381bc5410",
+    "timestamp":"1452156172",
+    "channel":"$public:chat",
+    "data":{"input":"hello"},
+    "client":"7080fd2a-bd69-4f1f-6648-5f3ceba4b643"
+}
+```
+
+And it can also contain additional client info in case when this message was published
+by javascript client using `publish` method (see details below):
+
+```javascript
+{
+    "uid":"6778c79f-ccb2-4a1b-5768-2e7381bc5410",
+    "timestamp":"1452156172",
+    "info":{
+        "user":"2694",
+        "client":"7080fd2a-bd69-4f1f-6648-5f3ceba4b643",
+        "default_info":{"name":"Alexandr"},
+        "channel_info":{"extra":"extra JSON data when authorizing private channel"}
+    },
+    "channel":"$public:chat",
+    "data":{"input":"hello"},
+    "client":"7080fd2a-bd69-4f1f-6648-5f3ceba4b643"
+}
+```
+
+### format of join/leave message
+
+```javascript
+{
+    "channel":"$public:chat",
+    "data":{
+        "user":"2694",
+        "client":"2724adea-6e9b-460b-4430-a9f999e94c36",
+        "default_info":{"first_name":"Alexandr"},
+        "channel_info":{"extra":"extra JSON data when authorizing"}
+    }
+}
+```
+
+`default_info` and `channel_info` exist in message only if not empty.
+
+
+### format of presence message
+
+```javascript
+{
+    "channel":"$public:chat",
+    "data":{
+        "2724adea-6e9b-460b-4430-a9f999e94c36": {
+            "user":"2694",
+            "client":"2724adea-6e9b-460b-4430-a9f999e94c36",
+            "default_info":{"first_name":"Alexandr"}
+        },
+        "d274505c-ce63-4e24-77cf-971fd8a59f00":{
+            "user":"2694",
+            "client":"d274505c-ce63-4e24-77cf-971fd8a59f00",
+            "default_info":{"first_name":"Alexandr"}
+        }
+    }
+}
+```
+
+Presence data is a map where keys are client IDs
+
+
+### format of history message
+
+```javascript
+{
+    "channel": "$public:chat",
+    "data": [
+        {
+            "uid": "87219102-a31d-44ed-489d-52b1a7fa520c",
+            "timestamp": "1452157346",
+            "channel": "$public:chat",
+            "data": {"input": "hello2"}
+        },
+        {
+            "uid": "71617557-7466-4cbb-760e-639042a5cade",
+            "timestamp": "1452157342",
+            "channel": "$public:chat",
+            "data": {"input": "hello1"}
+        }
+    ]
+}
+```
+
+Note that also additional fields can be included in messages - `client`, `info` if those
+fields were in original messages.
+
+
+## Error formats
+
+TODO

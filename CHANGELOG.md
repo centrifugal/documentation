@@ -2,8 +2,8 @@
 
 This is an aggregated Centrifugal changelog from all important repositories to help with updating.
 
-v1.3.0
-======
+Centrifugo v1.3.0
+=================
 
 Possible backwards incompatibility here (in client side code) - see first point.
 

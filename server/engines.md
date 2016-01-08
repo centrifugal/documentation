@@ -1,5 +1,8 @@
 # Engines
 
+* [Memory engine](#memory-engine)
+* [Redis engine](#redis-engine)
+
 Engine in Centrifugo is responsible for how to publish message, handle subscriptions, save
 or retrieve presence and history data.
 

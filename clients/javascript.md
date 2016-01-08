@@ -6,6 +6,15 @@ connect your web application users to the server from web browser.
 
 For this purpose javascript client with simple API exists.
 
+* [Install and quick start](#install-and-quick-start)
+* [Connection parameters](#connection-parameters)
+* [Configuration parameters](#configuration-parameters)
+* [Client API](#client-api)
+* [Message batching](#message-batching)
+* [Private channels](#private-channels)
+* [Message formats](#message-formats)
+* [Error formats](#error-formats)
+
 The source code of javascript client located in [repo on Github](https://github.com/centrifugal/centrifuge-js).
 
 Javascript client can connect to the server in two ways: using pure Websockets or using
@@ -241,7 +250,7 @@ resubscribe automatically when connection established.
 of random chars. See SockJS docs for more info.
 
 
-## Client API methods
+## Client API
 
 When centrifuge object properly initialized then it is ready to start communicating
 with server.

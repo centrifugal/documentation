@@ -82,10 +82,19 @@ and call its `.connect()` method to make actual connection to Centrifugo server:
         token: "SHA-256 HMAC TOKEN"
     });
 
+    centrifuge.subscribe("news", function(message) {
+        console.log(message);
+    });
+
     centrifuge.connect();
 
 </script>
 ```
+
+In example above we initialize `Centrifuge` object instance, subscribe on channel
+"news", printing new messages received from channel "news" into console and actually
+make connection to Centrifugo. And that's all code which required for simple real-time
+messaging handling on client side!
 
 Parameters `url`, `user`, `timestamp` and `token` are required. Let's look at these
 connection parameters and other configuration options in detail.

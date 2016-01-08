@@ -10,9 +10,7 @@ For this purpose javascript client with simple API exists.
 * [Connection parameters](#connection-parameters)
 * [Configuration parameters](#configuration-parameters)
 * [Client API](#client-api)
-* [Message batching](#message-batching)
 * [Private channels](#private-channels)
-
 
 The source code of javascript client located in [repo on Github](https://github.com/centrifugal/centrifuge-js).
 
@@ -40,6 +38,8 @@ The simplest way to use javascript client is including it into your web page usi
 ```html
 <script src="centrifuge.js"></script>
 ```
+
+Download client its [from repository](https://github.com/centrifugal/centrifuge-js).
 
 Browser client is also available via `npm` and `bower`. So you can use:
 
@@ -320,9 +320,9 @@ What's in `context`?
 
 #### error event
 
-`error` event called every time on centrifuge object when error occurred, in normal
-cases it will never be called. If it was called then your client does something wrong
-or forbidden or maybe Centrifugo server error happened.
+`error` event called every time on centrifuge object when response with error received.
+In normal workflow it will never be happen. But it's better to log these errors to detect
+where problem with connection is.
 
 ```javascript
 centrifuge.on('error', function(error) {
@@ -332,9 +332,17 @@ centrifuge.on('error', function(error) {
 
 What's in error?
 
+```javascript
+{
+    "message": {
+        "uid": "UID",
+        "method": "METHOD",
+        "error": "ERROR DESCRIPTION",
+        "error_advice": "ERROR ADVICE"
+    }
+}
 ```
-TODO:
-```
+
 
 
 #### disconnect method
@@ -472,12 +480,12 @@ var subscription = centrifuge.subscribe("news", function(message) {
 ```
 
 
-### subscription events callback message formats
+### subscription events callback context formats
 
 We already know how to listen for events on subscription. Let's look at format of
 messages event callbacks get.
 
-#### format of message event message
+#### format of message event context
 
 Let's look at message format of new message received from channel:
 
@@ -526,6 +534,8 @@ by javascript client using `publish` method (see details below):
 
 #### format of join/leave event message
 
+I.e. `on("join", function(message) {...})` or `on("leave", function(message) {...})`
+
 ```javascript
 {
     "channel":"$public:chat",
@@ -543,6 +553,8 @@ by javascript client using `publish` method (see details below):
 
 #### format of subscribe event context
 
+I.e. `on("subscribe", function(context) {...})`
+
 ```javascript
 {
     "channel": "$public:chat",
@@ -555,6 +567,8 @@ by javascript client using `publish` method (see details below):
 
 #### format of error event context
 
+I.e. `on("error", function(err) {...})`
+
 ```javascript
 {
     "error": "permission denied",
@@ -566,6 +580,8 @@ by javascript client using `publish` method (see details below):
 
 
 #### format of unsubscribe event context
+
+I.e `on("unsubscribe", function(context) {...})`
 
 ```
 {
@@ -718,7 +734,7 @@ subscription.unsubscribe();
 ```
 
 
-## message batching
+### Message batching
 
 There is also message batching support. It allows to send several messages to server
 in one request - this can be especially useful when connection established via one of
@@ -749,7 +765,7 @@ centrifuge.stopBatching(true);
 ```
 
 
-## private channels
+## Private channels
 
 If channel name starts with `$` then subscription on this channel will be checked via
 AJAX POST request from javascript client to your web application backend.

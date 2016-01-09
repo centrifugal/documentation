@@ -257,6 +257,25 @@ resubscribe automatically when connection established.
 `server` is SockJS specific option to set server name into connection urls instead
 of random chars. See SockJS docs for more info.
 
+### authEndpoint
+
+`authEndpoint` is url to use when sending auth request for authorizing subscription
+on private channel. By default `/centrifuge/auth/`. See also useful related options:
+
+`authHeaders` - map of headers to send with auth request (default `{}``)
+`authParams` - map of params to include in auth url (default `{}`)
+`authTransport` - transport to use for auth request (default `ajax`, possible value `jsonp`)
+
+### refreshEndpoint
+
+`refreshEndpoint` is url to use when refreshing client connection parameters when
+connection check mechanism enabled in Centrifugo configuration. See also related
+options:
+
+`refreshHeaders` - map of headers to send with refresh request (default `{}``)
+`refreshParams` - map of params to include in refresh url (default `{}`)
+`refreshTransport` - transport to use for refresh request (default `ajax`, possible value `jsonp`)
+
 
 ## Client API
 
@@ -296,11 +315,13 @@ What's in `context`:
 
 ```javascript
 {
-    client: "79ec54fa-8348-4671-650b-d299c193a8a3"
+    client: "79ec54fa-8348-4671-650b-d299c193a8a3",
+    transport: "raw-websocket"
 }
 ```
 
 `client` – client ID Centrifugo gave to this connection (string)
+`transport` – name of transport used to establish connection with server (string)
 
 
 #### disconnect event

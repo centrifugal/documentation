@@ -588,11 +588,11 @@ I.e. `on("subscribe", function(context) {...})`
 ```javascript
 {
     "channel": "$public:chat",
-    "resubscribe": true
+    "isResubscribe": true
 }
 ```
 
-`resubscribe` – flag showing if this was initial subscribe (`false`) or resubscribe (`true`)
+`isResubscribe` – flag showing if this was initial subscribe (`false`) or resubscribe (`true`)
 
 
 #### format of subscribe:error event context
@@ -604,7 +604,7 @@ I.e. `on("subscribe:error", function(err) {...})`
     "error": "permission denied",
     "advice": "fix",
     "channel": "$public:chat",
-    "resubscribe": true
+    "isResubscribe": true
 }
 ```
 

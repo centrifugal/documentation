@@ -418,9 +418,7 @@ can happen with subscription:
 * `join` – someone joined channel
 * `leave` – someone left channel
 * `subscribe` – subscription on channel successful and acknowledged by Centrifugo server
-* `error` – subscription on channel failed with error
-* `resubscribe` – called every time resubscribing on subscription succeeds.
-* `resubscribe:error` – called every time resubscribing on subscription failed with error.
+* `subscribe:error` – subscription on channel failed with error
 * `unsubscribe` – called every time subscription that was successfully subscribed
     unsubscribes from channel (can be caused by network disconnect or by calling
     `unsubscribe` method of subscription object)
@@ -446,7 +444,7 @@ var callbacks = {
     "subscribe": function(context) {
         console.log(subscription);
     },
-    "error": function(errContext) {
+    "subscribe:error": function(errContext) {
         console.log(err);
     },
     "unsubscribe": function(context) {
@@ -465,16 +463,16 @@ var subscription = centrifuge.subscribe("news");
 
 subscription.on("message", messageHandlerFunction);
 subscription.on("subscribe", subscribeHandlerFunction);
-subscription.on("error", errorHandlerFunction);
+subscription.on("subscribe:error", errorHandlerFunction);
 ```
 
-The drawback of last approach is that event handlers can be set after `subscribe` event of
+A small drawback of last approach is that event handlers can be set after `subscribe` event of
 subscription already fired. This is not a problem in general but can be actual if you use
 one subscription (i.e. subscription to the same channel) from different parts of your
-javascript application - so be careful. For this case there is one extra method `.ready()`
-that return promise object. This promise resolves after first subscribe attempt finishes
-with success or with error. So when you want to call subscribe on channel already subscribed
-before you may find this `ready()` method useful:
+javascript application - so be careful. For this case one extra method `.ready(callback, errback)`
+exists. This method calls `callback` if subscription already subscribed and calls `errback` if
+subscription already failed to subscribe with some error. So when you want to call subscribe on
+channel already subscribed before you may find this `ready()` method useful:
 
 ```javascript
 var subscription = centrifuge.subscribe("news", function(message) {
@@ -488,9 +486,9 @@ setTimeout(function() {
     var anotherSubscription = centrifuge.subscribe("news", function(message) {
         // another listener of channel "news"
     }).on("subscribe", function() {
-        // won't be called because subscription already subscribed!
+        // won't be called on first subscribe because subscription already subscribed!
     });
-    anotherSubscription.ready().then(subscribeSuccessHandler, subscribeErrorHandler);
+    anotherSubscription.ready(subscribeSuccessHandler, subscribeErrorHandler);
 }, 5000);
 ```
 
@@ -597,9 +595,9 @@ I.e. `on("subscribe", function(context) {...})`
 `resubscribe` – flag showing if this was initial subscribe (`false`) or resubscribe (`true`)
 
 
-#### format of error event context
+#### format of subscribe:error event context
 
-I.e. `on("error", function(err) {...})`
+I.e. `on("subscribe:error", function(err) {...})`
 
 ```javascript
 {

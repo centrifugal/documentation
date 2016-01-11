@@ -322,8 +322,8 @@ What's in `context`:
 }
 ```
 
-`client` – client ID Centrifugo gave to this connection (string)
-`transport` – name of transport used to establish connection with server (string)
+* `client` – client ID Centrifugo gave to this connection (string)
+* `transport` – name of transport used to establish connection with server (string)
 
 
 #### disconnect event
@@ -346,8 +346,8 @@ What's in `context`?
 }
 ```
 
-`reason` – the reason of client's disconnect (string)
-`reconnect` – flag indicating if client will reconnect or not (boolean)
+* `reason` – the reason of client's disconnect (string)
+* `reconnect` – flag indicating if client will reconnect or not (boolean)
 
 
 #### error event
@@ -374,7 +374,9 @@ What's in `error`?
 }
 ```
 
-`message` – message from server containing error.
+`message` – message from server containing error. It's a raw protocol message resulted in
+error event because it contains `error` field. At bare minimum it's recommended to log these
+errors. In normal workflow such errors should never exist and must be fixed.
 
 
 #### disconnect method
@@ -433,21 +435,27 @@ First is providing object containing event callbacks as second argument to `subs
 ```javascript
 var callbacks = {
     "message": function(message) {
+        // See below description of message format
         console.log(message);
     },
     "join": function(message) {
-        console.log(info);
+        // See below description of join message format
+        console.log(message);
     },
     "leave": function(message) {
-        console.log(info);
+        // See below description of leave message format
+        console.log(message);
     },
     "subscribe": function(context) {
-        console.log(subscription);
+        // See below description of subscribe callback context format
+        console.log(context);
     },
     "subscribe:error": function(errContext) {
+        // See below description of subscribe error callback context format
         console.log(err);
     },
     "unsubscribe": function(context) {
+        // See below description of unsubscribe event callback context format
         console.log(context);
     }
 }
@@ -466,13 +474,14 @@ subscription.on("subscribe", subscribeHandlerFunction);
 subscription.on("subscribe:error", errorHandlerFunction);
 ```
 
-A small drawback of last approach is that event handlers can be set after `subscribe` event of
-subscription already fired. This is not a problem in general but can be actual if you use
-one subscription (i.e. subscription to the same channel) from different parts of your
-javascript application - so be careful. For this case one extra method `.ready(callback, errback)`
-exists. This method calls `callback` if subscription already subscribed and calls `errback` if
-subscription already failed to subscribe with some error. So when you want to call subscribe on
-channel already subscribed before you may find this `ready()` method useful:
+A small drawback of setting event handlers using `on` method is that event handlers can be
+set after `subscribe` event of subscription already fired. This is not a problem in general
+but can be actual if you use one subscription (i.e. subscription to the same channel) from
+different parts of your javascript application - so be careful. For this case one extra method
+`.ready(callback, errback)` exists. This method calls `callback` if subscription already
+subscribed and calls `errback` if subscription already failed to subscribe with some error.
+So when you want to call subscribe on channel already subscribed before you may find this
+`ready()` method useful:
 
 ```javascript
 var subscription = centrifuge.subscribe("news", function(message) {
@@ -562,6 +571,7 @@ published by javascript client directly using `publish` method (see details belo
 }
 ```
 
+
 #### format of join/leave event message
 
 I.e. `on("join", function(message) {...})` or `on("leave", function(message) {...})`
@@ -610,6 +620,7 @@ I.e. `on("subscribe:error", function(err) {...})`
 
 `error` - error description
 `advice` - optional advice (`retry` or `fix` at moment)
+`isResubscribe` – flag showing if this was initial subscribe (`false`) or resubscribe (`true`)
 
 
 #### format of unsubscribe event context
@@ -621,6 +632,8 @@ I.e `on("unsubscribe", function(context) {...})`
     "channel": "$public:chat"
 }
 ```
+
+I.e. it contains only `channel` at moment.
 
 
 ### presence method of subscription
@@ -644,7 +657,7 @@ subscription.presence().then(function(message) {
 `presence` is internally a promise that will be resolved with data or error only
 when subscription actually subscribed.
 
-Format of `message`:
+Format of success callback `message`:
 
 ```javascript
 {
@@ -664,9 +677,10 @@ Format of `message`:
 }
 ```
 
-Presence data is a map where keys are client IDs.
+As you can see presence data is a map where keys are client IDs and values are objects
+with client information.
 
-Format of `err`:
+Format of `err` in error callback:
 
 ```javascript
 {
@@ -675,8 +689,8 @@ Format of `err`:
 }
 ```
 
-`error` – error description (string)
-`advice` – error advice (string, "fix" or "retry" at moment)
+* `error` – error description (string)
+* `advice` – error advice (string, "fix" or "retry" at moment)
 
 
 ### history method of subscription
@@ -698,7 +712,7 @@ subscription.history().then(function(message) {
 });
 ```
 
-`message` format:
+Success callback `message` format:
 
 ```javascript
 {
@@ -719,6 +733,8 @@ subscription.history().then(function(message) {
     ]
 }
 ```
+
+Where `data` is an array of messages published into channel.
 
 Note that also additional fields can be included in messages - `client`, `info` if those
 fields were in original messages.

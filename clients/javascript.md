@@ -420,7 +420,7 @@ can happen with subscription:
 * `join` – someone joined channel
 * `leave` – someone left channel
 * `subscribe` – subscription on channel successful and acknowledged by Centrifugo server
-* `subscribe:error` – subscription on channel failed with error
+* `error` – subscription on channel failed with error
 * `unsubscribe` – called every time subscription that was successfully subscribed
     unsubscribes from channel (can be caused by network disconnect or by calling
     `unsubscribe` method of subscription object)
@@ -450,7 +450,7 @@ var callbacks = {
         // See below description of subscribe callback context format
         console.log(context);
     },
-    "subscribe:error": function(errContext) {
+    "error": function(errContext) {
         // See below description of subscribe error callback context format
         console.log(err);
     },
@@ -471,7 +471,7 @@ var subscription = centrifuge.subscribe("news");
 
 subscription.on("message", messageHandlerFunction);
 subscription.on("subscribe", subscribeHandlerFunction);
-subscription.on("subscribe:error", errorHandlerFunction);
+subscription.on("error", errorHandlerFunction);
 ```
 
 A small drawback of setting event handlers using `on` method is that event handlers can be
@@ -605,9 +605,9 @@ I.e. `on("subscribe", function(context) {...})`
 `isResubscribe` – flag showing if this was initial subscribe (`false`) or resubscribe (`true`)
 
 
-#### format of subscribe:error event context
+#### format of subscription error event context
 
-I.e. `on("subscribe:error", function(err) {...})`
+I.e. `on("error", function(err) {...})`
 
 ```javascript
 {

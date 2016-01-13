@@ -28,7 +28,7 @@
     * [Other](libraries/other.md)
 * [Admin web interface](web/README.md)
 * [Mixed topics](mixed/README.md)
-    * [Private channels](mixed/private_channels.md)
+    * [Private channels in browser client](mixed/private_channels.md)
     * [Insecure modes](mixed/insecure_modes.md)
     * [Exclude processing by sender](mixed/exclude_sender.md)
     * [Use SockJS 0.3.4](mixed/sockjs0.3.4.md)

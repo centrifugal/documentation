@@ -1,16 +1,25 @@
-# Private channels
+# Private channels in browser client
 
 All channels starting with `$` considered private. Subscribing on private channel in
-javascript client does not differ from subscribing on usual channels. But you should
-implement an endpoint in your web application that will check if current user can
-subscribe on certain private channels.
+javascript browser client does not differ from subscribing on usual channels. But you should
+implement an endpoint in your web application that will check if current user can subscribe
+on certain private channels.
 
-By default javascript client will send AJAX POST request to `/centrifuge/auth` url. You
+By default javascript client will send AJAX POST request to `/centrifuge/auth/` url. You
 can change this address and add additional request headers via js client initialization
 options (`authEndpoint` and `authHeaders`).
 
 POST request is JSON object including two keys: `client` and `channels`. Client is a string with
-current client ID and channels is one or more channels current user wants to subscribe to.
+current client ID and channels is array with one or more channels current user wants to subscribe to.
+
+I.e sth like this:
+
+```javascript
+{
+    "client": "CLIENT ID",
+    "channels": ["$one"]
+}
+```
 
 I think it's simplier to explain on example.
 
@@ -48,6 +57,48 @@ centrifuge.stopAuthBatching();
 
 In this case one POST request with 2 channels in `channels` parameter will be sent.
 
+```javascript
+{
+    "client": "CLIENT ID",
+    "channels": ["$one", "$two"]
+}
+```
+
+What you should return in response - JSON object which contains channels as keys. Every channel key
+should have a value containing object with sign parameters.
+
+If client allowed to subscribe on channel then response JSON will look like this:
+
+```
+{
+    "$one": {
+        "sign": "PRIVATE SIGN",
+        "info": ""
+    }
+}
+```
+
+* `sign` – private channel subscription sign
+* `info` – optional JSON string to be used as `channel_info` (only useful when clients
+    allowed to publish messages directly).
+
+See chapter [Tokens and Signatures](../server/tokens_and_signatures.md) to see how to create `sign` string.
+
+Note, that private channel sign creation already implemented in out API clients.
+
+If client not allowed to subscribe on channel then return this:
+
+```
+{
+    "$one": {
+        "status": 403
+    }
+}
+```
+
+You can also just return 403 status code for the whole response if client is not allowed to
+subscribe on all channels.
+
 Let's look at simplified example for Tornado how to implement auth endpoint:
 
 ```python
@@ -65,7 +116,7 @@ class CentrifugeAuthHandler(tornado.web.RequestHandler):
         except ValueError:
             raise tornado.web.HTTPError(403)
 
-        client_id = data.get("client", "")
+        client = data.get("client", "")
         channels = data.get("channels", [])
 
         to_return = {}
@@ -105,14 +156,14 @@ class CentrifugeAuthHandler(tornado.web.RequestHandler):
         except ValueError:
             raise tornado.web.HTTPError(403)
 
-        client_id = data.get("client", "")
+        client = data.get("client", "")
         channels = data.get("channels", [])
 
         to_return = {}
 
         for channel in channels:
             sign = generate_channel_sign(
-                options.secret_key, client_id, channel
+                options.secret_key, client, channel
             )
             to_return[channel] = {
                 "status": 403,

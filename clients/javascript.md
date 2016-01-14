@@ -11,6 +11,7 @@ For this purpose javascript client with simple API exists.
 * [Configuration parameters](#configuration-parameters)
 * [Client API](#client-api)
 * [Private channels](#private-channels)
+* [Connection check](#connection-check)
 
 The source code of javascript client located in [repo on Github](https://github.com/centrifugal/centrifuge-js).
 
@@ -841,3 +842,9 @@ private subscriptions until `stopAuthBatching()` called – and then send them a
 once.
 
 Read more about private channels in [special documentation chapter](../mixed/private_channels.md).
+
+
+## Connection check
+
+Javascript client has support for refreshing connection when `connection_lifetime` option
+set in Centrifugo. See more details in [dedicated chapter](../server/connection_check.md).

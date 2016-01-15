@@ -22,7 +22,7 @@ available fallback transports if client browser does not support Websockets.
 With javascript client you can:
 
 * connect your user to real-time server
-* subscribe on channel and listen for all new messages published into this channel
+* subscribe on channel and listen to all new messages published into this channel
 * get presence information for channel (all clients currently subscribed on channel)
 * get history messages for channel
 * receive join/leave events for channels (when someone subscribes on channel or
@@ -104,7 +104,12 @@ connection parameters and other configuration options in detail.
 ## Connection parameters
 
 As we showed above to initialize `Centrifuge` object you must provide connection
-parameters: `url`, `user`, `timestamp`, `token`.
+parameters: `url`, `user`, `timestamp`, optional `info`, `token`.
+
+**Note that all connection parameters (except url maybe) must come to your Javascript code from
+your application backend**. You can render template with these connection parameters, or you can
+pass them in cookie, or even make an AJAX GET request from your Javascript code to get  `user`,
+`timestamp`, `info` and `token`.
 
 Let's see for what each option is responsible for.
 
@@ -196,13 +201,14 @@ In case of using SockJS additional configuration parameter can be used - `transp
 It defines allowed SockJS transports and by default equals
 
 ```javascript
-{
+var centrifuge = new Centrifuge({
     ...
     transports: [
         'websocket', 'xdr-streaming', 'xhr-streaming',
         'eventsource', 'iframe-eventsource', 'iframe-htmlfile',
         'xdr-polling', 'xhr-polling', 'iframe-xhr-polling', 'jsonp-polling'
     ]
+});
 ```
 
 i.e. all possible SockJS transports.

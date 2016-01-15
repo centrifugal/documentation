@@ -30,7 +30,7 @@ With javascript client you can:
 * publish new messages into channels
 
 *Note, that in order to use presence, history, join/leave and publish – corresponding options
-must be enabled in Centrifugo channel configuration (on top level or for namespace).*
+must be enabled in Centrifugo channel configuration (on top level or for channel namespace).*
 
 ## Install and quick start
 
@@ -135,7 +135,8 @@ detect which endpoint to use (SockJS or Websocket) automatically based on SockJS
 
 `user` **string** is your web application's current user ID. **It can be empty if you don't
 have logged in users but in this case you must enable** `anonymous` access option for
-channels in Centrifugo configuration (setting `anonymous: true` on top level or for namespace).
+channels in Centrifugo configuration (setting `anonymous: true` on top level or for channel
+namespace).
 
 Note, that **it must be string type** even if your application uses numbers as user ID.
 Just convert that user ID number to string.
@@ -647,7 +648,7 @@ I.e. it contains only `channel` at moment.
 
 `presence` allows to get information about clients which are subscribed on channel at
 this moment. Note that this information is only available if `presence` option enabled
-in Centrifugo configuration for all channels or for namespace.
+in Centrifugo configuration for all channels or for channel namespace.
 
 ```javascript
 var subscription = centrifuge.subscribe("news", function(message) {
@@ -761,8 +762,8 @@ something with real-time features without any application backend at all. Just j
 code and Centrifugo.
 
 To do this you can use `publish` method. Note that just like presence and history publish
-must be allowed in Centrifugo configuration for all channels or for namespace. When using
-`publish` data will go through Centrifugo to all clients in channel. Your application
+must be allowed in Centrifugo configuration for all channels or for channel namespace. When
+using `publish` data will go through Centrifugo to all clients in channel. Your application
 backend won't receive this message.
 
 ```javascript

@@ -22,7 +22,7 @@ available fallback transports if client browser does not support Websockets.
 With javascript client you can:
 
 * connect your user to real-time server
-* subscribe on channel and listen for all new messages published into this channel
+* subscribe on channel and listen to all new messages published into this channel
 * get presence information for channel (all clients currently subscribed on channel)
 * get history messages for channel
 * receive join/leave events for channels (when someone subscribes on channel or
@@ -30,7 +30,7 @@ With javascript client you can:
 * publish new messages into channels
 
 *Note, that in order to use presence, history, join/leave and publish – corresponding options
-must be enabled in Centrifugo channel configuration (on top level or for namespace).*
+must be enabled in Centrifugo channel configuration (on top level or for channel namespace).*
 
 ## Install and quick start
 
@@ -104,7 +104,12 @@ connection parameters and other configuration options in detail.
 ## Connection parameters
 
 As we showed above to initialize `Centrifuge` object you must provide connection
-parameters: `url`, `user`, `timestamp`, `token`.
+parameters: `url`, `user`, `timestamp`, optional `info`, `token`.
+
+**Note that all connection parameters (except url maybe) must come to your Javascript code from
+your application backend**. You can render template with these connection parameters, or you can
+pass them in cookie, or even make an AJAX GET request from your Javascript code to get  `user`,
+`timestamp`, `info` and `token`.
 
 Let's see for what each option is responsible for.
 
@@ -130,7 +135,8 @@ detect which endpoint to use (SockJS or Websocket) automatically based on SockJS
 
 `user` **string** is your web application's current user ID. **It can be empty if you don't
 have logged in users but in this case you must enable** `anonymous` access option for
-channels in Centrifugo configuration (setting `anonymous: true` on top level or for namespace).
+channels in Centrifugo configuration (setting `anonymous: true` on top level or for channel
+namespace).
 
 Note, that **it must be string type** even if your application uses numbers as user ID.
 Just convert that user ID number to string.
@@ -196,13 +202,14 @@ In case of using SockJS additional configuration parameter can be used - `transp
 It defines allowed SockJS transports and by default equals
 
 ```javascript
-{
+var centrifuge = new Centrifuge({
     ...
     transports: [
         'websocket', 'xdr-streaming', 'xhr-streaming',
         'eventsource', 'iframe-eventsource', 'iframe-htmlfile',
         'xdr-polling', 'xhr-polling', 'iframe-xhr-polling', 'jsonp-polling'
     ]
+});
 ```
 
 i.e. all possible SockJS transports.
@@ -657,7 +664,7 @@ I.e. it contains only `channel` at moment.
 
 `presence` allows to get information about clients which are subscribed on channel at
 this moment. Note that this information is only available if `presence` option enabled
-in Centrifugo configuration for all channels or for namespace.
+in Centrifugo configuration for all channels or for channel namespace.
 
 ```javascript
 var subscription = centrifuge.subscribe("news", function(message) {
@@ -771,8 +778,8 @@ something with real-time features without any application backend at all. Just j
 code and Centrifugo.
 
 To do this you can use `publish` method. Note that just like presence and history publish
-must be allowed in Centrifugo configuration for all channels or for namespace. When using
-`publish` data will go through Centrifugo to all clients in channel. Your application
+must be allowed in Centrifugo configuration for all channels or for channel namespace. When
+using `publish` data will go through Centrifugo to all clients in channel. Your application
 backend won't receive this message.
 
 ```javascript

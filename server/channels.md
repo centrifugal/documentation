@@ -17,10 +17,10 @@ Second, `:`, `#`, `&` and `$` symbols have a special role in channel name.
 
 ### namespace channel boundary
 
-``:`` - is a namespace boundary.
+``:`` - is a channel namespace boundary.
 
 If channel is `public:chat` - then Centrifuge will apply options to this channel
-from namespace with name `public`.
+from channel namespace with name `public`.
 
 ### user channel boundary
 

@@ -2,6 +2,54 @@
 
 This is an aggregated Centrifugal changelog from all important repositories to help with updating.
 
+Centrifuge-js 1.3.0
+===================
+
+**Client API completely refactored in this release**. You can still use previous versions
+to communicate with Centrifugo server from browser environment but new implementation much
+more comfortable to use in our opinion and will be supported in future releases so consider
+upgrading!
+
+Highlights of this release:
+
+* automatic resubscribe, no need to subscribe manually in `connect` event handler
+* more opaque error handling
+* drop support for SockJS < 1.0.0 (but if you still use SockJS 0.3.4 then feel free to open
+    issue and we will return its support to client)
+
+Please, read [new documentation](https://fzambia.gitbooks.io/centrifugal/content/clients/javascript.html)
+for Javascript browser client.
+
+Also, DOM plugin was removed from repository as new client API design solves most of problems
+that DOM plugin existed for - i.e. abstracting subscribe on many channels and automatically
+resubscribe on them. With new client you can have one global connection to Centrifugo and
+subscribe on channels at any moment from any part of your javascript code.
+
+Also we updated [examples](https://github.com/centrifugal/examples) to fit new changes.
+
+If you are searching for old API docs (`centrifuge-js` <= 1.2.0) - [you can find it here](https://github.com/centrifugal/documentation/tree/c69ca51f21c028a6b9bd582afdbf0a5c13331957/client)
+
+
+Centrifugo v1.3.2
+=================
+
+This release built using go 1.5.3 and [includes security fix in Go lang](https://groups.google.com/forum/#!topic/golang-announce/MEATuOi_ei4)
+
+* empty errors not included in client response (**this requires using Javascript client >= 1.1.0**)
+* optimization in Redis engine when using history - one round trip to Redis to publish message and save it into history instead of two. This was done over registering lua script on server start.
+* client errors improvements - include error advice when error occurred (fix or retry at moment)
+
+Also note that Javascript client will be fully refreshed soon. See [this pull request](https://github.com/centrifugal/centrifuge-js/pull/7)
+
+
+Centrifugo v1.3.1
+=================
+
+* fix port configuration introduced in v1.3.0: `--port` should override default values for `admin_port` and `api_port`
+* use the same (http/https) scheme for Sockjs default iframe script source.
+* fix possible deadlock in shutdown
+
+
 Centrifugo v1.3.0
 =================
 

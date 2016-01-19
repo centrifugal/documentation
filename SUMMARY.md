@@ -31,7 +31,6 @@
     * [Private channels in browser client](mixed/private_channels.md)
     * [Insecure modes](mixed/insecure_modes.md)
     * [Exclude processing by sender](mixed/exclude_sender.md)
-    * [Use SockJS 0.3.4](mixed/sockjs0.3.4.md)
 * [Deploy](deploy/README.md)
     * [Nginx configuration](deploy/nginx.md)
     * [RPM](deploy/rpm.md)

@@ -1,4 +1,4 @@
-# Client libraries to communicate using server side language
+# Client libraries to communicate with Centrifugo
 
 This chapter is about client libraries. Centrifugo originally created to work
 with browser clients. But Websocket protocol built on top of convenient TCP and very

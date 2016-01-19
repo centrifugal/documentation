@@ -32,6 +32,9 @@ With javascript client you can:
 *Note, that in order to use presence, history, join/leave and publish – corresponding options
 must be enabled in Centrifugo channel configuration (on top level or for channel namespace).*
 
+If you are searching for old API docs (`centrifuge-js` < 1.3.0) - [you can find it here](https://github.com/centrifugal/documentation/tree/c69ca51f21c028a6b9bd582afdbf0a5c13331957/client)
+
+
 ## Install and quick start
 
 The simplest way to use javascript client is including it into your web page using `script` tag:

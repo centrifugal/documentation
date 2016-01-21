@@ -49,7 +49,7 @@ Let's see which projects Centrifugal has:
     with Centrifugo server API.
 * [jscent](https://github.com/centrifugal/jscent) - NodeJS client to communicate
     with Centrifugo server API.
-* [centrifuge-go](https://github.com/centrifugal/jscent) - Go library to communicate
+* [centrifuge-go](https://github.com/centrifugal/centrifuge-go) - Go library to communicate
     with Centrifugo client API over Websockets.
 
 ### Demo and examples

@@ -329,13 +329,15 @@ What's in `context`:
 ```javascript
 {
     client: "79ec54fa-8348-4671-650b-d299c193a8a3",
-    transport: "raw-websocket"
+    transport: "raw-websocket",
+    latency: 21
 }
 ```
 
 * `client` – client ID Centrifugo gave to this connection (string)
 * `transport` – name of transport used to establish connection with server (string)
-
+* `latency` – latency in milliseconds (int). This measures time passed between sending
+    `connect` client protocol command and receiving connect response. New in 1.3.1
 
 #### disconnect event
 

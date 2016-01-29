@@ -140,12 +140,9 @@ server {
         rewrite ^/centrifugo(.*)        $1 break;
 
         proxy_next_upstream error;
-        keepalive_timeout 65;
-        proxy_read_timeout 60s;
         gzip on;
         gzip_min_length 1000;
         gzip_proxied any;
-
         proxy_buffering off;
         keepalive_timeout 65;
         proxy_pass http://centrifugo;

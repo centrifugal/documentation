@@ -442,13 +442,13 @@ Response example:
 will contain counters without aggregation over minute interval (what `stats` method
 does by default). So it can be useful if your metric aggregation system aggregates counters
 over time period itself. Also note that to use this method you should send API request
-to each Centrifugo node separately - as this method return current raw statistics about
+to each Centrifugo node separately - as this method returns current raw statistics about
 node. See [issue](https://github.com/centrifugal/centrifugo/issues/68) for motivation
 description.
 
 ```javascript
 {
-    "method": "stats",
+    "method": "node",
     "params": {}
 }
 ```

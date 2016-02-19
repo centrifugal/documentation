@@ -34,98 +34,85 @@ will be `https://centrifuge.example.com/api/`.
 
 All you need to do to use HTTP API is to send correctly constructed POST request to this endpoint.
 
-API request must have two POST parameters: `data` and `sign`.
+API request is a POST `application/json` request with commands in request body and one additional header `X-API-Sign`.
 
-`data` is a JSON string representing command (or commands) you want to send to Centrifugo
-(see below) and `sign` is an HMAC based on secret key and JSON string
-from `data`. This `sign` is used later by Centrifugo to validate API request.
+Body of request is just a JSON representing commands you need to execute. This can be single command
+or array of commands. See available commands below.
 
-`data` is a JSON string created from object with two properties: `method` and `params`.
+`X-API-Sign` header is an HMAC string based on Centrifugo secret key and JSON body you want to send.
+This header is used by Centrifugo to validate API request. In most situations you can protect Centrifugo
+API endpoint with firewall rules and disable sign check using `--insecure_api` option when starting
+Centrifugo. In this case you just need to send POST request with commands - no need in addition header.
+
+Command is a JSON object with two properties: `method` and `params`.
 
 `method` is a name of action you want to do.
 `params` is an object with method arguments.
 
-For example in Python
+For example to send publish command to Centrifugo in Python you construct sth like this for your request body:
 
 ```
-data = json.dumps({
+command = json.dumps({
     "method": "publish",
     "params": {"channel": "news", data:{}}
 })
 ```
 
-First lets see how to construct such request in Python. If Python is your language then you
-don't have to implement this yourself as `Cent` python module exists. But this example here can
-be useful for someone who want to implement interaction with Centrifugo API in language for
-which we don't have API client yet.
+If you have not turned of sign check you also need to include properly constructed sign
+in `X-API-Sign` header when sending this to `/api/` Centrifugo endpoint.
+
+To send 2 publish commands in one request you need body like this:
+
+```
+commands = json.dumps([
+    {
+        "method": "publish",
+        "params": {"channel": "news", data:{"content": "1"}}
+    },
+    {
+        "method": "publish",
+        "params": {"channel": "news", data:{"content": "2"}}
+    }
+])
+```
+
+First lets see how to construct such request in Python.
+
+*If Python is your language then you don't have to implement this yourself as
+`Cent` python module exists.*
+
+But this example here can be useful for someone who want to implement interaction
+with Centrifugo API in language for which we don't have API client yet or you just
+want to send requests yourself - this is simple and in most cases you can just go
+without using our API library (to not introduce extra dependency in your project for
+example).
 
 Let's imagine that your Centrifugo has secret key `secret`.
 
 First, let's see how to send API command using Python library `requests`:
 
 ```python
-from cent.core import generate_api_sign
+import json
 import requests
-import json
 
-commands = [
-    {
-        "method": "publish",
-        "params": {"channel": "docs", "data": {"json": True}}
-    }
-]
-
-encoded_data = json.dumps(commands)
-sign = generate_api_sign("secret", encoded_data)
-r = requests.post("https://centrifuge.example.com/api/", data={"sign": sign, "data": encoded_data})
-print r.text
-```
-
-Or the same in pure Python:
-
-```python
-from urllib2 import urlopen, Request
 from cent.core import generate_api_sign
-import json
 
-req = Request("https://centrifuge.example.com/api/")
 
 commands = [
     {
         "method": "publish",
-        "params": {"channel": "docs", "data": {"json": True}}
+        "params": {"channel": "docs", "data": {"content": "1"}}
     }
 ]
 encoded_data = json.dumps(commands)
 sign = generate_api_sign("secret", encoded_data)
-data = urlencode({'sign': sign, 'data': encoded_data})
-response = urlopen(req, data, timeout=5)
+headers = {'Content-type': 'application/json', 'X-API-Sign': sign}
+r = requests.post("https://centrifuge.example.com/api/", data=encoded_data, headers=headers)
+print r.json()
 ```
 
-Request headers:
-```
-{
-    'Content-Length': '211',
-    'Accept-Encoding': 'gzip, deflate',
-    'Accept': '*/*',
-    'User-Agent': 'python-requests/2.7.0 CPython/2.7.6 Darwin/14.1.0',
-    'Connection': 'keep-alive',
-    'Content-Type': 'application/x-www-form-urlencoded'
-}
-```
-
-Response headers:
-```
-{
-    'content-length': '47',
-    'connection': 'keep-alive',
-    'date': 'Mon, 15 Jun 2015 06:24:26 GMT',
-    'content-type': 'application/json'
-}
-```
-
-In code above to generate `sign` we used function from `Cent` module. To see how you can generate API
-sign yourself go to chapter [Tokens and signatures](./tokens_and_signatures.md).
+In code above to generate sign we used function from `Cent` module. To see how you can
+generate API sign yourself go to chapter [Tokens and signatures](./tokens_and_signatures.md).
 
 Also note that in this example we send an array of commands. In this way you can send several
 commands to Centrifugo in one request.
@@ -133,7 +120,8 @@ commands to Centrifugo in one request.
 There are not so many commands you can call. The main and most useful of them is `publish`.
 Lets take a closer look on other available API command methods.
 
-You have `publish`, `broadcast`, `unsubscribe`, `presence`, `history`, `disconnect`, `channels`, `stats` in your arsenal.
+You have `publish`, `broadcast`, `unsubscribe`, `presence`, `history`, `disconnect`,
+`channels`, `stats`, `node` in your arsenal.
 
 ### publish
 
@@ -436,10 +424,6 @@ Response example:
                     "num_client_requests": 0,
                     "bytes_client_in": 0,
                     "bytes_client_out": 0,
-                    "time_api_mean": 0,
-                    "time_client_mean": 0,
-                    "time_api_max": 0,
-                    "time_client_max": 0,
                     "memory_sys": 7444728,
                     "cpu_usage": 0
                 }
@@ -449,6 +433,54 @@ Response example:
     },
     "error": null,
     "method": "stats"
+}
+```
+
+### node (Centrifugo >= 1.4.0)
+
+`node` method allows to get information about single Centrifugo node. That information
+will contain counters without aggregation over minute interval (what `stats` method
+does by default). So it can be useful if your metric aggregation system aggregates counters
+over time period itself. Also note that to use this method you should send API request
+to each Centrifugo node separately - as this method return current raw statistics about
+node. See [issue](https://github.com/centrifugal/centrifugo/issues/68) for motivation
+description.
+
+```javascript
+{
+    "method": "stats",
+    "params": {}
+}
+```
+
+Response example:
+
+```
+{
+    "body": {
+        "data":{
+            "uid":"c3ceab87-8060-4c25-9cb4-94eb9db7899a",
+            "name":"MacAir.local_8000",
+            "num_goroutine":14,
+            "num_clients":0,
+            "num_unique_clients":0,
+            "num_channels":0,
+            "started_at":1455450238,
+            "gomaxprocs":4,
+            "num_cpu":4,
+            "num_msg_published":0,
+            "num_msg_queued":0,
+            "num_msg_sent":0,
+            "num_api_requests":3,
+            "num_client_requests":0,
+            "bytes_client_in":0,
+            "bytes_client_out":0,
+            "memory_sys":0,
+            "cpu_usage":0
+        }
+    },
+    "error":null,
+    "method":"node"
 }
 ```
 

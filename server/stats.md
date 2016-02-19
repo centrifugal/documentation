@@ -22,10 +22,6 @@ When you call `stats` API command you get something like this in response body:
             "num_client_requests": 0,
             "bytes_client_in": 0,
             "bytes_client_out": 0,
-            "time_api_mean": 0,
-            "time_client_mean": 0,
-            "time_api_max": 0,
-            "time_client_max": 0,
             "memory_sys": 7444728,
             "cpu_usage": 0
         }
@@ -70,13 +66,13 @@ By default metrics aggregated over 60 seconds period.
 
 `bytes_client_out` – number of bytes coming out of client API (bytes sent to clients)
 
-`time_api_mean` – mean time of API response in nanoseconds
+`time_api_mean` – mean time of API response in nanoseconds. **DEPRECATED in Centrifugo 1.4.0 - will always return 0**
 
-`time_client_mean` – mean time of client API response in nanoseconds.
+`time_client_mean` – mean time of client API response in nanoseconds. **DEPRECATED in Centrifugo 1.4.0 - will always return 0**
 
-`time_api_max` – max time of server API response (nanoseconds)
+`time_api_max` – max time of server API response (nanoseconds). **DEPRECATED in Centrifugo 1.4.0 - will always return 0**
 
-`time_client_max` – max time of client API response (nanoseconds)
+`time_client_max` – max time of client API response (nanoseconds). **DEPRECATED in Centrifugo 1.4.0 - will always return 0**
 
 `memory_sys` – memory usage in bytes
 

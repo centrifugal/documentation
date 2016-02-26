@@ -37,4 +37,3 @@
     * [Docker](deploy/docker.md)
     * [Tuning operating system](deploy/tuning.md)
 * [FAQ](FAQ.md)
-* [Aggregated changelog](CHANGELOG.md)

@@ -1,8 +1,15 @@
 # Nginx configuration
 
-In this section we will look at Nginx configuration to deploy Centrifugo.
+Although it's possible to  use Centrifugo without any reverse proxy before it,
+it's still a good idea to keep Centrifugo behind mature reverse proxy to deal with
+edge cases when handling HTTP/Websocket connections from the wild. Also you probably
+want some sort of load balancing eventually between Centrifugo nodes so that proxy
+can be such a balancer too.
 
-Minimal Nginx version – **1.3.13**
+In this section we will look at [Nginx](http://nginx.org/) configuration to deploy Centrifugo.
+
+Minimal Nginx version – **1.3.13** because it was the first version that can proxy
+Websocket connections.
 
 There are 2 ways: running Centrifugo server as separate service on its own
 domain or embed it to a location of your web site (for example to `/centrifugo`).
@@ -182,7 +189,7 @@ You may also need to update `worker_connections` option of Nginx:
 
 ```
 events {
-    worker_connections  40000;
+    worker_connections 40000;
 }
 ```
 

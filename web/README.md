@@ -17,39 +17,47 @@ It can:
 To enable web you must run `centrifugo` with `--web` flag.
 
 ```
-centrifugo --config=config.json --web
+centrifugo --config=config.json --admin --web
 ```
 
-Also you must additionally set 2 options in config: `web_password` and `web_secret`.
+`--admin` enables admin websocket endpoint web interface uses.
+
+`--web` tells Centrifugo that it must serve embedded web interface.
+
+**Note, that you can use only `--web` option to enable both web interface and admin websocket endpoint.
+This is because web interface can't work without admin websocket.**
+
+Also you must additionally set 2 options in config: `admin_password` and `admin_secret`.
 
 `config.json`
 
 ```json
 {
     ...,
-    "web_password": "strong_password_to_log_in",
-    "web_secret": "strong_secret_key_to_sign_authorization_token"
+    "admin_password": "strong_password_to_log_in",
+    "admin_secret": "strong_secret_key_to_sign_authorization_token"
 }
 ```
 
-* `web_password` – this is a password to log into admin web interface
-* `web_secret` - this is a secret key to sign authorization token used to call web API endpoints.
+* `admin_password` – this is a password to log into admin web interface
+* `admin_secret` - this is a secret key to sign authorization token used to call admin API endpoints.
 
 Make both strong and keep in secret.
 
 If you don't want to use embedded web interface you can specify path to your own web interface directory:
 
 ```
-centrifugo --config=config.json --web --web_path=/path/to/web/app
+centrifugo --config=config.json --admin --web --web_path=/path/to/web/app
 ```
 
 This can be useful if you want to modify official web interface in some way.
 
-There is also an option to run Centrifugo in insecure web mode (new in v1.3.0) - in this case you
-don't need to set `web_password` and `web_secret` in config - you will be logged in automatically
-without any password. Note that this is only for development or if you protected web interface
-with firewall rules in production. To start Centrifugo with web interface in insecure mode run:
+There is also an option to run Centrifugo in insecure admin mode (new in v1.3.0) - in this case you
+don't need to set `admin_password` and `admin_secret` in config - if you use web interface you will
+be logged in automatically without any password. Note that this is only for development or if you
+protected admin websocket endpoint and web interface with firewall rules in production. To start
+Centrifugo with web interface in insecure admin mode run:
 
 ```
-centrifugo --config=config.json --web --insecure_web
+centrifugo --config=config.json --admin --insecure_admin --web
 ```

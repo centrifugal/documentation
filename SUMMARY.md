@@ -26,7 +26,6 @@
     * [Go](libraries/go.md)
     * [NodeJS](libraries/nodejs.md)
     * [Other](libraries/other.md)
-* [Admin websocket endpoint](admin/README.md)
 * [Admin web interface](web/README.md)
 * [Mixed topics](mixed/README.md)
     * [Message delivery model](mixed/delivery_model.md)

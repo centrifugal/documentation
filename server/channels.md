@@ -25,12 +25,16 @@ from channel namespace with name `public`.
 ### user channel boundary
 
 `#` is a user boundary - separator to create private channels for users (user limited
-channels)without sending POST request to your web application. For example if channel
+channels) without sending POST request to your web application. For example if channel
 is `news#42` then only user with ID `42` can subscribe on this channel (Centrifugo
-knows user ID as clients provide it when connecting).
+knows user ID as clients provide it in connection parameters).
 
 Moreover you can provide several user IDs in channel name separated by comma: `dialog#42,43` –
 in this case only user with ID `42` and user with ID `43` will be able to subscribe on this channel.
+
+This is useful for channels with static allowed users, for example for user personal messages
+channel, for dialog channel between certainly defined users. As soon as you need dynamic user
+access to channel this channel type does not suit well.
 
 ### client channel boundary (new in 0.2.0)
 

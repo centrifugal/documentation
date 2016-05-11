@@ -63,6 +63,7 @@ At moment we have the following examples:
 
 * django – example shows how to integrate Django application with Centrifugal stack
 * tornado application – shows some general aspects of Centrifugal stack - token generation, private channel signing.
+* WebRTC chat - shows how to use Centrifugo as WebRTC signaling server to create peer-to-peer communication.
 * insecure – example shows how to use Centrifugo running in insecure mode without any web application backend.
 * jsfiddle – [simplified chat example on jsfiddle](http://jsfiddle.net/FZambia/yG7Uw/) with predefined user ID, timestamp
     and token which uses Centrifugo [demo](https://centrifugo.herokuapp.com) instance on Heroku

@@ -59,22 +59,24 @@ only understand that the following options will affect channel behaviour:
 * `join_leave` – enable/disable sending join(leave) messages when client subscribes on
     channel (unsubscribes from channel). By default `false`.
 
-* `history_size` – history size (amount of messages) for channels. As all messages stored in process
-    memory it's very important to limit maximum amount of messages in channel history to reasonable
-    minimum. By default history size is `0` - this means that channels will have no history messages
-    at all.
+* `history_size` – history size (amount of messages) for channels. As Centrifugo keeps all history
+    messages in memory it's very important to limit maximum amount of messages in channel history
+    to reasonable minimum. By default history size is `0` - this means that channels will have no
+    history messages at all. As soon as history enabled then `history_size` defines maximum amount
+    of messages that Centrifugo will keep for **each** channel in namespace during history lifetime
+    (see below).
 
 * `history_lifetime` – interval in seconds how long to keep channel history messages. As all
     history is storing in memory it is also very important to get rid of old history data
     for unused (inactive for a long time) channels. By default history lifetime is `0` – this
-    means that channels will have no history messages at all. So to get history messages you
-    should wisely configure both `history_size` and `history_lifetime` options.
+    means that channels will have no history messages at all. **So to get history messages you
+    should wisely configure both `history_size` and `history_lifetime` options**.
 
 * `recover` (**new in v1.2.0**) – boolean option, when enabled Centrifugo will try to recover
     missed messages published while client was disconnected for some reason (bad internet
     connection for example). By default `false`. This option must be used in conjunction with
     reasonably configured message history for channel i.e. `history_size` and `history_lifetime`
-    must be set (because Centrifugo uses channel message history to recover messages). Also
+    **must be set** (because Centrifugo uses channel message history to recover messages). Also
     note that note all real-time events require this feature turned on so think wisely when
     you need this. See more details about how this option works in [special chapter](recover.md).
 

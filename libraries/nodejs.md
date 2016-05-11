@@ -9,5 +9,5 @@ Client = require("jscent");
 
 var c = new Client({url: "http://localhost:8000", secret: "secret"});
 
-c.publish("$public:chat", {"input": "test"}, function(err, resp){console.log(e, r)});
+c.publish("$public:chat", {"input": "test"}, function(err, resp){console.log(err, resp)});
 ```

@@ -48,5 +48,18 @@ Yes, Centrifugo works with HTTP/2.
 If underlying transport is HTTP-based and you use HTTP/2 then this will work automatically. In case
 of websocket connection there is a way to do this using SharedWorker object.
 
+### What if I need to send push notifications to mobile or web applications?
+
+Sometimes it's confusing to see a difference between real-time messages and push notifications.
+Centrifugo is a real-time messaging server. It can not send push notifications to devices - to Apple
+iOS devices via APNS, Android devices via GCM or browsers over Web Push API. This is a goal for
+another software. But the reasonable question here how can I know when I need to send real-time
+message to client online or push notification to its device because application closed at client's
+device at moment. The solution is pretty simple. You can keep critical notifications for client in
+database. And when client read message send ack to your backend marking that notification as read
+by client. Periodically you can check which notification was sent to client but he have not read it.
+For such notification you can send push notification to its device using home-made or another
+open-source solution.
+
 
 

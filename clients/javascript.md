@@ -60,7 +60,7 @@ bower install centrifuge
 If you want to use SockJS you must also import SockJS client before centrifuge.js
 
 ```html
-<script src="//cdn.jsdelivr.net/sockjs/1.0/sockjs.min.js" type="text/javascript"></script>
+<script src="//cdn.jsdelivr.net/sockjs/1.1/sockjs.min.js" type="text/javascript"></script>
 <script src="centrifuge.js" type="text/javascript"></script>
 ```
 
@@ -69,7 +69,7 @@ polyfill library:
 
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js" type="text/javascript"></script>
-<script src="//cdn.jsdelivr.net/sockjs/1.0/sockjs.min.js" type="text/javascript"></script>
+<script src="//cdn.jsdelivr.net/sockjs/1.1/sockjs.min.js" type="text/javascript"></script>
 <script src="centrifuge.js" type="text/javascript"></script>
 ```
 

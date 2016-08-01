@@ -288,7 +288,9 @@ options:
 * `refreshHeaders` - map of headers to send with refresh request (default `{}``)
 * `refreshParams` - map of params to include in refresh url (default `{}`)
 * `refreshTransport` - transport to use for refresh request (default `ajax`, possible value `jsonp`)
-
+* `refreshData` - send extra data in body (as JSON payload) when sending AJAX POST refresh request.
+* `refreshAttempts` - limit amount of refresh requests before giving up (by default `null` - unlimited)
+* `refreshFailed` - callback function called when `refreshAttempts` came to the end. By default `null` - i.e. nothing called.
 
 ## Client API
 

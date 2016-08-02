@@ -231,6 +231,26 @@ var centrifuge = new Centrifuge({
 });
 ```
 
+#### sockJS
+
+**new in 1.3.7**. `sockJS` option allows to explicitly provide SockJS client object to Centrifuge client.
+
+For example this can be useful if you develop in ES6 using imports.
+
+```javascript
+import Centrifuge from 'centrifuge'
+import SockJS from 'sockjs-client'
+
+var centrifuge = new Centrifuge({
+    url: 'http://centrifuge.example.com/connection',
+    user: 'USER ID',
+    timestamp: 'UNIX TIMESTAMP',
+    info: '{"first_name": "Alexandr", "last_name": "Emelin"}',
+    token: 'TOKEN',
+    sockJS: SockJS
+});
+```
+
 #### debug
 
 `debug` is a boolean option which is `false` by default. When enabled lots of various debug

@@ -36,6 +36,8 @@ Allows scaling Centrifugo nodes on to different machines. These nodes will use R
 as message broker. Redis engine keeps presence and history data in Redis, uses redis
 PUB/SUB for internal nodes communication. Also it allows to call API commands.
 
+![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme_redis.png)
+
 How to publish via Redis engine API listener? Start Centrifugo with Redis engine and
 ``--redis_api`` option:
 

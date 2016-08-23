@@ -777,6 +777,12 @@ projects, when prototyping ideas for example, for personal usage. And this allow
 something with real-time features without any application backend at all. Just javascript
 code and Centrifugo.
 
+**So to emphasize: using client publish is not an idiomatic Centrifugo usage. It's not for
+production applications but in some cases (demos, personal usage, Centrifugo as backend
+microservice) can be justified and convenient. In most real-life apps you need to send new
+data to your application backend first (using the convenient way, for example AJAX request
+in web app) and then publish data to Centrifugo over Centrifugo API.**
+
 To do this you can use `publish` method. Note that just like presence and history publish
 must be allowed in Centrifugo configuration for all channels or for channel namespace. When
 using `publish` data will go through Centrifugo to all clients in channel. Your application

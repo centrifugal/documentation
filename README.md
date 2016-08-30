@@ -50,7 +50,7 @@ Let's see which projects Centrifugal organization has:
 
 ### Demo and examples
 
-We maintain [demo of Centrifugo server instance with web interface](https://centrifugo.herokuapp.com) on
+We maintain actual [demo of Centrifugo server instance with web interface](https://centrifugo.herokuapp.com) on
 Heroku (password `demo`). So you can just use it for experiments.
 
 Examples can be found [in repo on Github](https://github.com/centrifugal/examples).

@@ -32,9 +32,9 @@ using this engine.
 
 ### Redis engine
 
-Allows scaling Centrifugo nodes on to different machines. These nodes will use Redis
-as message broker. Redis engine keeps presence and history data in Redis, uses redis
-PUB/SUB for internal nodes communication. Also it allows to call API commands.
+Allows scaling Centrifugo nodes to different machines. Nodes will use Redis
+as message broker. Redis engine keeps presence and history data in Redis, uses Redis
+PUB/SUB for internal nodes communication. Also it allows to enqueue API commands.
 
 ![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme_redis.png)
 
@@ -69,7 +69,7 @@ to_send = {
 client.rpush("centrifugo.api", json.dumps(to_send))
 ```
 
-You send JSON object wth list of commands in `data`.
+You send JSON object with list of commands in `data`.
 
 Note again - you don't have response here as you are adding commands into Redis queue
 and they will be processed as soon as Centrifugo can. If you need to get response - you

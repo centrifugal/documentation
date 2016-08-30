@@ -33,3 +33,6 @@ You can also put or symlink `centrifugo` into your `bin` OS directory and run it
 ```bash
 centrifugo --config=config.json
 ```
+
+In production you will need to daemonize Centrifugo. We have prebuilt rpm and deb packages for
+most popular Linux distributions and Docker image. See more Deploy section for more info.

@@ -39,7 +39,7 @@ API request is a POST `application/json` request with commands in request body a
 Body of request is just a JSON representing commands you need to execute. This can be single command
 or array of commands. See available commands below.
 
-`X-API-Sign` header is an HMAC string based on Centrifugo secret key and JSON body you want to send.
+`X-API-Sign` header is an SHA-256 HMAC string based on Centrifugo secret key and JSON body you want to send.
 This header is used by Centrifugo to validate API request. In most situations you can protect Centrifugo
 API endpoint with firewall rules and disable sign check using `--insecure_api` option when starting
 Centrifugo. In this case you just need to send POST request with commands - no need in addition header.

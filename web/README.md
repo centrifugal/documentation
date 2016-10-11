@@ -1,7 +1,7 @@
 # Admin web interface
 
 Admin web interface located in its [own repo](https://github.com/centrifugal/web). This
-is ReactJS based single-page application. But Centrifugo server comes with this interface builtin.
+is ReactJS based single-page application. But Centrifugo server comes with this interface builtin - so in most cases you don't need to download it separately.
 
 [See demo on Heroku](https://centrifugo.herokuapp.com) (password `demo`) to see it in action.
 
@@ -43,6 +43,8 @@ Also you must additionally set 2 options in config: `admin_password` and `admin_
 * `admin_secret` - this is a secret key to sign authorization token used to call admin API endpoints.
 
 Make both strong and keep in secret.
+
+After setting this in config go to http://localhost:8000 (by default) - and you should see web interface. Although there is `password` based authentication a good advice is to protect web interface by firewall rules in production. Also as web interface uses `/socket` Centrifugo websocket endpoint - you better protect that endpoint by firewall too.
 
 If you don't want to use embedded web interface you can specify path to your own web interface directory:
 

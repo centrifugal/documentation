@@ -101,6 +101,8 @@ In example above we initialize `Centrifuge` object instance, subscribe on channe
 make connection to Centrifugo. And that's all code which required for simple real-time
 messaging handling on client side!
 
+***`Centrifuge` object is an instance of [EventEmitter](https://github.com/Olical/EventEmitter/blob/master/docs/api.md).***
+
 Parameters `url`, `user`, `timestamp` and `token` are required. Let's look at these
 connection parameters and other configuration options in detail.
 
@@ -524,6 +526,8 @@ subscription.on("message", messageHandlerFunction);
 subscription.on("subscribe", subscribeHandlerFunction);
 subscription.on("error", subscribeErrorHandlerFunction);
 ```
+
+***Subscription objects are instances of [EventEmitter](https://github.com/Olical/EventEmitter/blob/master/docs/api.md).***
 
 
 ### join and leave events of subscription

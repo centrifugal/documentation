@@ -36,7 +36,7 @@ var message = {
     'method': 'connect',
     'params': {
         'user': "USER ID STRING",
-        'timestamp': "STRING WITH CURRENT TIMESTAMP SECONDS"
+        'timestamp': "STRING WITH CURRENT TIMESTAMP SECONDS",
         'info': "OPTIONAL JSON ENCODED STRING",
         'token': "SHA-256 HMAC TOKEN GENERATED FROM PARAMETERS ABOVE"
     }

@@ -53,13 +53,26 @@ To start Centrifugo in this mode use `--insecure_api` flag:
 centrifugo --config=config.json --insecure_api
 ```
 
-# Insecure web mode (new in v1.3.0)
+# Insecure admin mode (new in v1.3.0, changed in v1.6.0)
 
-Allows run Centrifugo in insecure web mode - in this case you don't need to set `web_password`
-and `web_secret` for admin web interface in config - you will be logged in automatically
-without any password. Note that this is only for development or if you protected web interface
-with firewall rules in production. To start Centrifugo with web interface in insecure mode run:
+Allows run Centrifugo in insecure admin mode - in this case you don't need to set `admin_password` and `admin_secret`
+for admin endpoints in config - all admin endpoints access won't require authentication at all.
+
+Note that this is **only for development or if you protected web interface with firewall rules in production**.
+
+To start Centrifugo in this insecure mode run:
 
 ```bash
-centrifugo --config=config.json --web --insecure_web
+centrifugo --config=config.json --insecure_admin
 ```
+
+If this mode enabled and you are using web interface **you will be logged in automatically without any password**. This
+can be useful if you want to hide Centrifugo web interface behind you own company authentication proxy and don't want to
+have extra password for Centrifugo:
+
+```bash
+centrifugo --config=config.json --insecure_admin --web
+```
+
+Again: every insecure mode described here potentially dangerous and you must understand how to protect your Centrifugo
+by firewall rules this before turning on insecure modes in production.

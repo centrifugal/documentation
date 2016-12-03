@@ -34,6 +34,8 @@
     * [Private channels in browser client](mixed/private_channels.md)
     * [Insecure modes](mixed/insecure_modes.md)
     * [Exclude processing by sender](mixed/exclude_sender.md)
+    * [Ping messages](mixed/ping.md)
+    * [Websocket compression](mixed/websocket_compression.md)
 * [Deploy](deploy/README.md)
     * [RPM and DEB packages](deploy/packages.md)
     * [Docker image](deploy/docker.md)

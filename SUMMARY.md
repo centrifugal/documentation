@@ -15,7 +15,7 @@
     * [Signal handling](server/signals.md)
     * [Stats and metrics](server/stats.md)
     * [How recover mechanism works](server/recover.md)
-    * [Migrating from Centrifuge](server/migrate.md)
+    * [Advanced configuration](server/advanced_configuration.md)
 * [Client libraries](clients/README.md)
     * [JavaScript web browser client](clients/javascript.md)
     * [iOS client](clients/ios.md)

@@ -23,16 +23,14 @@ In most situations your application need several real-time features. We suggest 
 namespaces for every real-time feature if it requires some option enabled.
 
 For example if you need join/leave messages for chat app - create special channel namespace
-with this `join_leave` option enabled. Otherwise your other channels will receive join/leave messages
-that just increase load and traffic in system but not used by clients.
+with this `join_leave` option enabled. Otherwise your other channels will receive join/leave
+messages too - increasing load and traffic in system but not actually used by clients.
 
 The same relates to other channel options.
 
 ### Centrifugo is a best-effort transport
 
 This means that if you want strongly guaranteed message delivery to your clients then
-you can't just rely on Centrifugo and its message history cache. Centrifugo delivers
-messages at most once.
-
-In this case you still can use Centrifugo for real-time but you should build some additional
-logic on top your application backend and main data storage to satisfy your guarantees.
+you can't just rely on Centrifugo and its message history cache. In this case you still
+can use Centrifugo for real-time but you should build some additional logic on top your
+application backend and main data storage to satisfy your guarantees.

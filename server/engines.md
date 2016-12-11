@@ -64,7 +64,7 @@ command = {
     }
 }
 
-client.rpush("centrifugo.api", json.dumps(to_send))
+client.rpush("centrifugo.api", json.dumps(command))
 ```
 
 To send many commands you can use Redis pipelining.

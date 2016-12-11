@@ -5,9 +5,11 @@ don't need (and you really should not) change them. This chapter is about such o
 
 #### client_channel_limit
 
-Default: 100
+Default: 128
 
 Sets maximum number of different channel subscriptions single client can have.
+
+Before Centrifugo v1.6.0 default value was 100.
 
 #### max_channel_length
 

@@ -43,3 +43,4 @@
     * [Redis high availability](deploy/sentinel.md)
     * [Tuning operating system](deploy/tuning.md)
 * [FAQ](FAQ.md)
+* [Best practices](best_practices.md)

@@ -1,20 +1,20 @@
 # Client protocol description
 
-This chapter aims to help developers to implement new client library. This chapter is a
-work in progress. I will update it from time to time with additional information.
+This chapter aims to help developers to implement new client library or understand
+how already implemented clients work. This chapter is not complete. I will
+update it from time to time with additional information.
 
-Centrifugo already has Javascript client and Go client to connect your application users
-from web browser or via Go application code.
-
-Centrifugo Websocket client connection endpoint can be used to connect clients from various
-environments. For example from mobile applications. There are no client libraries for mobiles
-available at moment but the goal of this document is to help implementing new client library,
-for example in Java for Android or in Objective-C/Swift for iOS applications.
+Centrifugo already has Javascript, Go, iOS, Android clients to connect your application
+users.
 
 One of the ways to understand how to implement new client is looking at source code
 of [centrifuge-js](https://github.com/centrifugal/centrifuge-js/blob/master/src/centrifuge.js) or [centrifuge-go](https://github.com/centrifugal/centrifuge-go/blob/master/centrifuge.go).
 
-But let's look at protocol step-by-step.
+Currently websocket is the only available transport to implement client. Centrifugo also support
+SockJS connections from browser but it's only for browser usage, there is no reason to use it
+from other environments. All communication done via exchanging JSON messages.
+
+Let's look at client protocol step-by-step.
 
 Connect, subscribe on channel and wait for published messages
 -------------------------------------------------------------
@@ -22,71 +22,101 @@ Connect, subscribe on channel and wait for published messages
 Websocket endpoint is:
 
 ```
-ws://your_centrifugo_server.example.com/connection/websocket
+ws://your_centrifugo_server.com/connection/websocket
 ```
 
-What client first should do is create Websocket connection to this endpoint.
+Or in case of using TLS:
 
-After successful connection client must send `connect` command to server to authorize
-itself. This is a structure like this:
+```
+wss://your_centrifugo_server.com/connection/websocket
+```
+
+What client should do first is to create Websocket connection to this endpoint.
+
+After successful connection client must send `connect` command to server to authorize itself.
+
+`connect` command is a JSON structure like this (all our examples here use Javascript
+language, but the same can be applied to any language):
 
 ```javascript
 var message = {
-    'uid': 'UNIQUE COMMAND ID',
-    'method': 'connect',
-    'params': {
-        'user': "USER ID STRING",
-        'timestamp': "STRING WITH CURRENT TIMESTAMP SECONDS",
-        'info': "OPTIONAL JSON ENCODED STRING",
-        'token': "SHA-256 HMAC TOKEN GENERATED FROM PARAMETERS ABOVE"
+    "uid": "UNIQUE COMMAND ID",
+    "method": "connect",
+    "params": {
+        "user": "USER ID STRING",
+        "timestamp": "STRING WITH CURRENT TIMESTAMP SECONDS",
+        "info": "OPTIONAL JSON ENCODED STRING",
+        "token": "SHA-256 HMAC TOKEN GENERATED FROM PARAMETERS ABOVE"
     }
 }
+
+connection.send(JSON.stringify(message))
 ```
 
 Look at `method` key with a name of our command – `connect`.
 
-Centrifugo allows to send an array of messages in one request, so you can add command above
-into array and send result to Centrifugo server over Websocket connection established before:
+Centrifugo can parse an array of messages in one request, so you can add command above into
+array and send result to Centrifugo server over Websocket connection established before:
 
 ```javascript
 var messages = [message]
 connection.send(JSON.stringify(messages))
 ```
 
-Description of `connect` command parameters described in chapter about javascript client. For web application
-after a user is successfully logged in (authenticated on a web server), the application backend server generates
-all these connection parameters (together with generated HMAC SHA-256 token) to client. Centrifugo server uses
-the same algorithm (HMAC SHA-256) to generate the token so that it is able to validate it. Correct token proves
-that client provided valid user ID in its `connect` message. *Note* that Centrifugo can also allow non-authenticated
-users to connect to it as not all applications has login mechanism - for example sites with public stream with
-notifications where all visitors can see new events in real-time without actually logging in. For this case server
-generates token using empty string as user ID and gives it to client. But in this scenario `anonymous` access must
-be enabled for channels explicitly in configuration of Centrifugo.
+Description of `connect` command parameters described in a chapter about javascript client.
+
+In short here:
+
+* `user` - current application user ID (string)
+* `timestamp` - current Unix timestamp as seconds (string)
+* `info` - optional JSON string with client additional information (string)
+* `token` - SHA-256 HMAC token generated on backend (based on secret key from
+    Centrifugo configuration) to sign parameters above.
+
+Application backend must provide all these connection parameters (together with generated
+HMAC SHA-256 token) to client (pass to template when client opens web page for example).
+
+After receiving `connect` command over Websocket connection Centrifugo server uses the
+same algorithm (HMAC SHA-256) to generate the token. Correct token proves that client
+provided valid user ID, timestamp and info in its `connect` message.
+
+*Note* that Centrifugo can also allow non-authenticated users to connect to it (for example
+sites with public stream with notifications where all visitors can see new events in real-time
+without actually logging in). For this case backend must generate token using empty string as
+user ID. In this scenario `anonymous` access must be enabled for channels explicitly in
+configuration of Centrifugo.
 
 What you should do next is wait for response from server to `connect` command you just sent.
 
 In general structure that will come from Centrifugo server to your client looks like this:
 
 ```javascript
-[{response...}, {response...}, {response...}]
+[{response}, {response}, {response}]
 ```
 
 Or just single response
 
 ```
-{response...}
+{response}
 ```
 
-I.e. array of responses or one response to commands you sent before. I.e. in our case Centrifugo will
-send to our client:
+I.e. array of responses or one response to commands you sent before. I.e. in our case Centrifugo
+will send to our client:
 
 ```javascript
 [{connect_command_response}]
 ```
 
-I.e. an array with single response to `connect` command we sent.
+Or just:
 
-Every response is a structure like this:
+```javascript
+{connect_command_response}
+```
+
+So **client must be ready to process both arrays of responses and single object response. This rule
+applies to all communication**.
+
+Every `response` is a structure like this:
 
 ```javascript
 {
@@ -98,15 +128,16 @@ Every response is a structure like this:
 ```
 
 Javascript client uses `method` key to understand what to do with response. As Javascript is
-evented IO language it just calls corresponding function to react on response. Unique `uid` also
-can be used to implement proper responses handling in other languages. For example Go client remember
-command `uid` to call some callback when it receives response from Centrifugo.
+evented IO language it just calls corresponding function to react on response. Unique `uid`
+also can be used to implement proper responses handling in other languages. For example Go
+client remember command `uid` to call some callback when it receives response from Centrifugo.
 
-General rule - if response contains a non-empty `error` then server returned an error and client
-should not process response `body` data. Also you should not get errors in normal workflow. If you
-get an error then most probably you are doing something wrong and this must be fixed on development
-stages. It can also be `internal server error` from Centrifugo. Only developers should see text of
-protocol errors – they are not supposed to be shown to your application clients.
+General rule - if response contains a non-empty `error` then server returned an error.
+
+You should not get errors in normal workflow. If you get an error then most probably you
+are doing something wrong and this must be fixed on development stages. It can also be
+`internal server error` from Centrifugo. Only developers should see text of protocol errors
+– they are not supposed to be shown to your application clients.
 
 In case of successful `connect` response body is:
 
@@ -119,7 +150,8 @@ In case of successful `connect` response body is:
 }
 ```
 
-At moment let's just speak about `client` key. This is unique client connection ID.
+At moment let's just speak about `client` key. This is unique client ID Centrifugo set
+to this connection.
 
 As soon your client successfully connected and got its unique connection ID it is ready to
 subscribe on channels.
@@ -134,16 +166,15 @@ var message = {
 }
 ```
 
-Send it in a same way as `connect` command before.
+Just send this `subscribe` command in the same way as `connect` command before.
 
 After you received successful response on this `subscribe` command your client will receive
-messages published to this channel. Those messages will be delivered through Websocket connection
-as response with method `message`. I.e. response will look like this:
+messages published to this channel. Those messages will be delivered through Websocket
+connection as response with method `message`. I.e. response will look like this:
 
 ```
 {
     "method": "message",
-    "error": null,
     "body": {
         "uid": "8d1f6279-2d13-45e2-542d-fac0e0f1f6e0",
         "timestamp":"1439715024",
@@ -162,15 +193,15 @@ as response with method `message`. I.e. response will look like this:
 }
 ```
 
-`body` of `message` response contains `channel` to which message corresponds and `data` key - this
-is an actual JSON that was published into that channel.
+`body` of `message` response contains `channel` to which message corresponds and `data`
+key - this is an actual JSON that was published into that channel.
 
 This is enough to start with - client established connection, authorized itself sending `connect`
 command, subscribed on channel to receive new messages published into that channel. This is a core
 Centrifugo functionality. There are lots of other things to cover – channel presence information,
 channel history information, connection expiration, private channel subscriptions, join/leave events
-and more but in most cases all you need from Centrifugo - subscribe on channels and receive new messages
-from those channels as soon as your backend publishes them into Centrifugo server API.
+and more but in most cases all you need from Centrifugo - subscribe on channels and receive new
+messages from those channels as soon as your backend published them into Centrifugo server API.
 
 Available methods
 -----------------
@@ -290,8 +321,7 @@ response.
 ```javascript
 message = {
     'uid': 'UNIQUE COMMAND ID',
-    "method": "ping",
-    "params": {}
+    "method": "ping"
 }
 ```
 
@@ -301,7 +331,7 @@ Responses of client to server commands
 As soon as your client sent command to server it should then receive a corresponding response.
 Let's look at those response messages in detail.
 
-TODO: write about those responses
+TODO: write about responses
 
 Server to client commands
 =========================
@@ -312,7 +342,6 @@ for message coming over connection looks like this:
 ```javascript
 {
     "method":"message",
-    "error":null,
     "body": {
         "uid": "8d1f6279-2d13-45e2-542d-fac0e0f1f6e0",
         "timestamp":"1439715024",
@@ -338,7 +367,6 @@ contains information about new subscribed client.
 ```javascript
 {
     "method":"join",
-    "error":null,
     "body": {
         "channel":"$public:chat",
         "data": {
@@ -363,7 +391,6 @@ contains information about unsubscribed client.
 ```javascript
 {
     "method":"leave",
-    "error":null,
     "body": {
         "channel":"$public:chat",
         "data": {

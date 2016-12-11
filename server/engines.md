@@ -67,12 +67,13 @@ command = {
 client.rpush("centrifugo.api", json.dumps(command))
 ```
 
-To send many commands you can use Redis pipelining.
+[RPUSH](https://redis.io/commands/rpush) Redis command allows to push several messages
+into queue in one request.
 
-See that we RPUSH messages into `centrifugo.api` - this is a default name of API queue
-Centrifugo watchaes for. Actually this is just a LIST data structure in Redis.
+Note that we RPUSH messages into `centrifugo.api` - this is a default name of API queue
+Centrifugo watches for. Actually this is just a LIST data structure in Redis.
 
-Note again - you don't have response here as you are adding commands into Redis queue
+Again - you don't have response here as you are adding commands into Redis queue
 and they will be processed as soon as Centrifugo can. If you need to get response - you
 should use HTTP API.
 

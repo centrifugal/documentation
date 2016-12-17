@@ -1,5 +1,5 @@
-Scaling Centrifugo nodes
-========================
+Scaling with Redis
+==================
 
 As you can read before – it's possible to run multiple nodes of Centrifugo server
 and load balance clients between them. In this chapter I'll show how to do it. We
@@ -61,7 +61,7 @@ centrifugo --config=config.json --engine=redis --redis_port=6379,6380
 To start Centrifugo with Redis instances on different hosts:
 
 ```
-centrifugo --config=config.json --engine=redis --engine_host=192.168.1.34,192.168.1.35
+centrifugo --config=config.json --engine=redis --redis_host=192.168.1.34,192.168.1.35
 ```
 
 If you also need to customize AUTH password, Redis DB number then you can use `--redis_url` option.

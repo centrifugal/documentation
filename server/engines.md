@@ -45,7 +45,10 @@ How to publish via Redis engine API listener? Start Centrifugo with Redis engine
 centrifugo --logging=debug --config=config.json --engine=redis --redis_api
 ```
 
-Then use Redis client for your favorite language, ex. for Python:
+Note, that starting from Centrifugo 1.6.0 Redis API message format changed. You can find old
+format description [here](https://github.com/centrifugal/documentation/blob/2eadd7d3f9991c46c463aff4126f2ea37b17bfad/server/engines.md#redis-engine). Old format deprecated and will be removed in future releases.
+
+Use Redis client for your favorite language, ex. for Python:
 
 ```python
 import redis
@@ -53,32 +56,30 @@ import json
 
 client = redis.Redis()
 
-to_send = {
-    "data": [
-        {
-            "method": "publish",
-            "params": {"channel": "$public:chat", "data": {"input": "hello"}}
-        },
-        {
-            "method": "publish",
-            "params": {"channel": "events", "data": {"event": "message"}}
-        },
-    ]
+command = {
+    "method": "publish",
+    "params": {
+        "channel": "events",
+        "data": {"event": "message"}
+    }
 }
 
-client.rpush("centrifugo.api", json.dumps(to_send))
+client.rpush("centrifugo.api", json.dumps(command))
 ```
 
-You send JSON object with list of commands in `data`.
+[RPUSH](https://redis.io/commands/rpush) Redis command allows to push several messages
+into queue in one request.
 
-Note again - you don't have response here as you are adding commands into Redis queue
+Note that we RPUSH messages into `centrifugo.api` - this is a default name of API queue
+Centrifugo watches for. Actually this is just a LIST data structure in Redis.
+
+Again - you don't have response here as you are adding commands into Redis queue
 and they will be processed as soon as Centrifugo can. If you need to get response - you
 should use HTTP API.
 
-`publish` is the most usable API command in Centrifugo and Redis API listener was
-implemented with primary goal to reduce HTTP overhead when publishing quickly.
-This can also help using Centrifugo with other languages for which we don't
-have HTTP API client yet.
+`publish` is the most usable API command in Centrifugo and Redis API listener was implemented
+with primary goal to reduce HTTP overhead when publishing quickly. This can also help using
+Centrifugo with other languages for which we don't have HTTP API client yet.
 
 Several configuration options related to Redis engine:
 
@@ -91,21 +92,24 @@ centrifugo -h
 And you will see the following options among the others:
 
 ```bash
-    --redis_api=false: enable Redis API listener (Redis engine)
-    --redis_api_num_shards=0: Number of shards for redis API queue (Redis engine)
-    --redis_db="0": redis database (Redis engine)
-    --redis_host="127.0.0.1": redis host (Redis engine)
-    --redis_password="": redis auth password (Redis engine)
-    --redis_pool=256: Redis pool size (Redis engine)
-    --redis_port="6379": redis port (Redis engine)
-    --redis_url="": redis connection URL (Redis engine)
+    --redis_api                  enable Redis API listener (Redis engine)
+    --redis_api_num_shards int   Number of shards for redis API queue (Redis engine)
+    --redis_db string            redis database (Redis engine) (default "0")
+    --redis_host string          redis host (Redis engine) (default "127.0.0.1")
+    --redis_master_name string   Name of Redis master Sentinel monitors (Redis engine)
+    --redis_password string      redis auth password (Redis engine)
+    --redis_pool int             Redis pool size (Redis engine) (default 256)
+    --redis_port string          redis port (Redis engine) (default "6379")
+    --redis_sentinels string     Comma separated list of Sentinels (Redis engine)
+    --redis_url string           redis connection URL in format redis://:password@hostname:port/db (Redis engine)
 ```
 
 Most of these options are clear – `--redis_host`, `--redis_port`, `--redis_password`, `--redis_db`, `--redis_pool`
 
 `--redis_url` allows to set Redis connection parameters in a form of URL in format `redis://:password@hostname:port/db_number`.
-When set Centrifugo will use URL instead of values provided in `--redis_host`, `--redis_port`,
-`--redis_password`, `--redis_db` options.
+
+When `--redis_url` set Centrifugo will use URL instead of values provided in `--redis_host`,
+`--redis_port`, `--redis_password`, `--redis_db` options.
 
 The most advanced option here is `--redis_api_num_shards`. It's new in v1.3.0. This option must be
 used in conjunction with `--redis_api`, i.e. it makes sense only when Redis API enabled. It creates

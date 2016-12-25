@@ -40,6 +40,7 @@
     * [RPM and DEB packages](deploy/packages.md)
     * [Docker image](deploy/docker.md)
     * [Nginx configuration](deploy/nginx.md)
+    * [TLS certificates](deploy/certificates.md)
     * [Redis high availability](deploy/sentinel.md)
     * [Tuning operating system](deploy/tuning.md)
 * [FAQ](FAQ.md)

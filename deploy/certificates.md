@@ -10,6 +10,8 @@ There are two ways to do this: using TLS certificate `cert` and `key` files that
 from your CA provider or using automatic certificate handling via [ACME](https://ietf-wg-acme.github.io/acme/) provider (only
 [Let's Encrypt](https://letsencrypt.org/) at this moment).
 
+### Using crt and key files
+
 In first way you already have `cert` and `key` files. For development you can create self-signed
 certificate - see [this instruction](https://devcenter.heroku.com/articles/ssl-certificate-self) as
 example.
@@ -37,7 +39,9 @@ And run:
 ./centrifugo --config=config.json
 ```
 
-For automatic certificate from Let's Encrypt
+### Automatic certificates
+
+For automatic certificates from Let's Encrypt add into configuration file:
 
 ```
 {
@@ -51,14 +55,14 @@ For automatic certificate from Let's Encrypt
 
 `ssl_autocert` says Centrifugo that you want automatic certificate handling using ACME provider.
 
-`ssl_autocert_host_whitelist` is a string with your app domain address. This can be comma-separated list.
-It's optional but recommended for extra security.
+`ssl_autocert_host_whitelist` is a string with your app domain address. This can be comma-separated
+list. It's optional but recommended for extra security.
 
-`ssl_autocert_cache_dir` is a path to a folder to cache issued certificate files. This is optional but will
-increase performance.
+`ssl_autocert_cache_dir` is a path to a folder to cache issued certificate files. This is optional
+but will increase performance.
 
-`ssl_autocert_email` is optional - it's a email address ACME provider will send notifications
+`ssl_autocert_email` is optional - it's an email address ACME provider will send notifications
 about problems with your certificates.
 
-When configured correctly and your domain is valid (btw `localhost` will not work) - certificates
+When configured correctly and your domain is valid (`localhost` will not work) - certificates
 will be retrieved on first request to Centrifugo.

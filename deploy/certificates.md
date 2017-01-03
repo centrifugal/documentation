@@ -66,3 +66,5 @@ about problems with your certificates.
 
 When configured correctly and your domain is valid (`localhost` will not work) - certificates
 will be retrieved on first request to Centrifugo.
+
+Also Let's Encrypt certificates will be automatically renewed.

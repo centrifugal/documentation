@@ -21,4 +21,5 @@ compression support negotiated with client.
 
 It's also possible to control websocket compression level defined at [compress/flate](https://golang.org/pkg/compress/flate/#NewWriter)
 By default when compression with client negotiated Centrifugo uses compression level 1 (BestSpeed).
-If you want to set custom compression level use `websocket_compression_level` configuration option.
+If you want to set custom compression level use `websocket_compression_level` (new in Centrifugo v1.6.4)
+configuration option.

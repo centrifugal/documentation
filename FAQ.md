@@ -6,7 +6,7 @@ Answers on various questions here.
 
 This depends on many factors. Hardware, amount of messages, channel options enabled,
 client distribution over channels. So no certain answer on this question exists. Common
-sense, tests and monitoring can help here. Generally we suggest to not put more than 50000
+sense, tests and monitoring can help here. Generally we suggest to not put more than 50-100k
 clients on one node - but you should measure.
 
 ### Can Centrifugo scale horizontally?
@@ -15,8 +15,7 @@ Yes, it can. It can do this using builtin Redis Engine. Redis is very fast – f
 it can handle hundreds of thousands requests per second. This should be OK for most
 applications in internet. But if you are using Centrifugo and approaching this limit
 then it's possible to add sharding support to balance queries between different Redis
-instances. This is already possible but not documented as we consider this experimental -
-please, connect us in this case - open issue on Github.
+instances.
 
 ### Centrifugo stops accepting new connections, why?
 
@@ -30,6 +29,12 @@ be very useful for load balancing clients for example.
 ### Does Centrifugo work with HTTP/2?
 
 Yes, Centrifugo works with HTTP/2.
+
+You can disable HTTP/2 running Centrifugo server with `GODEBUG` environment variable:
+
+```
+GODEBUG="http2server=0" centrifugo -c config.json
+```
 
 ### Is there a way to use single connection to Centrifugo from different browser tabs?
 
@@ -98,3 +103,7 @@ your needs. Centrifugo is not designed as data storage - it uses message history
 for recovering missed messages after short client internet connection disconnects. It's
 not designed to be used to sync client state after being offline for a long time - this
 logic should be on your app backend.
+
+### I have not found an answer on my question here:
+
+We have [gitter chat room](https://gitter.im/centrifugal/centrifugo) - welcome!

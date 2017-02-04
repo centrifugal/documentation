@@ -78,7 +78,8 @@ When you call `stats` API command you get something like this in response body:
                     "node_num_remove_client_conn": 0,
                     "node_num_remove_client_sub": 0,
                     "node_num_remove_presence": 0,
-                    "node_num_unique_clients": 0
+                    "node_num_unique_clients": 0,
+                    "node_uptime_seconds": 120,
                 }
             }
         ],
@@ -119,6 +120,8 @@ Let's describe some metrics in detail:
 `node_num_channels` – number of active channels (with one or more subscribers)
 
 `node_num_client_msg_published` – number of messages published
+
+`node_uptime_seconds` – seconds passed from time when node started.
 
 `http_api_num_requests` – number of requests to server HTTP API
 

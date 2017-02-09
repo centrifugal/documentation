@@ -54,5 +54,10 @@ Default: false
 
 Enable websocket compression, see special chapter in docs.
 
+#### gomaxprocs
+
+Default: 0
+
+By default Centrifugo runs on all available CPU cores. If you want to limit amount of cores Centrifugo can utilize in one moment use this option.
 
 There are some other internal undocumented options. But we don't think someone really need to tweak them.

@@ -60,4 +60,149 @@ Default: 0
 
 By default Centrifugo runs on all available CPU cores. If you want to limit amount of cores Centrifugo can utilize in one moment use this option.
 
-There are some other internal undocumented options. But we don't think someone really need to tweak them.
+## Advanced endpoint configuration.
+
+After you started Centrifugo you have several endpoints available. As soon as you have not provided any extra options you have 3 endpoints by default.
+
+#### Default endpoints.
+
+First is SockJS endpoint - it's needed to serve client connections that use SockJS library:
+
+```
+http://localhost:8000/connection
+```
+
+Next is raw Websocket endpoint to serve client connections that use pure Websocket protocol:
+
+```
+ws://localhost:8000/connection/websocket
+```
+
+And finally you have API endpoint to `publish` messages to channels (and execute other available API commands):
+
+```
+http://localhost:8000/api/
+```
+
+By default all endpoints work on port `8000`. You can change it using `port` option:
+
+```
+{
+    "port": "9000"
+}
+```
+
+In production setup you will have your domain name in endpoint addresses above instead of `localhost`. Also as your Centrifugo will be behind proxy or load balancer software you won't have ports in your
+endpoint addresses. What will always be the same as above are url paths: `/connection`, `/connection/websocket`, `/api/`.
+
+Let's look at possibilities that we have to tweak available endpoints.
+
+#### Admin endpoints.
+
+First is enabling admin endpoints:
+
+```
+{
+    ...
+    "admin": true,
+    "admin_password": "password",
+    "admin_secret": "secret"
+}
+```
+
+This makes the following endpoint available:
+
+```
+ws://localhost:8000/socket
+```
+
+This is endpoint for admin connections. In most scenarios it's used only by our builtin web
+interface. You can read about web interface in dedicated chapter. Here we will just show how
+to enable it:
+
+```
+{
+    ...
+    "web": true,
+    "admin": true,
+    "admin_password": "password",
+    "admin_secret": "secret"
+}
+```
+
+After adding `web` option you can visit:
+
+```
+http://localhost:8000/
+```
+
+And see web interface. You can log into it using `admin_password` value we set above.
+
+
+#### Debug endpoints.
+
+Next, when Centrifugo started in debug mode some extra debug endpoints become available.
+To start in debug mode add `debug` option to config:
+
+```
+{
+    ...
+    "debug": true
+}
+```
+
+And endpoint:
+
+```
+http://localhost:8000/debug/pprof/
+```
+
+Will show you some very useful info about internal state of Centrifugo instance. This info is 
+especially helpful when troubleshooting.
+
+#### Custom admin and API ports
+
+We strongly recommend to not expose admin (web), debug and API endpoints to internet. In case of admin this step will 
+provide extra protection to web interface and debug endpoints, protecting API endpoint will allow you to use `insecure_api` 
+mode to omit each API request signing.
+
+So it's a good practice to protect them with firewall. For example in `location` section of Nginx configuration. 
+
+But sometimes you don't have access to per-location configuration on your proxy/load balancer software. For example 
+when using Amazon ELB. In this case you can change ports on which your admin and API endpoints work.
+
+To run admin endpoints on custom port use `admin_port` option:
+
+```
+{
+    ...
+    "admin_port": "10000"
+}
+```
+
+So admin socket will work on address:
+ 
+```
+ws://localhost:10000/socket
+```
+
+And debug page will be available on new custom admin port too:
+
+```
+http://localhost:8000/debug/pprof/
+```
+
+To run API server on it's own port use `api_port` option:
+
+```
+{
+    ...
+    "api_port": "10001"
+}
+```
+
+Now you should send API requests to:
+
+```
+http://localhost:10001/api/
+```

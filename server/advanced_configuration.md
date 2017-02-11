@@ -92,10 +92,10 @@ By default all endpoints work on port `8000`. You can change it using `port` opt
 }
 ```
 
-In production setup you will have your domain name in endpoint addresses above instead of `localhost`. Also as your Centrifugo will be behind proxy or load balancer software you won't have ports in your
-endpoint addresses. What will always be the same as above are url paths: `/connection`, `/connection/websocket`, `/api/`.
+In production setup you will have your domain name in endpoint addresses above instead of `localhost`. Also if your Centrifugo will be behind proxy or load balancer software you most probably won't have ports in your
+endpoint addresses. What will always be the same as shown above are URL paths: `/connection`, `/connection/websocket`, `/api/`.
 
-Let's look at possibilities that we have to tweak available endpoints.
+Let's look at possibilities to tweak available endpoints.
 
 #### Admin endpoints.
 
@@ -116,9 +116,8 @@ This makes the following endpoint available:
 ws://localhost:8000/socket
 ```
 
-This is endpoint for admin connections. In most scenarios it's used only by our builtin web
-interface. You can read about web interface in dedicated chapter. Here we will just show how
-to enable it:
+This is an endpoint for admin websocket connections. In most scenarios it's used only by our builtin web
+interface. You can read about web interface in dedicated chapter. Here we will just show how to enable it:
 
 ```
 {
@@ -157,18 +156,17 @@ And endpoint:
 http://localhost:8000/debug/pprof/
 ```
 
-Will show you some very useful info about internal state of Centrifugo instance. This info is 
-especially helpful when troubleshooting.
+will show you useful info about internal state of Centrifugo instance. This info is especially helpful when troubleshooting.
 
 #### Custom admin and API ports
 
-We strongly recommend to not expose admin (web), debug and API endpoints to internet. In case of admin this step will 
-provide extra protection to web interface and debug endpoints, protecting API endpoint will allow you to use `insecure_api` 
-mode to omit each API request signing.
+We strongly recommend to not expose admin (web), debug and API endpoints to internet. In case of admin endpoints this step
+provides extra protection to `/socket` endpoint, web interface and debug endpoints. Protecting API endpoint will allow you to use `insecure_api`
+mode to omit signing of each API request.
 
-So it's a good practice to protect them with firewall. For example in `location` section of Nginx configuration. 
+So it's a good practice to protect admin and API endpoints with firewall. For example you can do this in `location` section of Nginx configuration.
 
-But sometimes you don't have access to per-location configuration on your proxy/load balancer software. For example 
+Though sometimes you don't have access to per-location configuration in your proxy/load balancer software. For example
 when using Amazon ELB. In this case you can change ports on which your admin and API endpoints work.
 
 To run admin endpoints on custom port use `admin_port` option:
@@ -189,7 +187,7 @@ ws://localhost:10000/socket
 And debug page will be available on new custom admin port too:
 
 ```
-http://localhost:8000/debug/pprof/
+http://localhost:10000/debug/pprof/
 ```
 
 To run API server on it's own port use `api_port` option:

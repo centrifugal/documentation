@@ -83,9 +83,9 @@ on your backend.
 
 There are several ways to achieve it:
 
-* use private channel (starting with $) - every time user will try to subscribe on it your backend should provide sign to confirm that subscription request. Read more in [special chapter](https://fzambia.gitbooks.io/centrifugal/content/mixed/private_channels.html)
+* use private channel (starting with `$`) - every time user will try to subscribe on it your backend should provide sign to confirm that subscription request. Read more in [special chapter about private channels](https://fzambia.gitbooks.io/centrifugal/content/mixed/private_channels.html)
 * next is [user limited channels](https://fzambia.gitbooks.io/centrifugal/content/server/channels.html#user-channel-boundary) (with `#`) - you can create channel with name like `dialog#42,567` to limit subscribers only to user with id `42` and user with ID `567`
-* finally you can create hard to guess channel name (based on some secret key and user IDs or just generate and save this long unique name into your main app database) so other users won't know this channel to subscribe on it. This is the simplest but the least secure method.
+* finally you can create hard to guess channel name (based on some secret key and user IDs or just generate and save this long unique name into your main app database) so other users won't know this channel to subscribe on it. This is the simplest but not the safest way - but can be reasonable to consider in many situations.
 
 ### What's a best way to organize channel configuration?
 

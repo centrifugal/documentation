@@ -3,7 +3,7 @@ Welcome to Centrifugal docs
 
 ![Centrifugal intro](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/intro.png)
 
-Centrifugal organization is a set of tools to add real-time features on your web site. It brings together several repositories linked by a common purpose – give you a complete and ready to use solution when you want to add real-time events into your application.
+Centrifugal organization is a set of tools to add real-time features to your web/mobile/desktop application. It brings together several repositories linked by a common purpose – give you a complete and ready to use solution when you want to add real-time events into your application.
 
 Chats, real-time charts, notifications, various counters and even games can be built using our instruments – [real-time messaging server](server/README.md), [javascript browser client](client/README.md) and [client API libraries](libraries/README.md) for your favorite language.
 

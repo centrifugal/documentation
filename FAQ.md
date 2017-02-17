@@ -2,7 +2,7 @@
 
 Answers on various questions here.
 
-### How many connections can handle one Centrifugo instance?
+### How many connections can one Centrifugo instance handle?
 
 This depends on many factors. Hardware, message rate, size of messages, channel options enabled, client distribution over channels, is websocket compression enabled or not etc. So no certain answer on this question exists. Common sense, tests and monitoring can help here. Generally we suggest to not put more than 50-100k clients on one node - but you should measure.
 

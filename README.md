@@ -47,9 +47,9 @@ You can use it to discover Centrifugo without installing Centrifugo on your comp
 
 There are 3 endpoints of demo available:
 
-* ws://centrifugo.herokuapp.com/connection/websocket - raw Websocket endpoint
-* http://centrifugo.herokuapp.com/connection - SockJS endpoint
-* http://centrifugo.herokuapp.com/api/ - HTTP API endpoint
+* wss://centrifugo.herokuapp.com/connection/websocket - raw Websocket endpoint
+* https://centrifugo.herokuapp.com/connection - SockJS endpoint
+* https://centrifugo.herokuapp.com/api/ - HTTP API endpoint
 
 So you can use our client and API libraries to communicate with this demo.
 

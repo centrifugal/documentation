@@ -43,7 +43,7 @@ Let's see which projects Centrifugal organization has:
 
 We maintain actual [demo of Centrifugo server instance](https://centrifugo.herokuapp.com) on Heroku (password `demo`).
 
-You can use it to discover Centrifugo without installing Centrifugo on your computer.
+You can use it to discover Centrifugo without installing it on your computer.
 
 There are 3 endpoints of demo available:
 

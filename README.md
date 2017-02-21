@@ -39,9 +39,21 @@ Let's see which projects Centrifugal organization has:
 * [web](https://github.com/centrifugal/web) - admin web interface for Centrifugo.
     Built on ReactJS.
 
-### Demo and examples
+### Demo
 
-We maintain actual [demo of Centrifugo server instance with web interface](https://centrifugo.herokuapp.com) on Heroku (password `demo`). So you can just use it for experiments.
+We maintain actual [demo of Centrifugo server instance](https://centrifugo.herokuapp.com) on Heroku (password `demo`).
+
+You can use it to discover Centrifugo without installing Centrifugo on your computer.
+
+There are 3 endpoints of demo available:
+
+* wss://centrifugo.herokuapp.com/connection/websocket - raw Websocket endpoint
+* https://centrifugo.herokuapp.com/connection - SockJS endpoint
+* https://centrifugo.herokuapp.com/api/ - HTTP API endpoint
+
+So you can use our client and API libraries to communicate with this demo.
+
+### Examples
 
 Examples can be found [in repo on Github](https://github.com/centrifugal/examples).
 

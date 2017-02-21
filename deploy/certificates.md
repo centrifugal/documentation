@@ -68,3 +68,11 @@ When configured correctly and your domain is valid (`localhost` will not work) -
 will be retrieved on first request to Centrifugo.
 
 Also Let's Encrypt certificates will be automatically renewed.
+
+There are tho options (new in v1.6.5) that allow Centrifugo to support TLS client connections from older
+browsers such as Chrome 49 on Windows XP and IE8 on XP:
+
+* `ssl_autocert_force_rsa` - this is a boolean option, by default `false`. When enabled it forces
+    autocert manager generate certificates with 2048-bit RSA keys.
+* `ssl_autocert_server_name` - string option, allows to set server name for client handshake hello.
+    This can be useful to deal with old browsers without SNI support - see [comment](https://github.com/centrifugal/centrifugo/issues/144#issuecomment-279393819)

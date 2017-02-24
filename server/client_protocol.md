@@ -16,8 +16,7 @@ from other environments. All communication done via exchanging JSON messages.
 
 Let's look at client protocol step-by-step.
 
-Connect, subscribe on channel and wait for published messages
--------------------------------------------------------------
+### Connect, subscribe on channel and wait for published messages
 
 Websocket endpoint is:
 
@@ -203,8 +202,7 @@ channel history information, connection expiration, private channel subscription
 and more but in most cases all you need from Centrifugo - subscribe on channels and receive new
 messages from those channels as soon as your backend published them into Centrifugo server API.
 
-Available methods
------------------
+### Available methods
 
 Lets now look at all available methods your client can send or receive:
 
@@ -230,8 +228,7 @@ corresponding event occurred).
 
 We have already seen `connect`, `subscribe` and `publish` above. Let's describe remaining.
 
-Client to server commands
--------------------------
+### Client to server commands
 
 `connect` - send authorization parameters to Centrifugo so your connection could start subscribing
 on channels.
@@ -325,16 +322,14 @@ message = {
 }
 ```
 
-Responses of client to server commands
-======================================
+### Responses of client to server commands
 
 As soon as your client sent command to server it should then receive a corresponding response.
 Let's look at those response messages in detail.
 
 TODO: write about responses
 
-Server to client commands
-=========================
+### Server to client commands
 
 `message` - new message published into channel current client subscribed to. Response
 for message coming over connection looks like this:

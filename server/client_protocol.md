@@ -450,9 +450,13 @@ in AJAX request so all that developer needs is to check user permissions (as we 
 AJAX from browser user will be properly set by application backend session mechanism), generate
 valid private channel sign and return in response. In case of other clients (for example mobile)
 there is no convenient way (such as AJAX in web) to get data from backend - so it's up to developer
-to decide how he wants to obtain channel sign. Client library should at least provide mechanism to
-give developer client ID of current connection and mechanism to set `client`, `info` and `sign`
-fields to subscription request `params`.
+to decide how he wants to obtain channel sign.
+
+Client library should at least provide mechanism to give developer client ID of current connection
+and mechanism to set `client`, `info` and `sign` fields to subscription request `params`. As client ID
+will change after reconnect every time client wants to subscribe on private channel backend must
+generate new channel sign. So every time client library wants to send private subscription request it
+must first ask application code for new private channel sign.
 
 To be continued...
 

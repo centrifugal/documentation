@@ -410,7 +410,7 @@ contains information about unsubscribed client.
 
 ### Private channel subscriptions.
 
-As you could see successful connect response body has `client` field - a unique client connection issued
+As you could see successful connect response body has `client` field - a unique connection ID issued
 by Centrifugo to this particular client connection. It's important because it's used when obtaining
 private channel sign.
 
@@ -443,13 +443,16 @@ var message = {
 ```
 
 See [chapter about signs](./tokens_and_signatures.md) to get more knowledge about how to generate such
-private channel sign on your backend side. In case of Javascript client we send client ID with private
-channel names to backend automatically in AJAX request so all that user need is to check user
-permissions, generate valid private channel sign and return in response. In case of other clients there
-is no convenient way (such as AJAX in web) to get data from backend - so it's up to library user to
-decide how he wants to obtain channel sign. Client library should at least provide mechanism to give
-library user client id of current connection and mechanism to set `client`, `info` and `sign` fields
-of subscription request `params`.
+private channel sign on your backend side.
+
+In case of Javascript client we send client ID with private channel names to backend automatically
+in AJAX request so all that developer needs is to check user permissions (as we call backend via
+AJAX from browser user will be properly set by application backend session mechanism), generate
+valid private channel sign and return in response. In case of other clients (for example mobile)
+there is no convenient way (such as AJAX in web) to get data from backend - so it's up to developer
+to decide how he wants to obtain channel sign. Client library should at least provide mechanism to
+give developer client ID of current connection and mechanism to set `client`, `info` and `sign`
+fields to subscription request `params`.
 
 To be continued...
 

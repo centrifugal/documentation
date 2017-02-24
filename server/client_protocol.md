@@ -408,5 +408,48 @@ contains information about unsubscribed client.
 }
 ```
 
+### Private channel subscriptions.
+
+As you could see successful connect response body has `client` field - a unique client connection issued
+by Centrifugo to this particular client connection. It's important because it's used when obtaining
+private channel sign.
+
+We've already seen above that in general case (non-private channel subscription) subscription request
+that must be sent by client to Centrifugo looks like this:
+
+```javascript
+var message = {
+    'uid': 'UNIQUE COMMAND ID',
+    'method': 'subscribe',
+    'params': {
+        'channel': "CHANNEL TO SUBSCRIBE"
+    }
+}
+```
+
+When subscribing on private channel client must also provide additional fields in `params` object:
+
+```javascript
+var message = {
+    'uid': 'UNIQUE COMMAND ID',
+    'method': 'subscribe',
+    'params': {
+        'channel': "channel to subscribe",
+        'client': "current client ID",
+        'info': "additional private channel JSON string info",
+        'sign': "string channel sign generated on app backend based on client ID and optional info"
+    }
+}
+```
+
+See [chapter about signs](./tokens_and_signatures.md) to get more knowledge about how to generate such
+private channel sign on your backend side. In case of Javascript client we send client ID with private
+channel names to backend automatically in AJAX request so all that user need is to check user
+permissions, generate valid private channel sign and return in response. In case of other clients there
+is no convenient way (such as AJAX in web) to get data from backend - so it's up to library user to
+decide how he wants to obtain channel sign. Client library should at least provide mechanism to give
+library user client id of current connection and mechanism to set `client`, `info` and `sign` fields
+of subscription request `params`.
+
 To be continued...
 

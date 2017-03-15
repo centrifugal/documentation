@@ -1,5 +1,4 @@
-Centrifugo real-time messaging server and its friends
-=====================================================
+## Centrifugo real-time messaging server and its friends
 
 ![Centrifugal intro](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/intro.png)
 

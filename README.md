@@ -1,17 +1,17 @@
-Welcome to Centrifugal docs
-===========================
+Centrifugo real-time messaging server and its friends
+=====================================================
 
 ![Centrifugal intro](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/intro.png)
 
-Centrifugal organization is a set of tools to add real-time features to your web/mobile/desktop application. It brings together several repositories linked by a common purpose – give you a complete and ready to use solution when you want to add real-time events into your application.
+Centrifugal [organization](https://github.com/centrifugal) provides a set of tools to add real-time features to your web/mobile/desktop application. It brings together several repositories linked by a common purpose – give you a complete and ready to use solution when you want to add real-time events into your application.
 
 Chats, real-time charts, notifications, various counters and even games can be built using our instruments – [real-time messaging server](server/README.md), [javascript browser client](client/README.md) and [client API libraries](libraries/README.md) for your favorite language.
 
-Centrifugo real-time server easily integrates with your existing application – you don't need to change your project architecture and philosophy to get real-time events. Centrifugo server is language agnostic – its API can be used from any programming language.
+Centrifugo server easily integrates with your existing application – no need to change your project architecture and philosophy to get real-time events. Centrifugo server is language agnostic – its API can be used from any programming language. For some popular programming languages (see below) we provide helper libraries, but protocol is open and simple - so it's possible to create your own wrapper.
 
-On client side users of your application communicate with real-time server using our javascript client over Websocket or [SockJS](https://github.com/sockjs/sockjs-client) library protocol. SockJS fallback transports provide real-time messaging support even in old (like IE 8) or mobile browsers.
+On client side users of your application communicate with real-time Centrifugo over Websocket or [SockJS](https://github.com/sockjs/sockjs-client) library protocol. SockJS fallback transports provide real-time messaging support even in old (like IE 8) or mobile browsers.
 
-### Centrifugal projects
+### Our projects
 
 Let's see which projects Centrifugal organization has:
 

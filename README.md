@@ -28,6 +28,10 @@ Let's see which projects Centrifugal organization has:
     with Centrifugo client API over Websockets from iOS devices.
 * [centrifuge-go](https://github.com/centrifugal/centrifuge-go) - Go library to communicate
     with Centrifugo client API over Websockets from Go apps.
+* [centrifuge-mobile](https://github.com/centrifugal/centrifuge-go) - Go client and experimental
+    bindings generated for iOS and Android using gomobile project.
+* [centrifuge-python](https://github.com/centrifugal/centrifuge-go) - Python client for Centrifugo on
+    top of asyncio library (work in progress).
 * [cent](https://github.com/centrifugal/cent) - Python tools to communicate with Centrifugo API.
 * [adjacent](https://github.com/centrifugal/adjacent) - a small wrapper over Cent to
     simplify real-time server integration with Django framework.

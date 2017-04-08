@@ -10,6 +10,10 @@ Centrifugo server easily integrates with your existing application – no need t
 
 On client side users of your application communicate with real-time Centrifugo over Websocket or [SockJS](https://github.com/sockjs/sockjs-client) library protocol. SockJS fallback transports provide real-time messaging support even in old (like IE 8) or mobile browsers.
 
+### Simplified scheme
+
+![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme.png)
+
 ### Our projects
 
 Let's see which projects Centrifugal organization has:
@@ -65,8 +69,8 @@ At moment we have the following examples:
 * insecure – example shows how to use Centrifugo running in insecure mode without any web application backend.
 * jsfiddle – [simplified chat example on jsfiddle](http://jsfiddle.net/FZambia/yG7Uw/) with predefined user ID, timestamp and token which uses Centrifugo [demo](https://centrifugo.herokuapp.com) instance on Heroku
 
-### Simplified scheme
+### Community-driven Centrifugo related projects:
 
-![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme.png)
+* https://github.com/synw/centcli - Terminal client for Centrifugo
 
 {% include "SUMMARY.md" %}

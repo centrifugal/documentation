@@ -43,8 +43,6 @@ Let's see which projects Centrifugal organization has:
     with Centrifugo server API.
 * [jscent](https://github.com/centrifugal/jscent) - NodeJS client to communicate
     with Centrifugo server API.
-* [centrifuge-broadcaster](https://github.com/LaraComponents/centrifuge-broadcaster) - Broadcast driver for Laravel framework
-    to communicate with Centrifugo server API.
 * [web](https://github.com/centrifugal/web) - admin web interface for Centrifugo.
     Built on ReactJS.
 
@@ -78,5 +76,7 @@ At moment we have the following examples:
 ### Community-driven Centrifugo related projects:
 
 * https://github.com/synw/centcli - Terminal client for Centrifugo
+* https://github.com/LaraComponents/centrifuge-broadcaster - Broadcast driver for Laravel framework
+    to communicate with Centrifugo server API.
 
 {% include "SUMMARY.md" %}

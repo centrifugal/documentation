@@ -133,14 +133,30 @@ server {
 
     # ... your web site Nginx config
 
-    location /centrifugo {
-        rewrite ^/centrifugo(.*)        $1 break;
+    location /centrifugo/ {
+        rewrite ^/centrifugo/(.*)        /$1 break;
         proxy_pass_header Server;
         proxy_set_header Host $http_host;
         proxy_redirect off;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
         proxy_pass http://centrifugo;
+    }
+
+    location /centrifugo/socket {
+        rewrite ^/centrifugo(.*)        $1 break;
+
+        proxy_next_upstream error;
+        proxy_buffering off;
+        keepalive_timeout 65;
+        proxy_pass http://centrifugo;
+        proxy_read_timeout 60s;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_set_header Host $http_host;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
     }
 
     location /centrifugo/connection {

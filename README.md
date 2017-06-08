@@ -78,5 +78,6 @@ At moment we have the following examples:
 * https://github.com/synw/centcli - Terminal client for Centrifugo
 * https://github.com/LaraComponents/centrifuge-broadcaster - Broadcast driver for Laravel framework
     to communicate with Centrifugo server API.
+* https://github.com/synw/django-instant - Websockets for Django
 
 {% include "SUMMARY.md" %}

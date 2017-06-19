@@ -176,7 +176,6 @@ connection as response with method `message`. I.e. response will look like this:
     "method": "message",
     "body": {
         "uid": "8d1f6279-2d13-45e2-542d-fac0e0f1f6e0",
-        "timestamp":"1439715024",
         "info":{
             "user":"42",
             "client":"73cd5abb-03ed-40bc-5c87-ed35df732682",
@@ -339,7 +338,6 @@ for message coming over connection looks like this:
     "method":"message",
     "body": {
         "uid": "8d1f6279-2d13-45e2-542d-fac0e0f1f6e0",
-        "timestamp":"1439715024",
         "info":{
             "user":"42",
             "client":"73cd5abb-03ed-40bc-5c87-ed35df732682",

@@ -131,7 +131,7 @@ Remember to include SockJS library on your page when you want to use SockJS.
 
 If your Centrifugo works through SSL (**this is recommended btw**) then endpoint
 addresses must start with `https` (SockJS) and `wss` (Websocket) instead of `http`
-and `wss`.
+and `ws`.
 
 You can also set `url` to just `http://centrifugo.example.com` and javascript client will
 detect which endpoint to use (SockJS or Websocket) automatically based on SockJS library availability.

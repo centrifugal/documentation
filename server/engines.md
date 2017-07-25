@@ -42,7 +42,7 @@ How to publish via Redis engine API listener? Start Centrifugo with Redis engine
 ``--redis_api`` option:
 
 ```bash
-centrifugo --logging=debug --config=config.json --engine=redis --redis_api
+centrifugo --config=config.json --engine=redis --redis_api
 ```
 
 Note, that starting from Centrifugo 1.6.0 Redis API message format changed. You can find old

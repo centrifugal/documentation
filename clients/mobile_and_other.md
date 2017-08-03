@@ -23,17 +23,18 @@ As option we have full-featured [centrifuge-mobile](https://github.com/centrifug
 
 Gomobile is experimental technology so this library considered experimental too. See it's readme for more information.
 
-
 ### Go client
 
 Go client library located [on Github](https://github.com/centrifugal/centrifuge-go).
 
 There are some examples in repo which can help you to start. Note that you can also use `centrifuge-mobile` from Go code.`
 
-
 ### Python Asyncio client
 
 [Centrifuge-python](https://github.com/centrifugal/centrifuge-python) client is a work in progress - there was no PYPI release yet. But it already works pretty well with Centrifugo.
 
+### Perl client
+
+Benoît Chauvet created a repo with a [Perl client](https://github.com/Orabig/centrifugo-perl-client) on top of Anyevent - it's a work in progress at moment but still can be very useful.
 
 

@@ -4,13 +4,13 @@ This chapter aims to help developers to implement new client library or understa
 how already implemented clients work. This chapter is not complete. I will
 update it from time to time with additional information.
 
-Centrifugo already has Javascript, Go, iOS, Android clients to connect your application
+Centrifugo already has Javascript, Go, iOS, Android, Python clients to connect your application
 users.
 
 One of the ways to understand how to implement new client is looking at source code
-of [centrifuge-js](https://github.com/centrifugal/centrifuge-js/blob/master/src/centrifuge.js) or [centrifuge-go](https://github.com/centrifugal/centrifuge-go/blob/master/centrifuge.go).
+of existing clients, for example [centrifuge-js](https://github.com/centrifugal/centrifuge-js/blob/master/src/centrifuge.js) or [centrifuge-python](https://github.com/centrifugal/centrifuge-python).
 
-Currently websocket is the only available transport to implement client. Centrifugo also support
+Currently websocket is the only available transport to implement client. Centrifugo also supports
 SockJS connections from browser but it's only for browser usage, there is no reason to use it
 from other environments. All communication done via exchanging JSON messages.
 

@@ -14,50 +14,49 @@ You should see something like this as output:
 ```
 Centrifugo. Real-time messaging (Websockets or SockJS) server in Go.
 
-Usage:
+Usage: 
    [flags]
    [command]
-
-Available Commands:
+Available Commands: 
   version     Centrifugo version number
   checkconfig Check configuration file
   genconfig   Generate simple configuration file to start with
   help        Help about any command
 
 Flags:
-  -a, --address="": address to listen on
-      --admin=false: Enable admin socket
-      --admin_port="": port to bind admin endpoints to (optional until this is required by your deploy setup)
-      --api_port="": port to bind api endpoints to (optional until this is required by your deploy setup)
-  -c, --config="config.json": path to config file
-  -d, --debug=false: debug mode - please, do not use it in production
-  -e, --engine="memory": engine to use: memory or redis
-      --insecure=false: start in insecure client mode
-      --insecure_admin=false: use insecure admin mode – no auth required for admin socket
-      --insecure_api=false: use insecure API mode
-      --insecure_web=false: use insecure web mode – no web password and web secret required for web interface (warning: automatically enables insecure_admin option)
-      --log_file="": optional log file - if not specified all logs go to STDOUT
-      --log_level="info": set the log level: debug, info, error, critical, fatal or none
-  -n, --name="": unique node name
-  -p, --port="8000": port to bind to
-      --redis_api=false: enable Redis API listener (Redis engine)
-      --redis_api_num_shards=0: Number of shards for redis API queue (Redis engine)
-      --redis_db="0": redis database (Redis engine)
-      --redis_host="127.0.0.1": redis host (Redis engine)
-      --redis_master_name="": Name of Redis master Sentinel monitors (Redis engine)
-      --redis_password="": redis auth password (Redis engine)
-      --redis_pool=256: Redis pool size (Redis engine)
-      --redis_port="6379": redis port (Redis engine)
-      --redis_sentinels="": Comma separated list of Sentinels (Redis engine)
-      --redis_url="": redis connection URL (Redis engine)
-      --ssl=false: accept SSL connections. This requires an X509 certificate and a key file
-      --ssl_cert="": path to an X509 certificate file
-      --ssl_key="": path to an X509 certificate key
-  -w, --web=false: serve admin web interface application (warning: automatically enables admin socket)
-      --web_path="": optional path to web interface application
+  -a, --address string             address to listen on
+      --admin                      enable admin socket
+      --admin_port string          port to bind admin endpoints to (optional)
+      --api_port string            port to bind api endpoints to (optional)
+  -c, --config string              path to config file (default "config.json")
+  -d, --debug                      enable debug mode
+  -e, --engine string              engine to use: memory or redis (default "memory")
+      --insecure                   start in insecure client mode
+      --insecure_admin             use insecure admin mode – no auth required for admin socket
+      --insecure_api               use insecure API mode
+      --log_file string            optional log file - if not specified logs go to STDOUT
+      --log_level string           set the log level: trace, debug, info, error, critical, fatal or none (default "info")
+  -n, --name string                unique node name
+      --pid_file string            optional path to create PID file
+  -p, --port string                port to bind HTTP server to (default "8000")
+      --redis_api                  enable Redis API listener (Redis engine)
+      --redis_api_num_shards int   Number of shards for redis API queue (Redis engine)
+      --redis_db string            redis database (Redis engine) (default "0")
+      --redis_host string          redis host (Redis engine) (default "127.0.0.1")
+      --redis_master_name string   Name of Redis master Sentinel monitors (Redis engine)
+      --redis_password string      redis auth password (Redis engine)
+      --redis_pool int             Redis pool size (Redis engine) (default 256)
+      --redis_port string          redis port (Redis engine) (default "6379")
+      --redis_sentinels string     Comma separated list of Sentinels (Redis engine)
+      --redis_url string           redis connection URL in format redis://:password@hostname:port/db (Redis engine)
+      --ssl                        accept SSL connections. This requires an X509 certificate and a key file
+      --ssl_cert string            path to an X509 certificate file
+      --ssl_key string             path to an X509 certificate key
+  -w, --web                        serve admin web interface application (warning: automatically enables admin socket)
+      --web_path string            optional path to custom web interface application
 
 Global Flags:
-  -h, --help=false: help for
+  -h, --help   help for 
 
 Use " help [command]" for more information about a command.
 ```

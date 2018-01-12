@@ -109,7 +109,7 @@ connection parameters and other configuration options in detail.
 ## Connection parameters
 
 As we showed above to initialize `Centrifuge` object you must provide connection
-parameters: `url`, `user`, `timestamp`, optional `info`, `token`.
+parameters: `url`, `user`, `timestamp`, `token`, optional `info`.
 
 **Note that all connection parameters (except url maybe) must come to your Javascript code from
 your application backend**. You can render template with these connection parameters, or you can

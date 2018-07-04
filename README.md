@@ -10,6 +10,10 @@ Centrifugo server easily integrates with your existing application – no need t
 
 On client side users of your application communicate with real-time Centrifugo over Websocket or [SockJS](https://github.com/sockjs/sockjs-client) library protocol. SockJS fallback transports provide real-time messaging support even in old (like IE 8) or mobile browsers.
 
+Documentation translations:
+
+* [Chinese language](https://github.com/xurwxj/centrifugal_cn_doc) by [@xurwxj](https://github.com/xurwxj)
+
 ### Simplified scheme
 
 ![scheme](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/scheme.png)

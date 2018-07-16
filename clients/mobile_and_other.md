@@ -29,6 +29,12 @@ Go client library located [on Github](https://github.com/centrifugal/centrifuge-
 
 There are some examples in repo which can help you to start. Note that you can also use `centrifuge-mobile` from Go code.`
 
+### Java Client
+
+[Java Client](https://github.com/donald-jackson/centrifuge-java) contributed by [Donald Jackson](https://github.com/donald-jackson).
+
+There are some examples in the README. It is a fork of the Android client written by [Semyon Danilov](https://github.com/SammyVimes).
+
 ### Python Asyncio client
 
 [Centrifuge-python](https://github.com/centrifugal/centrifuge-python) client is a work in progress - there was no PYPI release yet. But it already works pretty well with Centrifugo.

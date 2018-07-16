@@ -32,6 +32,8 @@ Let's see which projects Centrifugal organization has:
     with Centrifugo client API over Websockets from iOS devices.
 * [centrifuge-go](https://github.com/centrifugal/centrifuge-go) - Go library to communicate
     with Centrifugo client API over Websockets from Go apps.
+* [centrifuge-java](https://github.com/donald-jackson/centrifuge-java) - Java library to communicate
+    with Centrifugo client API over Websockets from Java applications.
 * [centrifuge-mobile](https://github.com/centrifugal/centrifuge-go) - Go client and experimental
     bindings generated for iOS and Android using gomobile project.
 * [centrifuge-python](https://github.com/centrifugal/centrifuge-go) - Python client for Centrifugo on

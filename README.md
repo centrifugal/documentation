@@ -1,6 +1,6 @@
 ## Centrifugo real-time messaging server and its friends
 
-![Centrifugal intro](https://raw.githubusercontent.com/centrifugal/documentation/master/assets/images/intro.png)
+This is a documentation for Centrifugo v1. **Current version of Centrifugo is v2** - see its [documentation](https://centrifugal.github.io/centrifugo/).
 
 Centrifugal [organization](https://github.com/centrifugal) provides a set of tools to add real-time features to your web/mobile/desktop application. It brings together several repositories linked by a common purpose – give you a complete and ready to use solution when you want to add real-time events into your application.
 

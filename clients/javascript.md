@@ -1,6 +1,8 @@
 Javascript browser client
 =========================
 
+This is a documentation is for centrifuge-js client < v2.0. It works with Centrifugo v1. **Current version of Centrifugo is v2**. Actual centrifuge-js client docs located [in its repo README](https://github.com/centrifugal/centrifuge-js).
+
 At this moment you know how Centrifugo server implemented and how it works. It's time to
 connect your web application users to the server from web browser.
 
